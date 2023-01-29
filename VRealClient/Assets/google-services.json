@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "932274708876",
+    "project_id": "vrealdesign-53866",
+    "storage_bucket": "vrealdesign-53866.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:932274708876:android:fbb4f8e33835527ab636a9",
+        "android_client_info": {
+          "package_name": "com.tobb.VRealDesign"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "932274708876-8fs81m4354lnfheh8dfeq7p89k7oti4q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tobb.VRealDesign",
+            "certificate_hash": "2b50f751d646a17ea401c031da18665099442710"
+          }
+        },
+        {
+          "client_id": "932274708876-oti9g219e48sa36p1l5ir6s2q62and1l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAORqcr9d_6JSCyCp76luIqWtKe7UEfcUE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "932274708876-dbmagfvodlhlf3mn84pk6ri7o5r3tp0e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
