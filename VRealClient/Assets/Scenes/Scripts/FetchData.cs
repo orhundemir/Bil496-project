@@ -11,7 +11,7 @@ public class FetchData : MonoBehaviour {
     [SerializeField]
     public bool printResults = false;
 
-    private List<IkeaProduct> RunIkeaApi(List<string> requestedProducts) {
+    public List<IkeaProduct> RunIkeaApi(List<string> requestedProducts) {
         /*
         List<string> requestedProducts = new List<string> {
             "sandsberg-table-black-s29420393",
