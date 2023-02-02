@@ -1,10 +1,10 @@
 public class Model{
     int id;
-    object model; //TO DO Find correct object/type
+    string model; 
     string name;
     double price;
     int stock;
-    Model(int id, object model, string name, double price, int stock){
+    Model(int id, string model, string name, double price, int stock){
         this.id = id;
         this.model = model;
         this.name = name;
