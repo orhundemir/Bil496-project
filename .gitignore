@@ -57,3 +57,10 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
+VRealClient/.vsconfig
+VRealClient/Assembly-CSharp.csproj
+VRealClient/ProjectSettings/boot.config
+VRealClient/ProjectSettings/MemorySettings.asset
+VRealClient/UserSettings/EditorUserSettings.asset
+VRealClient/UserSettings/Layouts/default-2021.dwlt
+VRealClient/VRealClient.sln
