@@ -11,8 +11,8 @@ public class FetchData : MonoBehaviour {
     [SerializeField]
     public bool printResults = false;
 
-    public List<IkeaProduct> RunIkeaApi(List<string> requestedProducts) {
-        /*
+    /*
+    private void Start() {
         List<string> requestedProducts = new List<string> {
             "sandsberg-table-black-s29420393",
             "bergpalm-duvet-cover-and-pillowcase-s-gray-stripe-30423239",
@@ -21,15 +21,18 @@ public class FetchData : MonoBehaviour {
             "arstid-wall-lamp",
             "kallax-separator-light-gray"
         };
-        */
+        RunIkeaApi(requestedProducts);
+    }
+    */
 
+    public List<IkeaProduct> RunIkeaApi(List<string> requestedProducts) {
         Process process = new Process();
 
         // Path to the Python interpreter, might require absolute path if python.exe is not added to the Environment Variables
         process.StartInfo.FileName = "python.exe";
 
         // Path to the Python file and ikea product codes as command line arguments
-        process.StartInfo.Arguments = Directory.GetCurrentDirectory() + @"\Assets\Scenes\Scripts\IKEA API\IkeaProductScraper.py" + $"{string.Join(" ", requestedProducts)}";
+        process.StartInfo.Arguments = "\"" + Directory.GetCurrentDirectory() + @"\Assets\Scenes\Scripts\IKEA API\IkeaProductScraper.py" + "\" " + $"{string.Join(" ", requestedProducts)}";
 
         // Redirect the outputs and errors from Python to Unity
         process.StartInfo.RedirectStandardOutput = true;
