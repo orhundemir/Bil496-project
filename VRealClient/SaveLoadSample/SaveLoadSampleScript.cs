@@ -16,7 +16,7 @@ public class GameData
     public string name { get; set; }
 }
 
-public class firstScript : MonoBehaviour
+public class SaveLoadSampleScript : MonoBehaviour
 {
     //list of added models(game objects)
     public GameObject[] gameObjectList;
