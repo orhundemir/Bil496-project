@@ -36,8 +36,10 @@ public class SaveLoadSampleScript : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.S))
             Save("deneme.bin");
+
         else if (Input.GetKey(KeyCode.L))
             Load("deneme.bin");
+
     }
 
 
@@ -99,10 +101,9 @@ public class SaveLoadSampleScript : MonoBehaviour
 
                 gameObjectList[i].transform.localPosition = new Vector3(posx, posy, posz);
 
-                //Check if the selected model is already loaded or not
-                //without this check related model will be rotated for every consecutive load operation
-                if (Quaternion.Angle(gameObjectList[i].transform.localRotation, Quaternion.Euler(rotx, roty, rotz)) != 0.0f)
-                    gameObjectList[i].transform.Rotate(rotx, roty, rotz);
+                //to not move continuously when consecutive load applied
+                gameObjectList[i].transform.localRotation = Quaternion.Euler(0, 0, 0);
+                gameObjectList[i].transform.Rotate(rotx, roty, rotz);
 
             }
             stream.Close();
