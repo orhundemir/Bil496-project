@@ -57,33 +57,10 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
-*.meta
-VRealClient/Assets/ExampleAssets.meta
-VRealClient/Assets/ExampleAssets/Materials.meta
-VRealClient/Assets/ExampleAssets/Materials/Controller.mat.meta
-VRealClient/Assets/ExampleAssets/Materials/Grid.mat.meta
-VRealClient/Assets/ExampleAssets/Materials/Skybox Light.mat.meta
-VRealClient/Assets/ExampleAssets/Models.meta
-VRealClient/Assets/ExampleAssets/Models/XRControllerLeft.fbx.meta
-VRealClient/Assets/ExampleAssets/Models/XRControllerRight.fbx.meta
-VRealClient/Assets/ExampleAssets/Prefabs.meta
-VRealClient/Assets/ExampleAssets/Prefabs/XRControllerLeft.prefab.meta
-VRealClient/Assets/ExampleAssets/Prefabs/XRControllerRight.prefab.meta
-VRealClient/Assets/ExampleAssets/Textures.meta
-VRealClient/Assets/ExampleAssets/Textures/Grid_Light_512x512.png.meta
-VRealClient/Assets/ExampleAssets/Tutorial.meta
-VRealClient/Assets/ExampleAssets/Tutorial/Images.meta
-VRealClient/Assets/ExampleAssets/Tutorial/Images/1-welcome-screen-image.png.meta
-VRealClient/Assets/ExampleAssets/Tutorial/Images/project-header-vr.png.meta
-VRealClient/Assets/ExampleAssets/Tutorial/VRTutorialContainer.asset.meta
-VRealClient/Assets/ExampleAssets/Tutorial/VRTutorialProjectSettings.asset.meta
-VRealClient/Assets/ExampleAssets/Tutorial/VRTutorialStyle.asset.meta
-VRealClient/Assets/ExampleAssets/Tutorial/VRTutorialWelcomePage.asset.meta
-VRealClient/Assets/Scenes.meta
-VRealClient/Assets/Scenes/Main.unity.meta
-VRealClient/Assets/XR.meta
-VRealClient/Assets/XR/Loaders.meta
-VRealClient/Assets/XR/Settings.meta
-VRealClient/Assets/XR/Settings/Oculus Settings.asset.meta
-VRealClient/Assets/XR/XRGeneralSettings.asset.meta
+VRealClient/.vsconfig
 VRealClient/Assembly-CSharp.csproj
+VRealClient/ProjectSettings/boot.config
+VRealClient/ProjectSettings/MemorySettings.asset
+VRealClient/UserSettings/EditorUserSettings.asset
+VRealClient/UserSettings/Layouts/default-2021.dwlt
+VRealClient/VRealClient.sln
