@@ -1,15 +1,15 @@
 public class Room{
-    int id;
-    string name;
-    Room(int id, string name){
+    public int id;
+    public string name;
+    public Room(int id, string name){
         this.id = id;
         this.name = name;
     }
-    Room(){
+    public Room(){
         id = -1;
         name = null;
     }
-    string toString(){
+    public string toString(){
         return "Room ID: "+id+"\nName: "+name;
     }
 }
