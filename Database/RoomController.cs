@@ -2,7 +2,7 @@ using Npgsql;
 using Newtonsoft.Json;
 public class RoomController{
     
-    bool insertRoom(NpgsqlConnection conn, Room room){//Inserting given room to database id will be determined by last room's id+1 in database
+    public bool insertRoom(NpgsqlConnection conn, Room room){//Inserting given room to database id will be determined by last room's id+1 in database
         NpgsqlCommand command = conn.CreateCommand();
         string query = "INSERT INTO Rooms (name) VALUES ("+room.name+")";
         command.CommandText = query;
@@ -10,7 +10,7 @@ public class RoomController{
         ConnectionManager.closeConnection(conn);
         return true;
     }
-    Room selectRoom(NpgsqlConnection conn, int id){//Returning room with given id usefull for getting room from relational tables
+    public Room selectRoom(NpgsqlConnection conn, int id){//Returning room with given id usefull for getting room from relational tables
         Room room = new Room();
         NpgsqlCommand command = conn.CreateCommand();
         string query = "SELECT * FROM USERS WHERE id = "+id;

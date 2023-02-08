@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 
 public class RoomUserController{
-    bool insertRoomUser(NpgsqlConnection conn, RoomUser roomUser){//Inserting given room user to database id will be determined by last room user's id+1 in database
+    public bool insertRoomUser(NpgsqlConnection conn, RoomUser roomUser){//Inserting given room user to database id will be determined by last room user's id+1 in database
         NpgsqlCommand command = conn.CreateCommand();
         string query = "INSERT INTO ROOM_USERS (user_id, scene_id) VALUES ("+roomUser.user_id+","+roomUser.scene_id+")";
         command.CommandText = query;
@@ -11,7 +11,7 @@ public class RoomUserController{
         ConnectionManager.closeConnection(conn);
         return true;
     }
-    List<RoomUser> selectRoomsUser(NpgsqlConnection conn, Room room){//Selecting users from database which can access gien room
+    public List<RoomUser> selectRoomsUser(NpgsqlConnection conn, Room room){//Selecting users from database which can access gien room
         List<RoomUser> roomUsers = new List<RoomUser>();
         NpgsqlCommand command = conn.CreateCommand();
         string query = "SELECT * FROM ROOM_USERS WHERE scene_id = "+room.id;
@@ -26,7 +26,7 @@ public class RoomUserController{
         }
         return roomUsers;
     }
-        List<RoomUser> selectUsersRoom(NpgsqlConnection conn, User user){//Selecting users rooms from database
+    public List<RoomUser> selectUsersRoom(NpgsqlConnection conn, User user){//Selecting users rooms from database
         List<RoomUser> roomUsers = new List<RoomUser>();
         NpgsqlCommand command = conn.CreateCommand();
         string query = "SELECT * FROM ROOM_USERS WHERE scene_id = "+user.id;

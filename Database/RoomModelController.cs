@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class RoomModelController{
 
-    bool insertRoomModel(NpgsqlConnection conn, RoomModel roomModel){//Inserting given room model to database id will be determined by last room model's id+1 in database
+    public bool insertRoomModel(NpgsqlConnection conn, RoomModel roomModel){//Inserting given room model to database id will be determined by last room model's id+1 in database
         NpgsqlCommand command = conn.CreateCommand();
         string query = "INSERT INTO ROOM_MODEL (scene_id, model_id, x, y, z) VALUES ("+roomModel.scene_id+","+roomModel.model_id+","+roomModel.x+","+roomModel.y+","+roomModel.z+")";
         command.CommandText = query;
@@ -12,7 +12,7 @@ public class RoomModelController{
         ConnectionManager.closeConnection(conn);
         return true;
     }
-    List<RoomModel> selectRoomsModels(NpgsqlConnection conn, Room room){//Selecting a users room model in database
+    public List<RoomModel> selectRoomsModels(NpgsqlConnection conn, Room room){//Selecting a users room model in database
         List<RoomModel> roomModels = new List<RoomModel>();
         NpgsqlCommand command = conn.CreateCommand();
         string query = "SELECT * FROM ROOM_MODEL WHERE scene_id = "+room.id;

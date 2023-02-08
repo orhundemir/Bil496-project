@@ -1,7 +1,7 @@
 using Npgsql;
 using Newtonsoft.Json;
 public class UsersController{
-    bool insertUser(NpgsqlConnection conn, User user){//Insert given user with e_mail to database id is determined by last users'id+1 in database
+    public bool insertUser(NpgsqlConnection conn, User user){//Insert given user with e_mail to database id is determined by last users'id+1 in database
         NpgsqlCommand command = conn.CreateCommand();
         string query = "INSERT INTO USERS (e_mail) VALUES ("+user.e_mail+")";
         command.CommandText = query;
@@ -9,7 +9,7 @@ public class UsersController{
         ConnectionManager.closeConnection(conn);
         return true;
     }
-    User selectUser(NpgsqlConnection conn, string e_mail){//Returns user with given e_mail usefull for checking existance of user in database e.g. login
+    public User selectUser(NpgsqlConnection conn, string e_mail){//Returns user with given e_mail usefull for checking existance of user in database e.g. login
         User user = new User();
         NpgsqlCommand command = conn.CreateCommand();
         string query = "SELECT e_mail FROM USERS WHERE e_mail = '"+e_mail+"'";
@@ -21,7 +21,7 @@ public class UsersController{
         ConnectionManager.closeConnection(conn);
         return user;
     }
-    User selectUser(NpgsqlConnection conn, int id){//Returns user with given id usefull for geting user from relational tables
+    public User selectUser(NpgsqlConnection conn, int id){//Returns user with given id usefull for geting user from relational tables
         User user = new User();
         NpgsqlCommand command = conn.CreateCommand();
         string query = "SELECT e_mail FROM USERS WHERE id = "+id;
