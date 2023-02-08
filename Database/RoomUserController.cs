@@ -20,7 +20,7 @@ public class RoomUserController{
         while (reader.Read()){
             RoomUser roomUser = new RoomUser();
             roomUser.id  = int.Parse(JsonConvert.SerializeObject(reader.GetValue(0)));
-            roomUser.user = int.Parse(JsonConvert.SerializeObject(reader.GetValue(1)));
+            roomUser.user_id = int.Parse(JsonConvert.SerializeObject(reader.GetValue(1)));
             roomUser.scene_id = int.Parse((JsonConvert.SerializeObject(reader.GetValue(2))));
             roomUsers.Add(roomUser);
         }
@@ -35,7 +35,7 @@ public class RoomUserController{
         while (reader.Read()){
             RoomUser roomUser = new RoomUser();
             roomUser.id  = int.Parse(JsonConvert.SerializeObject(reader.GetValue(0)));
-            roomUser.user = int.Parse(JsonConvert.SerializeObject(reader.GetValue(1)));
+            roomUser.user_id = int.Parse(JsonConvert.SerializeObject(reader.GetValue(1)));
             roomUser.scene_id = int.Parse((JsonConvert.SerializeObject(reader.GetValue(2))));
             roomUsers.Add(roomUser);
         }
