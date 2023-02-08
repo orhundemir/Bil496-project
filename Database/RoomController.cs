@@ -4,7 +4,7 @@ public class RoomController{
     
     public bool insertRoom(NpgsqlConnection conn, Room room){//Inserting given room to database id will be determined by last room's id+1 in database
         NpgsqlCommand command = conn.CreateCommand();
-        string query = "INSERT INTO Rooms (name) VALUES ("+room.name+")";
+        string query = "INSERT INTO Rooms (name) VALUES ('"+room.name+"')";
         command.CommandText = query;
         command.ExecuteNonQuery();
         ConnectionManager.closeConnection(conn);

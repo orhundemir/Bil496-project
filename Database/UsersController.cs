@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 public class UsersController{
     public bool insertUser(NpgsqlConnection conn, User user){//Insert given user with e_mail to database id is determined by last users'id+1 in database
         NpgsqlCommand command = conn.CreateCommand();
-        string query = "INSERT INTO USERS (e_mail) VALUES ("+user.e_mail+")";
+        string query = "INSERT INTO USERS (e_mail) VALUES ('"+user.e_mail+"')";
         command.CommandText = query;
         command.ExecuteNonQuery();
         ConnectionManager.closeConnection(conn);

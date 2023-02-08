@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 public class ModelController{
     public bool insertModel(NpgsqlConnection conn, Model model){//Inserting given Model to database id will be determined by last model's id+1 in database
         NpgsqlCommand command = conn.CreateCommand();
-        string query = "INSERT INTO MODEL (modelUrl, name, price, stock) VALUES ("+model.model+","+model.name+","+model.price+","+model.stock+")";
+        string query = "INSERT INTO MODEL (modelUrl, name, price, stock) VALUES ('"+model.model+"','"+model.name+"',"+model.price+","+model.stock+")";
         command.CommandText = query;
         command.ExecuteNonQuery();
         ConnectionManager.closeConnection(conn);
