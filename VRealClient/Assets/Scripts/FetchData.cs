@@ -6,7 +6,8 @@ using System.Diagnostics;
 using System.IO;
 using Newtonsoft.Json;
 
-public class FetchData : MonoBehaviour {
+public class FetchData : MonoBehaviour
+{
 
     [SerializeField]
     public bool printResults = false;
@@ -25,14 +26,15 @@ public class FetchData : MonoBehaviour {
     }
     */
 
-    public List<IkeaProduct> RunIkeaApi(List<string> requestedProducts) {
+    public List<IkeaProduct> RunIkeaApi(List<string> requestedProducts)
+    {
         Process process = new Process();
 
         // Path to the Python interpreter, might require absolute path if python.exe is not added to the Environment Variables
         process.StartInfo.FileName = "python.exe";
 
         // Path to the Python file and ikea product codes as command line arguments
-        process.StartInfo.Arguments = "\"" + Directory.GetCurrentDirectory() + @"\Assets\Scenes\Scripts\IKEA API\IkeaProductScraper.py" + "\" " + $"{string.Join(" ", requestedProducts)}";
+        process.StartInfo.Arguments = "\"" + Directory.GetCurrentDirectory() + @"\Assets\Scripts\IKEA API\IkeaProductScraper.py" + "\" " + $"{string.Join(" ", requestedProducts)}";
 
         // Redirect the outputs and errors from Python to Unity
         process.StartInfo.RedirectStandardOutput = true;
@@ -52,15 +54,18 @@ public class FetchData : MonoBehaviour {
         string output = process.StandardOutput.ReadToEnd();
 
         List<IkeaProduct> products = null;
-        if (output != null) {
+        if (output != null)
+        {
             products = JsonConvert.DeserializeObject<List<IkeaProduct>>(output);
 
             int itemCount = products == null ? 0 : products.Count;
             UnityEngine.Debug.Log("Fetched " + itemCount + " item" + (itemCount == 1 ? "" : "s") + " from IKEA");
 
-            if (printResults) {
+            if (printResults)
+            {
                 string itemDetails = "";
-                foreach (IkeaProduct item in products) {
+                foreach (IkeaProduct item in products)
+                {
                     itemDetails += item + "\n\n";
                 }
                 UnityEngine.Debug.Log(itemDetails);
