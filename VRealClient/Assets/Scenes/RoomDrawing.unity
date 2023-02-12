@@ -373,7 +373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5981a1654ff80774cb81fb944dd87792, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallPrefab: {fileID: 3277575581010377487, guid: e2fbe256ab5d1f64ca8222a470a6b040,
+  wallPrefab: {fileID: 8728007168406268247, guid: 26d747aef98e41e4b9d74b7342b4b789,
     type: 3}
 --- !u!4 &1263109550
 Transform:
