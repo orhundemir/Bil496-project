@@ -19,8 +19,8 @@ public class WallHandler : MonoBehaviour
         return Instantiate(wallPrefab, position, Quaternion.identity, parentObject);
     }
 
-    // Update the given WallObjects data
-    public WallObject UpdateWall(WallObject wall, Vector3 start, Vector3 end)
+    // Update the given WallObject's transform values
+    public void UpdateWall(WallObject wallObject, Vector3 start, Vector3 end)
     {
         Vector3 direction = end - start;
         float distance = direction.magnitude;
@@ -30,24 +30,37 @@ public class WallHandler : MonoBehaviour
             direction.Normalize();
 
             Quaternion rotation = Quaternion.LookRotation(direction);
-            wall.transform.rotation = rotation;
+            wallObject.transform.rotation = rotation;
 
             Vector3 position = start + direction * distance / 2;
-            wall.transform.position = position;
+            wallObject.transform.position = position;
 
-            Vector3 scale = new Vector3(wall.GetWidth(), wall.GetHeight(), distance);
-            wall.transform.localScale = scale;
+            Vector3 scale = new Vector3(wallObject.GetWidth(), wallObject.GetHeight(), distance);
+            wallObject.transform.localScale = scale;
         }
+    }
 
-        return wall;
+    // Activate the hinges, transform and scale them so that they are positioned at the opposite ends of the wall
+    public void AdjustHinges(WallObject wallObject) 
+    {
+        GameObject hinge1 = wallObject.transform.GetChild(1).gameObject;
+        GameObject hinge2 = wallObject.transform.GetChild(2).gameObject;
+
+        // Inverse the scaling of the hinges to reset their scaling and rescale their radius to make them wider than the wall
+        Vector3 wallObjectScale = wallObject.transform.localScale;
+        float widthScale = wallObjectScale.x * 1.3f;
+        hinge1.transform.localScale = new Vector3(widthScale / wallObjectScale.x, 1 / wallObjectScale.y, widthScale / wallObjectScale.z);
+        hinge2.transform.localScale = new Vector3(widthScale / wallObjectScale.x, 1 / wallObjectScale.y, widthScale / wallObjectScale.z);
+
+        // Move the hinges to the opposite ends of the wall
+        hinge1.transform.localPosition = new Vector3(0, 0, -0.5f);
+        hinge2.transform.localPosition = new Vector3(0, 0, 0.5f);
+
+        hinge1.SetActive(true);
+        hinge2.SetActive(true);
     }
 
     public void RemoveWall(GameObject wall)
-    {
-        Destroy(wall);
-    }
-
-    public void RemoveWall(WallObject wall)
     {
         Destroy(wall);
     }

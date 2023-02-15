@@ -49,6 +49,7 @@ public class MouseInput : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             previewWall.ChangeMaterialToOpaque();
+            wallHandler.AdjustHinges(previewWall);
         }
     }
 

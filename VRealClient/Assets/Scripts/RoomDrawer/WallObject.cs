@@ -7,7 +7,7 @@ public class WallObject : MonoBehaviour {
     private new Renderer renderer;
     public Material wallMaterial, previewMaterial;
 
-    private readonly int wallWidth = 5, wallHeight = 1;
+    private int wallWidth = 10, wallHeight = 1;
 
     public void ChangeMaterialToTransparent() {
         if (renderer == null)
