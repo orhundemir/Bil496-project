@@ -9,7 +9,6 @@ public class MouseInput : MonoBehaviour
     private Vector3 clickPosition;
 
     public WallHandler wallHandler;
-    private bool isDrawing = false;
     private WallObject previewWall;
 
     void Start()
@@ -19,37 +18,36 @@ public class MouseInput : MonoBehaviour
 
     void Update()
     {
-        HandleDragging();
+        HandleMouseInputs();
     }
 
-    // Detects the dragging motion of the mouse and uses its start and end coordinates to create a new wall
-    private void HandleDragging()
+    // Detects the click and drag motion of the mouse and creates a wall object between it's start and end positions
+    private void HandleMouseInputs()
     {
-        if (Input.GetMouseButton(0))
+        // Instantiate the Wall Prefab at the mouse location when the left mouse button is first pressed
+        if (Input.GetMouseButtonDown(0))
         {
             Vector3 mousePosition = Input.mousePosition;
             mousePosition.z = Camera.main.transform.position.y;
+            clickPosition = Camera.main.ScreenToWorldPoint(mousePosition);
 
-            // Display a preview of the Wall that will be created as the user drags the mouse, and update the preview in real-time until the mouse is released
-            if (!isDrawing)
-            {
-                isDrawing = true;
-
-                clickPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-                GameObject wall = wallHandler.CreateWall(clickPosition);
-
-                previewWall = wall.GetComponent<WallObject>();
-                previewWall.ChangeMaterialToTransparent();
-            }
-            else
-            {
-                Vector3 endPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-                previewWall = wallHandler.UpdateWall(previewWall, clickPosition, endPosition);
-            }
+            GameObject wall = wallHandler.CreateWall(clickPosition);
+            previewWall = wall.GetComponent<WallObject>();
+            previewWall.ChangeMaterialToTransparent();
         }
-        else if (Input.GetMouseButtonUp(0))
+        // Update the transparent preview wall object to follow the mouse position while the left mouse button is held down
+        else if (Input.GetMouseButton(0))
         {
-            isDrawing = false;
+            Vector3 mousePosition = Input.mousePosition;
+            mousePosition.z = Camera.main.transform.position.y;
+            Vector3 endPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+
+            wallHandler.UpdateWall(previewWall, clickPosition, endPosition);
+        }
+
+        // When the left mouse button is released, change the wall's material from transparent to opaque and stop updating that object
+        if (Input.GetMouseButtonUp(0))
+        {
             previewWall.ChangeMaterialToOpaque();
         }
     }
