@@ -245,6 +245,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallMaterial: {fileID: 2100000, guid: 17e0f024ec946fe4eae97a98e69900eb, type: 2}
   previewMaterial: {fileID: 2100000, guid: 5f80804a270ff0246b93bb7d82e2a95e, type: 2}
+  hingeMaterial: {fileID: 2100000, guid: f8267ea7bef561a4099ad7fccdd4dfa3, type: 2}
+  hingeHoverMaterial: {fileID: 2100000, guid: 9b28787f1dad1554a92e16554b769e80, type: 2}
 --- !u!1 &9195360045430512955
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,22 +21,15 @@ public class MouseInput : MonoBehaviour
         HandleMouseInputs();
     }
 
-    // Detects the click and drag motion of the mouse and creates a wall object between it's start and end positions
+    // Detects the click and drag motion of the mouse and creates a wall object between its start and end positions
     private void HandleMouseInputs()
     {
-        Vector3 mousePosition = Input.mousePosition;
-        mousePosition.z = Camera.main.transform.position.y;
-        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        Vector3 mousePosition = GetMousePosition();
 
-        // Instantiate the Wall Prefab at the mouse location when the left mouse button is first pressed
+        // Initialize the wall creation process at the current mouse position
         if (Input.GetMouseButtonDown(0))
         {
-            // If the mouse is clicked on top of a hinge object, set the starting position of the wall to its center
-            clickPosition = AdjustPositionForHinge(mousePosition);
-
-            GameObject wall = wallHandler.CreateWall(clickPosition);
-            previewWall = wall.GetComponent<WallObject>();
-            previewWall.ChangeMaterialToTransparent();
+            StartWallCreation(mousePosition);
         }
         // Update the transparent preview wall object to follow the mouse position while the left mouse button is held down
         else if (Input.GetMouseButton(0))
@@ -47,14 +40,36 @@ public class MouseInput : MonoBehaviour
         // When the left mouse button is released, stop updating the wall object
         if (Input.GetMouseButtonUp(0))
         {
-            // If the mouse is released on top of a hinge object, set the ending position of the wall to its center
-            Vector3 releasePosition = AdjustPositionForHinge(mousePosition);
-            wallHandler.UpdateWall(previewWall, clickPosition, releasePosition);
-
-            // Change its material from transparent to opaque and place hinges at both ends of it
-            previewWall.ChangeMaterialToOpaque();
-            wallHandler.AdjustHinges(previewWall);
+            FinalizeWallCreation(mousePosition);
         }
+    }
+
+    private Vector3 GetMousePosition()
+    {
+        Vector3 mousePosition = Input.mousePosition;
+        mousePosition.z = Camera.main.transform.position.y;
+        return Camera.main.ScreenToWorldPoint(mousePosition);
+    }
+
+    private void StartWallCreation(Vector3 mousePosition)
+    {
+        // If the mouse is clicked while on top of a hinge object, set the starting position of the wall to its center
+        clickPosition = AdjustPositionForHinge(mousePosition);
+
+        GameObject wall = wallHandler.CreateWall(clickPosition);
+        previewWall = wall.GetComponent<WallObject>();
+        previewWall.ChangeWallMaterialToTransparent();
+    }
+
+    private void FinalizeWallCreation(Vector3 mousePosition)
+    {
+        // If the mouse is released while on top of a hinge object, set the ending position of the wall to its center
+        Vector3 releasePosition = AdjustPositionForHinge(mousePosition);
+        wallHandler.UpdateWall(previewWall, clickPosition, releasePosition);
+
+        // Change its material from transparent to opaque and place hinges at both ends of it
+        previewWall.ChangeWallMaterialToOpaque();
+        wallHandler.AdjustHinges(previewWall);
     }
 
     // Check if there is a hinge object at the given position and move the vector to its center
