@@ -6,17 +6,11 @@ public class WallHandler : MonoBehaviour
 {
 
     public GameObject wallPrefab;
-    private Transform parentObject;
-
-    private void Start()
-    {
-        parentObject = GameObject.Find("Walls").transform;
-    }
 
     // Create a Wall at the given position and add it to the game
     public GameObject CreateWall(Vector3 position)
     {
-        return Instantiate(wallPrefab, position, Quaternion.identity, parentObject);
+        return Instantiate(wallPrefab, position, Quaternion.identity, transform);
     }
 
     // Update the given WallObject's transform values
