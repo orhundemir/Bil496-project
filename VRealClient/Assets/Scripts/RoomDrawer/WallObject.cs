@@ -11,7 +11,7 @@ public class WallObject : MonoBehaviour {
 
     private readonly int wallWidth = 10, wallHeight = 1;
 
-    private void Start()
+    private void Awake()
     {
         wall = transform.GetChild(0).gameObject;
         hinge1 = transform.GetChild(1).gameObject;
