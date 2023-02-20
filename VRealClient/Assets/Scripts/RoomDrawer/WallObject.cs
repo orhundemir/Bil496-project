@@ -13,7 +13,7 @@ public class WallObject : MonoBehaviour {
 
     private void Awake()
     {
-        wall = transform.GetChild(0).gameObject;
+        wall = transform.GetChild(0).GetChild(0).gameObject;
         hinge1 = transform.GetChild(1).gameObject;
         hinge2 = transform.GetChild(2).gameObject;
     }

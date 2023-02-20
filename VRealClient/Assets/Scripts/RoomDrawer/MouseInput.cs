@@ -69,7 +69,7 @@ public class MouseInput : MonoBehaviour
 
         // Change its material from transparent to opaque and place hinges at both ends of it
         previewWall.ChangeWallMaterialToOpaque();
-        wallHandler.AdjustHinges(previewWall);
+        wallHandler.ActivateHinges(previewWall);
     }
 
     // Check if there is a hinge object at the given position and move the vector to its center
