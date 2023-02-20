@@ -1,6 +1,6 @@
 # Bil496-project
 
-Server için sln uzantılı dosya çalıştırılarak vs code altında geliştirme ortamı açılmaktadır.
+Server için  unity hub üzerinden open file seçeneği ile kodun çekildiği klasördeki VRealServer klasörü seçilerek çalıştırılmalıdır.
 
 Client için  unity hub üzerinden open file seçeneği ile kodun çekildiği klasördeki VRealClient klasörü seçilerek çalıştırılmalıdır.
 
