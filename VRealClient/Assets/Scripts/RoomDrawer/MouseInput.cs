@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MouseInput : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class MouseInput : MonoBehaviour
 
     public WallHandler wallHandler;
     private WallObject previewWall;
+
+    public GameObject wallInfoCanvas;
+    public Text wallInfoText;
 
     void Start()
     {
@@ -29,18 +33,24 @@ public class MouseInput : MonoBehaviour
         // Initialize the wall creation process at the current mouse position
         if (Input.GetMouseButtonDown(0))
         {
+            wallInfoCanvas.SetActive(true);
+
+            wallInfoCanvas.transform.position = mousePosition + new Vector3(0, 0, 15f);
+
             StartWallCreation(mousePosition);
+
         }
         // Update the transparent preview wall object to follow the mouse position while the left mouse button is held down
         else if (Input.GetMouseButton(0))
         {
-            wallHandler.UpdateWall(previewWall, clickPosition, mousePosition);
+            wallHandler.UpdateWall(previewWall, clickPosition, mousePosition, wallInfoText);
         }
 
         // When the left mouse button is released, stop updating the wall object
         if (Input.GetMouseButtonUp(0))
         {
             FinalizeWallCreation(mousePosition);
+            wallInfoCanvas.SetActive(false);
         }
     }
 
@@ -65,7 +75,7 @@ public class MouseInput : MonoBehaviour
     {
         // If the mouse is released while on top of a hinge object, set the ending position of the wall to its center
         Vector3 releasePosition = AdjustPositionForHinge(mousePosition);
-        wallHandler.UpdateWall(previewWall, clickPosition, releasePosition);
+        wallHandler.UpdateWall(previewWall, clickPosition, releasePosition, wallInfoText);
 
         // Change its material from transparent to opaque and place hinges at both ends of it
         previewWall.ChangeWallMaterialToOpaque();
@@ -73,9 +83,11 @@ public class MouseInput : MonoBehaviour
     }
 
     // Check if there is a hinge object at the given position and move the vector to its center
-    private Vector3 AdjustPositionForHinge(Vector3 position) {
+    private Vector3 AdjustPositionForHinge(Vector3 position)
+    {
         GameObject hingeAtMousePosition = GetObjectByTagOnRaycastHit(Input.mousePosition, "Hinge");
-        if (hingeAtMousePosition != null) {
+        if (hingeAtMousePosition != null)
+        {
             position.x = hingeAtMousePosition.transform.position.x;
             position.z = hingeAtMousePosition.transform.position.z;
         }
@@ -84,7 +96,8 @@ public class MouseInput : MonoBehaviour
     }
 
     // Raycast from the main camera to the mouse position and return a hinge object if the ray hits one
-    private GameObject GetObjectByTagOnRaycastHit(Vector3 position, string tag) {
+    private GameObject GetObjectByTagOnRaycastHit(Vector3 position, string tag)
+    {
         Ray ray = Camera.main.ScreenPointToRay(position);
         if (Physics.Raycast(ray, out RaycastHit hit))
             if (hit.collider.gameObject.CompareTag(tag))
