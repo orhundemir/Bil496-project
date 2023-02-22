@@ -7,7 +7,7 @@ public class WallHandler : MonoBehaviour
 {
 
     public GameObject wallPrefab;
-    public float lengthRatio;
+    public float angleRatio, lenghRatio;
 
     // Create a Wall at the given position and add it to the game
     public GameObject CreateWall(Vector3 position)
@@ -16,7 +16,7 @@ public class WallHandler : MonoBehaviour
     }
 
     // Update the given WallObject's transform values
-    public void UpdateWall(WallObject wallObject, Vector3 start, Vector3 end, Text wallInfoText)
+    public void UpdateWall(WallObject wallObject, Vector3 start, Vector3 end, Text wallInfoText, Text angleText)
     {
         Vector3 direction = end - start;
         float distance = direction.magnitude;
@@ -40,7 +40,8 @@ public class WallHandler : MonoBehaviour
             hinge2.transform.position = start + direction * distance;
 
             wallInfoText.transform.position = start + (direction * distance) / 2;
-            wallInfoText.text = Math.Round((wallObject.transform.GetChild(0).localScale.z / lengthRatio), 1).ToString() + "  m";
+            angleText.text = (angleValue - angleRatio).ToString() + "º";
+            wallInfoText.text = Math.Round((wallObject.transform.GetChild(0).localScale.z / lenghRatio), 1).ToString() + "  m";
         }
     }
 

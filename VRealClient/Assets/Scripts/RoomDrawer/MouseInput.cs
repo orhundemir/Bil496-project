@@ -13,7 +13,7 @@ public class MouseInput : MonoBehaviour
     private WallObject previewWall;
 
     public GameObject wallInfoCanvas;
-    public Text wallInfoText;
+    public Text wallInfoText, angleText;
 
     void Start()
     {
@@ -43,7 +43,7 @@ public class MouseInput : MonoBehaviour
         // Update the transparent preview wall object to follow the mouse position while the left mouse button is held down
         else if (Input.GetMouseButton(0))
         {
-            wallHandler.UpdateWall(previewWall, clickPosition, mousePosition, wallInfoText);
+            wallHandler.UpdateWall(previewWall, clickPosition, mousePosition, wallInfoText, angleText);
         }
 
         // When the left mouse button is released, stop updating the wall object
@@ -75,7 +75,7 @@ public class MouseInput : MonoBehaviour
     {
         // If the mouse is released while on top of a hinge object, set the ending position of the wall to its center
         Vector3 releasePosition = AdjustPositionForHinge(mousePosition);
-        wallHandler.UpdateWall(previewWall, clickPosition, releasePosition, wallInfoText);
+        wallHandler.UpdateWall(previewWall, clickPosition, releasePosition, wallInfoText, angleText);
 
         // Change its material from transparent to opaque and place hinges at both ends of it
         previewWall.ChangeWallMaterialToOpaque();
