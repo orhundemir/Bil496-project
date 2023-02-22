@@ -8,7 +8,7 @@ public class WallHandler : MonoBehaviour
 {
 
     public GameObject wallPrefab;
-    public float angleRatio, lenghRatio = 1;
+    public float lenghRatio = 1;
 
     // Create a Wall at the given position and add it to the game
     public GameObject CreateWall(Vector3 position)
@@ -37,10 +37,14 @@ public class WallHandler : MonoBehaviour
             hinge1.transform.position = start;
             hinge2.transform.position = start + direction * distance;
 
-            int angleValue = (int) rotation.eulerAngles.y;
-            angleText.text = (angleValue - angleRatio).ToString() + "º";
+            int angleValue = (int) rotation.eulerAngles.y - 90;
+            if (angleValue < 0)
+                angleValue += 360;
+            angleText.text = angleValue + "º";
 
             wallInfoText.transform.position = start + (direction * distance) / 2;
+            // Move wallInfoText up in the +y direction so that it appears above other wall objects
+            wallInfoText.transform.position += new Vector3(0, 0.5f, 0);
             wallInfoText.text = Math.Round((wallObject.transform.GetChild(0).localScale.z / lenghRatio), 1).ToString() + " m";
         }
     }
