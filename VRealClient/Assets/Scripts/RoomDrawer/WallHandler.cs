@@ -19,7 +19,7 @@ public class WallHandler : MonoBehaviour
 
     // Update the given WallObject's transform values so that it is drawn between the given start and end vectors
     // Also update its displayed length and angle values
-    public void UpdateWall(WallObject wallObject, Vector3 start, Vector3 end, Text wallInfoText, Text angleText)
+    public void UpdateWall(WallObject wallObject, Vector3 start, Vector3 end, bool limitAngles, Text wallInfoText, Text angleText)
     {
         Vector3 direction = end - start;
         float distance = direction.magnitude;
@@ -31,7 +31,11 @@ public class WallHandler : MonoBehaviour
             // Round the angle of rotation to the nearest integer and rotate the wall object accordingly
             Quaternion rotation = Quaternion.LookRotation(direction);
             int angle = Mathf.RoundToInt(rotation.eulerAngles.y);
-            rotation.eulerAngles = new Vector3(0, angle, 0);
+            if (limitAngles)
+            {
+                rotation.eulerAngles = new Vector3(0, angle, 0);
+                direction = Quaternion.Euler(0, -90, 0) * rotation * Vector3.right;
+            }
             wallObject.transform.rotation = rotation;
 
             Vector3 scale = new Vector3(wallObject.GetWidth(), wallObject.GetHeight(), distance);

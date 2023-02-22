@@ -43,7 +43,7 @@ public class MouseInput : MonoBehaviour
         else if (Input.GetMouseButton(0) && isDrawing)
         {
             mousePosition = SnapMouseToDrawingArea(drawingAreaCollider, mousePosition);
-            wallHandler.UpdateWall(previewWall, clickPosition, mousePosition, wallInfoText, angleText);
+            wallHandler.UpdateWall(previewWall, clickPosition, mousePosition, true, wallInfoText, angleText);
         }
 
         // When the left mouse button is released, stop updating the wall object
@@ -80,7 +80,7 @@ public class MouseInput : MonoBehaviour
 
         // If the mouse is released while on top of a hinge object, set the ending position of the wall to its center
         Vector3 releasePosition = AdjustPositionForHinge(mousePosition);
-        wallHandler.UpdateWall(previewWall, clickPosition, releasePosition, wallInfoText, angleText);
+        wallHandler.UpdateWall(previewWall, clickPosition, releasePosition, false, wallInfoText, angleText);
 
         // Change its material from transparent to opaque and place hinges at both ends of it
         previewWall.ChangeWallMaterialToOpaque();
