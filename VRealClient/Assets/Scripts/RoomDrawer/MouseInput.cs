@@ -33,12 +33,10 @@ public class MouseInput : MonoBehaviour
         // Initialize the wall creation process at the current mouse position
         if (Input.GetMouseButtonDown(0))
         {
-            wallInfoCanvas.SetActive(true);
-
-            wallInfoCanvas.transform.position = mousePosition + new Vector3(0, 0, 15f);
-
             StartWallCreation(mousePosition);
 
+            wallInfoCanvas.transform.position = mousePosition + new Vector3(0, 1f, 15f);
+            wallInfoCanvas.SetActive(true);
         }
         // Update the transparent preview wall object to follow the mouse position while the left mouse button is held down
         else if (Input.GetMouseButton(0))
