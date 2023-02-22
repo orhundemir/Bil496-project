@@ -8,6 +8,7 @@ public class WallHandler : MonoBehaviour
 {
 
     public GameObject wallPrefab;
+
     public float lenghRatio = 1;
 
     // Create a Wall at the given position and add it to the game
@@ -16,7 +17,8 @@ public class WallHandler : MonoBehaviour
         return Instantiate(wallPrefab, position, Quaternion.identity, transform);
     }
 
-    // Update the given WallObject's transform values
+    // Update the given WallObject's transform values so that it is drawn between the given start and end vectors
+    // Also update its displayed length and angle values
     public void UpdateWall(WallObject wallObject, Vector3 start, Vector3 end, Text wallInfoText, Text angleText)
     {
         Vector3 direction = end - start;
@@ -26,21 +28,25 @@ public class WallHandler : MonoBehaviour
         {
             direction.Normalize();
 
+            // Round the angle of rotation to the nearest integer and rotate the wall object accordingly
             Quaternion rotation = Quaternion.LookRotation(direction);
+            int angle = Mathf.RoundToInt(rotation.eulerAngles.y);
+            rotation.eulerAngles = new Vector3(0, angle, 0);
             wallObject.transform.rotation = rotation;
 
             Vector3 scale = new Vector3(wallObject.GetWidth(), wallObject.GetHeight(), distance);
             wallObject.transform.GetChild(0).localScale = scale;
 
+            // Move the hinges at both ends of the wall
             GameObject hinge1 = wallObject.transform.GetChild(1).gameObject;
             GameObject hinge2 = wallObject.transform.GetChild(2).gameObject;
             hinge1.transform.position = start;
             hinge2.transform.position = start + direction * distance;
 
-            int angleValue = (int) rotation.eulerAngles.y - 90;
-            if (angleValue < 0)
-                angleValue += 360;
-            angleText.text = angleValue + "º";
+            angle -= 90;
+            if (angle < 0)
+                angle += 360;
+            angleText.text = angle + " " + (char) 176;
 
             wallInfoText.transform.position = start + (direction * distance) / 2;
             // Move wallInfoText up in the +y direction so that it appears above other wall objects
