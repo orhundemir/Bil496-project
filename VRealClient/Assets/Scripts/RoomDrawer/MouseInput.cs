@@ -11,6 +11,7 @@ public class MouseInput : MonoBehaviour
 
     public WallHandler wallHandler;
     private WallObject previewWall;
+    private bool isDrawing = false;
 
     public GameObject wallInfoCanvas;
     public Text wallInfoText, angleText;
@@ -31,7 +32,7 @@ public class MouseInput : MonoBehaviour
         Vector3 mousePosition = GetMousePosition();
 
         // Initialize the wall creation process at the current mouse position
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && ColliderContainsVector(drawingAreaCollider, mousePosition))
         {
             StartWallCreation(mousePosition);
 
@@ -39,14 +40,16 @@ public class MouseInput : MonoBehaviour
             wallInfoCanvas.SetActive(true);
         }
         // Update the transparent preview wall object to follow the mouse position while the left mouse button is held down
-        else if (Input.GetMouseButton(0))
+        else if (Input.GetMouseButton(0) && isDrawing)
         {
+            mousePosition = SnapMouseToDrawingArea(drawingAreaCollider, mousePosition);
             wallHandler.UpdateWall(previewWall, clickPosition, mousePosition, wallInfoText, angleText);
         }
 
         // When the left mouse button is released, stop updating the wall object
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && isDrawing)
         {
+            mousePosition = SnapMouseToDrawingArea(drawingAreaCollider, mousePosition);
             FinalizeWallCreation(mousePosition);
             wallInfoCanvas.SetActive(false);
         }
@@ -61,6 +64,8 @@ public class MouseInput : MonoBehaviour
 
     private void StartWallCreation(Vector3 mousePosition)
     {
+        isDrawing = true;
+
         // If the mouse is clicked while on top of a hinge object, set the starting position of the wall to its center
         clickPosition = AdjustPositionForHinge(mousePosition);
 
@@ -71,6 +76,8 @@ public class MouseInput : MonoBehaviour
 
     private void FinalizeWallCreation(Vector3 mousePosition)
     {
+        isDrawing = false;
+
         // If the mouse is released while on top of a hinge object, set the ending position of the wall to its center
         Vector3 releasePosition = AdjustPositionForHinge(mousePosition);
         wallHandler.UpdateWall(previewWall, clickPosition, releasePosition, wallInfoText, angleText);
@@ -112,4 +119,17 @@ public class MouseInput : MonoBehaviour
             position.z >= collider.bounds.min.z &&
             position.z <= collider.bounds.max.z;
     }
+
+    // Ensures that the mouse position is within the bounds of the drawing area collider
+    private Vector3 SnapMouseToDrawingArea(BoxCollider collider, Vector3 position)
+    {
+        Vector3 colliderMin = collider.bounds.min;
+        Vector3 colliderMax = collider.bounds.max;
+
+        position.x = Mathf.Clamp(position.x, colliderMin.x, colliderMax.x);
+        position.z = Mathf.Clamp(position.z, colliderMin.z, colliderMax.z);
+
+        return position;
+    }
+
 }
