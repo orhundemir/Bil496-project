@@ -8,9 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: d851995fcd1d98b47a27ac98611cc32d
-  - enabled: 1
-    path: Assets/Scenes/Cizim.unity
-    guid: df948d6c53f526e49bfbee4a752842d9
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260,
       type: 2}
