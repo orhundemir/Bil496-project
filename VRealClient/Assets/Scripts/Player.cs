@@ -21,9 +21,9 @@ public class Player : MonoBehaviour
         list.Remove(Id);
     }
 
-    public void SpawnWalls(Vector3 position,Quaternion quaternion)
+    public void SpawnWalls(GameObject wall)
     {
-        Instantiate(GameLogic.Singleton.WallPrefab, position, quaternion);
+        Instantiate(wall, wall.transform.position, wall.transform.rotation);
     }
 
     // Client basarili þekilde Sign in oldu. Player spawn oluyor.

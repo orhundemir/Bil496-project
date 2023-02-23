@@ -11,7 +11,7 @@ public class Initiator : MonoBehaviour
         player = Player.list[NetworkManager.Singleton.Client.Id];
         foreach(GameObject go in player.Walls)
         {
-            player.SpawnWalls(go.transform.position, go.transform.rotation);
+            player.SpawnWalls(go);
         }
     }
 

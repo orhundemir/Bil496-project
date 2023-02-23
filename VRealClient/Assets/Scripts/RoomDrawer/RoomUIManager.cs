@@ -29,16 +29,24 @@ public class RoomUIManager : MonoBehaviour {
     }
 
     public void SendRoomTemplate() {
-        
         Message message = Message.Create(MessageSendMode.reliable, ClientToServerId.roomTemplate);
         message.AddInt(RootWall.transform.childCount - 1);
-        Player tmp = Player.list[NetworkManager.Singleton.Client.Id];
-        tmp.Walls = new GameObject[RootWall.transform.childCount - 1];
+
+        Player temp = Player.list[NetworkManager.Singleton.Client.Id];
+        temp.Walls = new GameObject[RootWall.transform.childCount - 1];
         for (int i = 1; i < RootWall.transform.childCount; i++)
         {
-            tmp.Walls[i - 1] = RootWall.transform.GetChild(i).gameObject;
-            Vector3 position = RootWall.transform.GetChild(i).gameObject.transform.position;
-            Quaternion quaternion = RootWall.transform.GetChild(i).gameObject.transform.rotation;
+            Transform wallPrefab = RootWall.transform.GetChild(i);
+            GameObject actualWall = wallPrefab.GetChild(0).gameObject;
+            actualWall.transform.position = wallPrefab.transform.position;
+            actualWall.transform.rotation = wallPrefab.transform.rotation;
+            temp.Walls[i - 1] = actualWall;
+           
+            Vector3 position = actualWall.transform.position;
+            Quaternion quaternion = actualWall.transform.rotation;
+            // TODO: Scale vector should also be added to the message
+            // Vector3 scale = actualWall.transform.localScale;
+
             message.AddVector3(position);
             message.AddQuaternion(quaternion);
         }
