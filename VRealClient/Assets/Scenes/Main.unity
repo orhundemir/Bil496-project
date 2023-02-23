@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1247,7 +1247,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -1428,7 +1427,7 @@ MonoBehaviour:
     type: 3}
   playerPrefab: {fileID: 127193667913711949, guid: 7d80d2b9930ef984597ac02d0ab597cf,
     type: 3}
-  Walls: {fileID: 0}
+  Walls: {fileID: 5579352485947770564, guid: e0c06ae131ea7924195288280f0b1d91, type: 3}
 --- !u!1 &1807509374
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     public string NameAndSurname { get; private set; }
     public string Uid { get; private set; }
 
-    public GameObject Walls { get; private set; }
+    public GameObject[] Walls { get;  set; }
 
 
     private void OnDestroy()
@@ -21,6 +21,10 @@ public class Player : MonoBehaviour
         list.Remove(Id);
     }
 
+    public void SpawnWalls(Vector3 position,Quaternion quaternion)
+    {
+        Instantiate(GameLogic.Singleton.WallPrefab, position, quaternion);
+    }
 
     // Client basarili þekilde Sign in oldu. Player spawn oluyor.
     // Þimdilik basit bir capsule oluþuyor ihtiyaca göre deðiþebilir.
@@ -53,7 +57,7 @@ public class Player : MonoBehaviour
 
 
     #region ScenePassingProcess
-    private static void MovePlayerToDestinationScene(ushort id, string destinationScene)
+    public static void MovePlayerToDestinationScene(ushort id, string destinationScene)
     {
         list[id].StartCoroutine(LoadYourAsyncScene(id, destinationScene));
     }

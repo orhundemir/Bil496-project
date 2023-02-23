@@ -135,17 +135,14 @@ public class Player : MonoBehaviour
     [MessageHandler((ushort)ClientToServerId.roomTemplate)]
     private static void RoomTemplate(ushort fromClientId, Message message)
     {
-        Debug.Log(message.GetVector3().ToString());
-        Debug.Log(message.GetQuaternion().ToString());
+        int size = message.GetInt();
 
-        Debug.Log(message.GetVector3().ToString());
-        Debug.Log(message.GetQuaternion().ToString());
-
-        Debug.Log(message.GetVector3().ToString());
-        Debug.Log(message.GetQuaternion().ToString());
-
-        Debug.Log(message.GetVector3().ToString());
-        Debug.Log(message.GetQuaternion().ToString());
+        for(int i = 0; i<size;i++)
+        {
+            Debug.Log(message.GetVector3().ToString());
+            Debug.Log(message.GetQuaternion().ToString());
+        }
+        
     }
     #endregion
 }

@@ -20,6 +20,8 @@ public class RoomUIManager : MonoBehaviour {
 
     [Header("RoomTemplate")]
     [SerializeField] private GameObject RootWall;
+    [SerializeField] private GameObject DrawingArea;
+    [SerializeField] private Player localPlayer;
 
 
     private void Awake() {
@@ -27,22 +29,28 @@ public class RoomUIManager : MonoBehaviour {
     }
 
     public void SendRoomTemplate() {
+        
         Message message = Message.Create(MessageSendMode.reliable, ClientToServerId.roomTemplate);
-        for (int i = 0; i < RootWall.transform.childCount; i++) {
-
+        message.AddInt(RootWall.transform.childCount - 1);
+        Player tmp = Player.list[NetworkManager.Singleton.Client.Id];
+        tmp.Walls = new GameObject[RootWall.transform.childCount - 1];
+        for (int i = 1; i < RootWall.transform.childCount; i++)
+        {
+            tmp.Walls[i - 1] = RootWall.transform.GetChild(i).gameObject;
             Vector3 position = RootWall.transform.GetChild(i).gameObject.transform.position;
             Quaternion quaternion = RootWall.transform.GetChild(i).gameObject.transform.rotation;
             message.AddVector3(position);
             message.AddQuaternion(quaternion);
-
-
         }
         NetworkManager.Singleton.Client.Send(message);
+        Player.MovePlayerToDestinationScene(NetworkManager.Singleton.Client.Id, "VReal");        
     }
 
     public void ClickedNext() {
-        Debug.Log("a");
+        
         SendRoomTemplate();
 
     }
+
+
 }

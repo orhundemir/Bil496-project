@@ -228,7 +228,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 391995219}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &391995221
 Camera:
   m_ObjectHideFlags: 0
@@ -320,6 +320,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RootWall: {fileID: 1263109547}
+  DrawingArea: {fileID: 792274059}
+  localPlayer: {fileID: 127193667913711949, guid: 259e8d56a83f73642b6c1ac9f0853713,
+    type: 3}
 --- !u!114 &475374374
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -989,7 +992,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1479204565}
-  m_CullTransparentMesh: 1
+  m_CullTransparentMesh: 0
 --- !u!1 &1715151771
 GameObject:
   m_ObjectHideFlags: 0
@@ -1209,7 +1212,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit

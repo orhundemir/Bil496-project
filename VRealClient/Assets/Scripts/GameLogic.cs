@@ -20,8 +20,7 @@ public class GameLogic : MonoBehaviour
 
     public GameObject LocalPlayerPrefab => localPlayerPrefab;
     public GameObject PlayerPrefab => playerPrefab;
-
-    public GameObject WallsPrefab => Walls;
+    public GameObject WallPrefab => Walls;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject localPlayerPrefab;
