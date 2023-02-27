@@ -68,10 +68,18 @@ public class WallHandler : MonoBehaviour
         hinge2.SetActive(true);
     }
 
-    public void SelectWall(GameObject wall)
-    {
-        selectedWalls.Add(wall);
-        wall.GetComponent<WallObject>().ChangeWallMaterialToSelected();
+    public void InverseWallSelectionState(GameObject wall)
+    { 
+        if(selectedWalls.Contains(wall))
+        {
+            wall.GetComponent<WallObject>().ChangeWallMaterialToOpaque();
+            selectedWalls.Remove(wall);
+        }
+        else
+        {
+            wall.GetComponent<WallObject>().ChangeWallMaterialToSelected();
+            selectedWalls.Add(wall);
+        }
     }
 
     public void RemoveWall(GameObject wall)
