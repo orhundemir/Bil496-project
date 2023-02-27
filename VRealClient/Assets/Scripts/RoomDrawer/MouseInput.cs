@@ -26,6 +26,7 @@ public class MouseInput : MonoBehaviour
         bool clickedOnWall = HandleWallSelection();
         if(!clickedOnWall)
             HandleWallDrawing();
+        HandleWallDeletion();
     }
 
     // Detects the click and drag motion of the mouse and creates a wall object between its start and end positions
@@ -71,6 +72,14 @@ public class MouseInput : MonoBehaviour
             }
         }
         return clickedOnWall;
+    }
+
+    private void HandleWallDeletion()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            wallHandler.RemoveSelectedWalls();
+        }
     }
 
     private Vector3 GetMousePosition()

@@ -82,9 +82,14 @@ public class WallHandler : MonoBehaviour
         }
     }
 
-    public void RemoveWall(GameObject wall)
+    public void RemoveSelectedWalls()
     {
-        Destroy(wall);
+        for(int i = selectedWalls.Count - 1; i >= 0; i--)
+        {
+            GameObject wall = selectedWalls[i];
+            selectedWalls.Remove(wall);
+            Destroy(wall);
+        }
     }
 
 }
