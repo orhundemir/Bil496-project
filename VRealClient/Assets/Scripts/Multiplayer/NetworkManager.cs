@@ -74,11 +74,9 @@ public class NetworkManager : MonoBehaviour
 
     private void DidConnect(object sender, EventArgs e)
     {
-        
-  
-           UIManager.Singleton.SendConnect();
-           Debug.Log(sender.ToString() + "is connected to server but it must sign in via Google");
-        
+        UIManager.Singleton.SendConnect();
+        UIManager.Singleton.googleUI.SetActive(true);
+        Debug.Log(sender.ToString() + "is connected to server but it must sign in via Google");
     }
 
     private void FailedToConnect(object sender, EventArgs e)
