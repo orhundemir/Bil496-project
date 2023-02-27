@@ -8,6 +8,7 @@ public class WallHandler : MonoBehaviour
 {
 
     public GameObject wallPrefab;
+    private List<GameObject> selectedWalls = new List<GameObject>();
 
     public float lenghRatio = 1;
 
@@ -67,9 +68,28 @@ public class WallHandler : MonoBehaviour
         hinge2.SetActive(true);
     }
 
-    public void RemoveWall(GameObject wall)
+    public void InverseWallSelectionState(GameObject wall)
+    { 
+        if(selectedWalls.Contains(wall))
+        {
+            wall.GetComponent<WallObject>().ChangeWallMaterialToOpaque();
+            selectedWalls.Remove(wall);
+        }
+        else
+        {
+            wall.GetComponent<WallObject>().ChangeWallMaterialToSelected();
+            selectedWalls.Add(wall);
+        }
+    }
+
+    public void RemoveSelectedWalls()
     {
-        Destroy(wall);
+        for(int i = selectedWalls.Count - 1; i >= 0; i--)
+        {
+            GameObject wall = selectedWalls[i];
+            selectedWalls.Remove(wall);
+            Destroy(wall);
+        }
     }
 
 }

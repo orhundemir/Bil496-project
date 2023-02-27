@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WallObject : MonoBehaviour {
 
-    public Material wallMaterial, previewMaterial;
+    public Material wallMaterial, previewMaterial, selectedMaterial;
 
     private GameObject wall, hinge1, hinge2;
     public Material hingeMaterial, hingeHoverMaterial;
@@ -48,6 +48,11 @@ public class WallObject : MonoBehaviour {
     public void ChangeWallMaterialToOpaque()
     {
         wall.GetComponent<Renderer>().material = wallMaterial;
+    }
+
+    public void ChangeWallMaterialToSelected()
+    {
+        wall.GetComponent<Renderer>().material = selectedMaterial;
     }
 
     public int GetWidth()
