@@ -8,6 +8,7 @@ public class WallHandler : MonoBehaviour
 {
 
     public GameObject wallPrefab;
+    private List<GameObject> selectedWalls = new List<GameObject>();
 
     public float lenghRatio = 1;
 
@@ -65,6 +66,12 @@ public class WallHandler : MonoBehaviour
         GameObject hinge2 = wallObject.transform.GetChild(2).gameObject;
         hinge1.SetActive(true);
         hinge2.SetActive(true);
+    }
+
+    public void SelectWall(GameObject wall)
+    {
+        selectedWalls.Add(wall);
+        wall.GetComponent<WallObject>().ChangeWallMaterialToSelected();
     }
 
     public void RemoveWall(GameObject wall)

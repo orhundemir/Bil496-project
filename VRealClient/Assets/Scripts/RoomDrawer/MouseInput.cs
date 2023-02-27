@@ -23,11 +23,13 @@ public class MouseInput : MonoBehaviour
 
     void Update()
     {
-        HandleMouseInputs();
+        HandleWallSelection();
+        HandleWallDrawing();
+
     }
 
     // Detects the click and drag motion of the mouse and creates a wall object between its start and end positions
-    private void HandleMouseInputs()
+    private void HandleWallDrawing()
     {
         Vector3 mousePosition = GetMousePosition();
 
@@ -55,6 +57,19 @@ public class MouseInput : MonoBehaviour
         }
     }
 
+    private void HandleWallSelection ()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameObject selectedWall = GetObjectByTagOnRaycastHit(Input.mousePosition, "Wall");
+            if(selectedWall != null)
+            {
+                selectedWall = selectedWall.transform.parent.parent.gameObject;
+                wallHandler.SelectWall(selectedWall);
+            }
+
+        }
+    }
     private Vector3 GetMousePosition()
     {
         Vector3 mousePosition = Input.mousePosition;
