@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Connect")]
     [SerializeField] private GameObject connectUI;
-    [SerializeField] private GameObject googleUI;
+    [SerializeField] public GameObject googleUI;
 
     private void Awake()
     {
@@ -35,7 +35,6 @@ public class UIManager : MonoBehaviour
     public void ConnectClicked()
     {
         connectUI.SetActive(false);
-        googleUI.SetActive(true);
         NetworkManager.Singleton.Connect();
     }
     public void SendConnect()
@@ -47,35 +46,7 @@ public class UIManager : MonoBehaviour
 
     public void BackToMain()
     {
-        Scene currentScene = SceneManager.GetActiveScene();
-        if (currentScene.name=="Main")
-        {
-            googleUI.SetActive(false);
-            connectUI.SetActive(true);
-        }
-        else
-        {
-            StartCoroutine(LoadYourAsyncScene());
-            googleUI.SetActive(false);
-            connectUI.SetActive(true);
-        }
-    }
-
-
-    IEnumerator LoadYourAsyncScene()
-    {
-        // Set the current Scene to be able to unload it later
-        Scene currentScene = SceneManager.GetActiveScene();
-
-        // The Application loads the Scene in the background at the same time as the current Scene.
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("Main", LoadSceneMode.Additive);
-
-        // Wait until the last operation fully loads to return anything
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
-        }
-        // Unload the previous Scene
-        SceneManager.UnloadSceneAsync(currentScene);
+        googleUI.SetActive(false);
+        connectUI.SetActive(true);
     }
 }

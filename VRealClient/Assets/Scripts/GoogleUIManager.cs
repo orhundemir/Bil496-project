@@ -25,9 +25,6 @@ public class GoogleUIManager : MonoBehaviour
     [SerializeField] private InputField usernameField; //FIX ME: Google Api entegrasyonuna bağlı olarak ihtiyac olmayabilir.
     [SerializeField] private InputField passwordField; //FIX ME: Google Api entegrasyonuna bağlı olarak ihtiyac olmayabilir.
 
-
-
-
     private void Awake()
     {
         Singleton = this;

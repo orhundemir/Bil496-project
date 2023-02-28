@@ -12,8 +12,7 @@ public class Player : MonoBehaviour
     public string Email { get; private set; }
     public string NameAndSurname { get; private set; }
     public string Uid { get; private set; }
-
-    public GameObject[] Walls { get;  set; }
+    public GameObject[] Walls { get; set; }
 
 
     private void OnDestroy()
@@ -21,9 +20,30 @@ public class Player : MonoBehaviour
         list.Remove(Id);
     }
 
+    // Vr sahnesinde duvar objelerinin yaratýlmasýný saðlýyor.
     public void SpawnWalls(GameObject wall)
     {
         Instantiate(wall, wall.transform.position, wall.transform.rotation);
+    }
+
+    // Oyuncu objesini VR gozluge uyumlu objeye ceviriyor
+    // Ya da vr sahnesinden cizim ekranina gecmek icin kullanilabilir
+    public void CopyPlayer(Player player)
+    {
+        player.name = this.Email;
+        player.Id = NetworkManager.Singleton.Client.Id;
+        player.Email = this.Email;
+        player.NameAndSurname = this.NameAndSurname;
+        player.Uid = this.Uid;
+
+        int size = this.Walls.Length;
+        player.Walls = new GameObject[size];
+        for (int i = 0; i < size; i++)
+        {
+            player.Walls[i] = this.Walls[i];
+        }
+        Player.list.Remove(Id);
+        Player.list.Add(player.Id, player);
     }
 
     // Client basarili þekilde Sign in oldu. Player spawn oluyor.
@@ -45,15 +65,12 @@ public class Player : MonoBehaviour
         MovePlayerToDestinationScene(id, "RoomDrawing");
     }
 
-   
-
     [MessageHandler((ushort)ServerToClientId.playerSpawned)]
     private static void SpawnPlayer(Message message)
     {
         Spawn(message.GetUShort(), message.GetString(), message.GetString(), message.GetString(), message.GetVector3());
         Debug.Log("Client connected to server successfully");
     }
-
 
 
     #region ScenePassingProcess
@@ -78,6 +95,7 @@ public class Player : MonoBehaviour
         }
 
         // Move the GameObject (you attach this in the Inspector) to the newly loaded Scene
+        
         SceneManager.MoveGameObjectToScene(list[id].gameObject, SceneManager.GetSceneByName(destinationScene));
         SceneManager.MoveGameObjectToScene(NetworkManager.Singleton.gameObject, SceneManager.GetSceneByName(destinationScene));
         // Unload the previous Scene

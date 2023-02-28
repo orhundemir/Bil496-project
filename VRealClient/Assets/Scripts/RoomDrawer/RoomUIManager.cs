@@ -21,13 +21,14 @@ public class RoomUIManager : MonoBehaviour {
     [Header("RoomTemplate")]
     [SerializeField] private GameObject RootWall;
     [SerializeField] private GameObject DrawingArea;
-    [SerializeField] private Player localPlayer;
 
 
     private void Awake() {
         Singleton = this;
     }
 
+    //Cizilen duvarlarý VR sahnesine gonderilmesini saglýyor.
+    //Duvar bilgilerini servera yolluyor ve Vreal sahnesine geciyor.
     public void SendRoomTemplate() {
         Message message = Message.Create(MessageSendMode.reliable, ClientToServerId.roomTemplate);
         message.AddInt(RootWall.transform.childCount - 1);
@@ -44,20 +45,19 @@ public class RoomUIManager : MonoBehaviour {
            
             Vector3 position = actualWall.transform.position;
             Quaternion quaternion = actualWall.transform.rotation;
-            // TODO: Scale vector should also be added to the message
-            // Vector3 scale = actualWall.transform.localScale;
+            Vector3 scale = actualWall.transform.localScale;
 
             message.AddVector3(position);
             message.AddQuaternion(quaternion);
+            message.AddVector3(scale);
         }
         NetworkManager.Singleton.Client.Send(message);
         Player.MovePlayerToDestinationScene(NetworkManager.Singleton.Client.Id, "VReal");        
     }
 
+    // Cizim ekranýnda Next tusunun listenerýdýr.
     public void ClickedNext() {
-        
         SendRoomTemplate();
-
     }
 
 

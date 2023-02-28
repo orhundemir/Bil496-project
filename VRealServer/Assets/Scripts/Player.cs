@@ -27,6 +27,27 @@ public class Player : MonoBehaviour
         player.Id = id;
         list.Add(id, player);
     }
+
+    //User google sign in baðlandýðý bilgisi gelince server tarafýnda daha önceden oluþan guest object update ediliyor.
+    //ve client'a kendi player objectini oluþtursun diye SendSpawn mesajýný yolluyor.
+    public static void Spawn(ushort id, string _email, string _nameAndSurname, string _uid)
+    {
+        foreach (Player player in list.Values)
+        {
+            if (player.Id == id)
+            {
+                player.name = $"Player {id} ({(string.IsNullOrEmpty(_email) ? "Guest" : _email)})";
+                player.Id = id;
+                player.Email = _email;
+                player.NameAndSurname = _nameAndSurname;
+                player.Uid = _uid;
+
+                //player bilgileri çekilsin diye DBManager'a gönderiliyor.
+                DBManager.Singleton.playerList[id] = player;
+                player.SendSpawned();
+            }
+        }
+    }
     private static void ConnectToServerCheck(ushort id, bool _state)
     {
         if (_state)
@@ -59,30 +80,6 @@ public class Player : MonoBehaviour
         Debug.Log("UID is: " + _uid);
         list.GetValueOrDefault(id).Uid = _uid;
     }
-
-
-
-    //User google sign in baðlandýðý bilgisi gelince server tarafýnda daha önceden oluþan guest object update ediliyor.
-    //ve client'a kendi player objectini oluþtursun diye SendSpawn mesajýný yolluyor.
-    public static void Spawn(ushort id, string _email, string _nameAndSurname, string _uid)
-    {
-        foreach (Player player in list.Values)
-        {
-            if (player.Id == id)
-            {
-                player.name = $"Player {id} ({(string.IsNullOrEmpty(_email) ? "Guest" : _email)})";
-                player.Id = id;
-                player.Email = _email;
-                player.NameAndSurname = _nameAndSurname;
-                player.Uid = _uid;
-
-                //player bilgileri çekilsin diye DBManager'a gönderiliyor.
-                DBManager.Singleton.playerList[id] = player;
-                player.SendSpawned();
-            }
-        }
-    }
-    
 
 
 
@@ -141,6 +138,7 @@ public class Player : MonoBehaviour
         {
             Debug.Log(message.GetVector3().ToString());
             Debug.Log(message.GetQuaternion().ToString());
+            Debug.Log(message.GetVector3().ToString());
         }
         
     }
