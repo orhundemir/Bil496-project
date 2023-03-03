@@ -8,7 +8,6 @@ public class WallHandler : MonoBehaviour
 {
 
     public GameObject wallPrefab;
-    private List<GameObject> selectedWalls = new List<GameObject>();
 
     public float lenghRatio = 1;
 
@@ -19,8 +18,40 @@ public class WallHandler : MonoBehaviour
     }
 
     // Update the given WallObject's transform values so that it is drawn between the given start and end vectors
-    // Also update its displayed length and angle values
-    public void UpdateWall(WallObject wallObject, Vector3 start, Vector3 end, bool limitAngles, Text wallInfoText, Text angleText)
+    public void UpdateWall(WallObject wallObject, Vector3 start, Vector3 end, bool limitAngles, out Vector3 centerPosition, out int wallAngle, out double wallLength)
+    {
+        Vector3 direction = end - start;
+        float distance = direction.magnitude;
+
+        centerPosition = new Vector3();
+        wallAngle = 0;
+        wallLength = 0;
+
+        if (distance > 0)
+        {
+            direction.Normalize();
+
+            // Round the angle of rotation to the nearest integer and rotate the wall object accordingly
+            Quaternion rotation = Quaternion.LookRotation(direction);
+            int angle = Mathf.RoundToInt(rotation.eulerAngles.y);
+            if (limitAngles)
+            {
+                rotation.eulerAngles = new Vector3(0, angle, 0);
+                direction = Quaternion.Euler(0, -90, 0) * rotation * Vector3.right;
+            }
+            wallObject.transform.rotation = rotation;
+
+            Vector3 scale = new Vector3(wallObject.GetWidth(), wallObject.GetHeight(), distance);
+            wallObject.transform.GetChild(0).localScale = scale;
+
+            // Calculate the output values, they will be passed into WallUIManager later
+            wallAngle = angle - 90;
+            centerPosition = start + (direction * distance) / 2 + new Vector3(0, 0.5f, 0);
+            wallLength = wallObject.transform.GetChild(0).localScale.z / lenghRatio;
+        }
+    }
+
+    public void UpdateWall(WallObject wallObject, Vector3 start, Vector3 end, bool limitAngles)
     {
         Vector3 direction = end - start;
         float distance = direction.magnitude;
@@ -41,22 +72,6 @@ public class WallHandler : MonoBehaviour
 
             Vector3 scale = new Vector3(wallObject.GetWidth(), wallObject.GetHeight(), distance);
             wallObject.transform.GetChild(0).localScale = scale;
-
-            // Move the hinges at both ends of the wall
-            GameObject hinge1 = wallObject.transform.GetChild(1).gameObject;
-            GameObject hinge2 = wallObject.transform.GetChild(2).gameObject;
-            hinge1.transform.position = start;
-            hinge2.transform.position = start + direction * distance;
-
-            angle -= 90;
-            if (angle < 0)
-                angle += 360;
-            angleText.text = angle + " " + (char) 176;
-
-            wallInfoText.transform.position = start + (direction * distance) / 2;
-            // Move wallInfoText up in the +y direction so that it appears above other wall objects
-            wallInfoText.transform.position += new Vector3(0, 0.5f, 0);
-            wallInfoText.text = Math.Round((wallObject.transform.GetChild(0).localScale.z / lenghRatio), 1).ToString() + " m";
         }
     }
 
@@ -66,30 +81,6 @@ public class WallHandler : MonoBehaviour
         GameObject hinge2 = wallObject.transform.GetChild(2).gameObject;
         hinge1.SetActive(true);
         hinge2.SetActive(true);
-    }
-
-    public void InverseWallSelectionState(GameObject wall)
-    { 
-        if(selectedWalls.Contains(wall))
-        {
-            wall.GetComponent<WallObject>().ChangeWallMaterialToOpaque();
-            selectedWalls.Remove(wall);
-        }
-        else
-        {
-            wall.GetComponent<WallObject>().ChangeWallMaterialToSelected();
-            selectedWalls.Add(wall);
-        }
-    }
-
-    public void RemoveSelectedWalls()
-    {
-        for(int i = selectedWalls.Count - 1; i >= 0; i--)
-        {
-            GameObject wall = selectedWalls[i];
-            selectedWalls.Remove(wall);
-            Destroy(wall);
-        }
     }
 
 }

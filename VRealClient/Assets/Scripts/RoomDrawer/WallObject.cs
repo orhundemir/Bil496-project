@@ -40,6 +40,22 @@ public class WallObject : MonoBehaviour {
         }
     }
 
+    public void ActivateHinges()
+    {
+        hinge1.SetActive(true);
+        hinge2.SetActive(true);
+    }
+
+    public void AdjustHingePositions(Vector3 start, Vector3 end)
+    {
+        Vector3 direction = end - start;
+        float distance = direction.magnitude;
+        direction.Normalize();
+
+        hinge1.transform.position = start;
+        hinge2.transform.position = start + direction * distance;
+    }
+
     public void ChangeWallMaterialToTransparent()
     {
         wall.GetComponent<Renderer>().material = previewMaterial;

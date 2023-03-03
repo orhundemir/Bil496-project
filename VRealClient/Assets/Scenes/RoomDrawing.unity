@@ -698,8 +698,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1263109550}
+  - component: {fileID: 1263109552}
   - component: {fileID: 1263109549}
-  - component: {fileID: 1263109548}
+  - component: {fileID: 1263109551}
+  - component: {fileID: 1263109555}
+  - component: {fileID: 1263109553}
+  - component: {fileID: 1263109554}
   m_Layer: 0
   m_Name: Walls
   m_TagString: Untagged
@@ -707,23 +711,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1263109548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1263109547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf9fcb41608a9574d98da0c60ead8aba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  drawingArea: {fileID: 792274059}
-  wallHandler: {fileID: 1263109549}
-  wallInfoCanvas: {fileID: 1401359621}
-  wallInfoText: {fileID: 1777615454}
-  angleText: {fileID: 814434541}
 --- !u!114 &1263109549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -755,6 +742,74 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1263109551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263109547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a749b6598203b478a0330cc9482c52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiManager: {fileID: 1263109553}
+--- !u!114 &1263109552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263109547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f741dcf9a4e76294aa311b4c4e8498f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drawingArea: {fileID: 792274059}
+  wallHandler: {fileID: 1263109549}
+  wallCreationManager: {fileID: 1263109551}
+  wallSelectionManager: {fileID: 1263109555}
+--- !u!114 &1263109553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263109547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0b1e7fef96f51d40b7a99208b52c9b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallInfoCanvas: {fileID: 1401359621}
+  wallLengthText: {fileID: 1777615454}
+  wallAngleText: {fileID: 814434541}
+--- !u!114 &1263109554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263109547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1795392972c40b648aa028ee9a052e5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1263109555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1263109547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcee30999b66c1f4592089b9c81dc94f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1401359621
 GameObject:
   m_ObjectHideFlags: 0
@@ -1210,6 +1265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
