@@ -7,6 +7,7 @@ public class WallSelectionManager : MonoBehaviour
 
     private List<GameObject> selectedWalls = new List<GameObject>();
 
+    // If the mouse was clicked on a wall, select or deselect it based on its current state
     public void HandleWallSelection()
     {
         GameObject wall = GetObjectByTagOnRaycastHit(Input.mousePosition, "Wall");

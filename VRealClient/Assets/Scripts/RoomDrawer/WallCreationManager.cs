@@ -30,10 +30,7 @@ public class WallCreationManager : MonoBehaviour
     {
         if (isDrawing)
         {
-            Vector3 wallCenter;
-            int wallAngle;
-            double wallLength;
-            wallHandler.UpdateWall(previewWall, clickPosition, mousePosition, true, out wallCenter, out wallAngle, out wallLength);
+            wallHandler.UpdateWall(previewWall, clickPosition, mousePosition, true, out Vector3 wallCenter, out int wallAngle, out double wallLength);
             
             uiManager.SetLengthTextPosition(wallCenter);
             uiManager.SetAngleValue(wallAngle);
@@ -45,8 +42,9 @@ public class WallCreationManager : MonoBehaviour
     {
         isDrawing = false;
 
-        // If the walls ending position is contained inside a hinge, move the position to its center
+        // If the mouse is released on a hinge, move the walls ending position to its center
         Vector3 releasePosition = AdjustPositionForHinge(mousePosition);
+        // Update the wall one last time to apply the possible position change
         wallHandler.UpdateWall(previewWall, clickPosition, releasePosition, false);
 
         // Change its material from transparent to opaque and place hinges at both ends of it
@@ -57,6 +55,8 @@ public class WallCreationManager : MonoBehaviour
         uiManager.SetActive(false);
     }
 
+    // If the given position is contained inside a hinge, this method moves the position to the hinge's center
+    // Thus, ensuring that walls are connected properly during the drawing process
     private Vector3 AdjustPositionForHinge(Vector3 position)
     {
         GameObject hingeAtMousePosition = GetObjectByTagOnRaycastHit(Input.mousePosition, "Hinge");

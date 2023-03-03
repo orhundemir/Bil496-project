@@ -3,6 +3,7 @@ using UnityEngine;
 public class MouseInputManager : MonoBehaviour
 {
 
+    // Used for checking if the mouse was clicked in the drawing area
     public GameObject drawingArea;
     private BoxCollider drawingAreaCollider;
 
@@ -72,7 +73,7 @@ public class MouseInputManager : MonoBehaviour
             position.z <= drawingAreaCollider.bounds.max.z;
     }
 
-    // Clamps the given position into the drawing area
+    // Clamps the given position into the drawing area to ensure walls cannot be drawn outside the panel
     private Vector3 SnapMouseToDrawingArea(Vector3 position)
     {
         Vector3 colliderMin = drawingAreaCollider.bounds.min;

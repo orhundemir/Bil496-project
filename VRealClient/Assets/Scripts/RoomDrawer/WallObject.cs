@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallObject : MonoBehaviour {
+public class WallObject : MonoBehaviour 
+{
 
     public Material wallMaterial, previewMaterial, selectedMaterial;
 
@@ -23,7 +24,7 @@ public class WallObject : MonoBehaviour {
         CheckHingeHover();
     }
 
-    // Change hinges material if the mouse is hovering over it
+    // Changes the hinge's material if the mouse is hovering over it, providing visual feedback for the user
     private void CheckHingeHover()
     {
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit))
@@ -46,6 +47,7 @@ public class WallObject : MonoBehaviour {
         hinge2.SetActive(true);
     }
 
+    // Move the hinges to opposite ends of the wall
     public void AdjustHingePositions(Vector3 start, Vector3 end)
     {
         Vector3 direction = end - start;
