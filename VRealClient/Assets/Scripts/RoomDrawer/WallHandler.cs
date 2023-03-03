@@ -75,12 +75,4 @@ public class WallHandler : MonoBehaviour
         }
     }
 
-    public void ActivateHinges(WallObject wallObject)
-    {
-        GameObject hinge1 = wallObject.transform.GetChild(1).gameObject;
-        GameObject hinge2 = wallObject.transform.GetChild(2).gameObject;
-        hinge1.SetActive(true);
-        hinge2.SetActive(true);
-    }
-
 }
