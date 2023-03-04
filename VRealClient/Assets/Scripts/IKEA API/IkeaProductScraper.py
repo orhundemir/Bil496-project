@@ -9,31 +9,21 @@ def fetchProductInfo(productName):
     search = ikea.Search(constants)
     endpoint = search.search(productName)
     searchResult = ikea.run(endpoint)
-
-    # Extract the product information from the result
-    product = searchResult['searchResultPage']['products']
     
-    # Check to see if the item was successfully fetched from the API
+    # Extract the product information from the result
     try:
-        priceDict = product['main']['items'][0]['product']['salesPrice']['current']
+        product = searchResult['searchResultPage']['products']['main']['items'][0]['product']
     except IndexError:
         notFoundProducts.append(productName)
         return None
-    
-    # Find the index of the categories object in filters
-    # This index can vary between different products
-    categoryIndex = -1
-    for i, filter_item in enumerate(product['filters']):
-        if filter_item['id'] == 'CATEGORIES':
-            categoryIndex = i
 
     # Extract the desired information from the product dictionary
-    productPrice = str(priceDict['prefix']) + str(priceDict['wholeNumber']) + str(priceDict['separator']) + str(priceDict['decimals'])
-    productType = product['filters'][categoryIndex]['categories'][0]['name']
-    productName = product['main']['items'][0]['product']['name']
-    productImageURL = product['filters'][categoryIndex]['categories'][0]['imageUrl']
-    productMeasurements = product['main']['items'][0]['product']['itemMeasureReferenceText']
-
+    productName = product['name']
+    productType = product['typeName']
+    productPrice = str(product['salesPrice']['current']['prefix']) + str(product['salesPrice']['current']['wholeNumber']) + str(product['salesPrice']['current']['separator']) + str(product['salesPrice']['current']['decimals'])
+    productImageURL = product['mainImageUrl']
+    productMeasurements = product['itemMeasureReferenceText']
+    
     return {"productName": productName, "productType": productType, "productPrice": productPrice, "productImageURL": productImageURL, "productMeasurements": productMeasurements}
 
 class ProductNotFoundException(Exception):
