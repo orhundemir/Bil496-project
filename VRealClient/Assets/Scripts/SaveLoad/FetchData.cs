@@ -59,10 +59,10 @@ public class FetchData : MonoBehaviour
             products = JsonConvert.DeserializeObject<List<IkeaProduct>>(output);
 
             int itemCount = products == null ? 0 : products.Count;
-            UnityEngine.Debug.Log("Fetched " + itemCount + " item" + (itemCount == 1 ? "" : "s") + " from IKEA");
 
-            if (printResults)
+            if (printResults && itemCount > 0)
             {
+                UnityEngine.Debug.Log("Fetched " + itemCount + "/" + requestedProducts.Count + " items from IKEA");
                 string itemDetails = "";
                 foreach (IkeaProduct item in products)
                 {
