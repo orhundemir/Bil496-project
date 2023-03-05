@@ -11,7 +11,6 @@ public class WallEditing : MonoBehaviour
 
     public Material defaultWallMaterial;
 
-    List<GameObject> selectedWalls = new List<GameObject>();
 
     private void Start()
     {
@@ -20,7 +19,7 @@ public class WallEditing : MonoBehaviour
 
     public void ChangeWallpaper(Material selectedMaterial)
     {
-        selectedWalls = wallSelectionManager.GetSelectedWalls();
+        List<GameObject> selectedWalls = wallSelectionManager.GetSelectedWalls();
         foreach(GameObject selectedWall in selectedWalls)
         {
             selectedWall.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material = selectedMaterial;
@@ -33,7 +32,7 @@ public class WallEditing : MonoBehaviour
         //Material selectedColor = new Material(selectedMaterial);
         Material selectedColor = new Material(defaultWallMaterial);
         selectedColor.color = colorPicker.color;
-        selectedWalls = wallSelectionManager.GetSelectedWalls();
+        List<GameObject> selectedWalls = wallSelectionManager.GetSelectedWalls();
         foreach (GameObject selectedWall in selectedWalls)
         {
             selectedWall.transform.GetChild(0).GetChild(0).GetComponent<MeshRenderer>().material = selectedColor;
@@ -43,7 +42,12 @@ public class WallEditing : MonoBehaviour
 
     public void CompleteEditing()
     {
-        wallSelectionManager.GetSelectedWalls().Clear();
+        List<GameObject> selectedWalls = wallSelectionManager.GetSelectedWalls();
+        for (int i = selectedWalls.Count - 1; i >= 0; i--)
+        {
+            GameObject wall = selectedWalls[i];
+            wallSelectionManager.DeselectWall(wall);
+        }
     }
 
     public void ChangeGroundTexture(Material selectedMaterial)

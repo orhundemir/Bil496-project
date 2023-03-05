@@ -22,13 +22,13 @@ public class WallSelectionManager : MonoBehaviour
         }
     }
 
-    private void SelectWall(GameObject wall)
+    public void SelectWall(GameObject wall)
     {
         wall.GetComponent<WallObject>().ChangeWallMaterialToSelected();
         selectedWalls.Add(wall);
     }
 
-    private void DeselectWall(GameObject wall)
+    public void DeselectWall(GameObject wall)
     {
         wall.GetComponent<WallObject>().ChangeWallMaterialToChosenTexture();
         selectedWalls.Remove(wall);

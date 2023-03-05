@@ -10,7 +10,7 @@ public class WallObject : MonoBehaviour
     private GameObject wall, hinge1, hinge2;
     public Material hingeMaterial, hingeHoverMaterial;
 
-    private readonly int wallWidth = 10, wallHeight = 1;
+    public int wallWidth = 10, wallHeight = 1;
 
     private void Awake()
     {
