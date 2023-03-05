@@ -54,4 +54,8 @@ public class WallSelectionManager : MonoBehaviour
         return null;
     }
 
+    public List<GameObject> GetSelectedWalls()
+    {
+        return selectedWalls;
+    }
 }

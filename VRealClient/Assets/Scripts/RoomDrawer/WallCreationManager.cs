@@ -40,19 +40,22 @@ public class WallCreationManager : MonoBehaviour
 
     public void FinalizeWallCreation(WallHandler wallHandler, Vector3 mousePosition)
     {
-        isDrawing = false;
+        if (isDrawing)
+        {
+            isDrawing = false;
 
-        // If the mouse is released on a hinge, move the walls ending position to its center
-        Vector3 releasePosition = AdjustPositionForHinge(mousePosition);
-        // Update the wall one last time to apply the possible position change
-        wallHandler.UpdateWall(previewWall, clickPosition, releasePosition, false);
+            // If the mouse is released on a hinge, move the walls ending position to its center
+            Vector3 releasePosition = AdjustPositionForHinge(mousePosition);
+            // Update the wall one last time to apply the possible position change
+            wallHandler.UpdateWall(previewWall, clickPosition, releasePosition, false);
 
-        // Change its material from transparent to opaque and place hinges at both ends of it
-        previewWall.ChangeWallMaterialToOpaque();
-        previewWall.AdjustHingePositions(clickPosition, releasePosition);
-        previewWall.ActivateHinges();
+            // Change its material from transparent to opaque and place hinges at both ends of it
+            previewWall.ChangeWallMaterialToOpaque();
+            previewWall.AdjustHingePositions(clickPosition, releasePosition);
+            previewWall.ActivateHinges();
 
-        uiManager.SetActive(false);
+            uiManager.SetActive(false);
+        }
     }
 
     // If the given position is contained inside a hinge, this method moves the position to the hinge's center
