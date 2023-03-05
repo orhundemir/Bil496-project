@@ -63,7 +63,7 @@ public class WallObject : MonoBehaviour
         wall.GetComponent<Renderer>().material = previewMaterial;
     }
 
-    public void ChangeWallMaterialToOpaque()
+    public void ChangeWallMaterialToChosenTexture()
     {
         wall.GetComponent<Renderer>().material = wallMaterial;
     }
@@ -71,6 +71,11 @@ public class WallObject : MonoBehaviour
     public void ChangeWallMaterialToSelected()
     {
         wall.GetComponent<Renderer>().material = selectedMaterial;
+    }
+
+    public void SetChosenTextureMaterial(Material material)
+    {
+        wallMaterial = material;
     }
 
     public int GetWidth()

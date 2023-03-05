@@ -50,7 +50,7 @@ public class WallCreationManager : MonoBehaviour
             wallHandler.UpdateWall(previewWall, clickPosition, releasePosition, false);
 
             // Change its material from transparent to opaque and place hinges at both ends of it
-            previewWall.ChangeWallMaterialToOpaque();
+            previewWall.ChangeWallMaterialToChosenTexture();
             previewWall.AdjustHingePositions(clickPosition, releasePosition);
             previewWall.ActivateHinges();
 

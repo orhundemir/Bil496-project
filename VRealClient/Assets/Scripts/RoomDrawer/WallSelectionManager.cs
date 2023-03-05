@@ -30,7 +30,7 @@ public class WallSelectionManager : MonoBehaviour
 
     private void DeselectWall(GameObject wall)
     {
-        wall.GetComponent<WallObject>().ChangeWallMaterialToOpaque();
+        wall.GetComponent<WallObject>().ChangeWallMaterialToChosenTexture();
         selectedWalls.Remove(wall);
     }
 
