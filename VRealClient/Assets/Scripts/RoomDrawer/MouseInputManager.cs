@@ -7,7 +7,6 @@ public class MouseInputManager : MonoBehaviour
     public GameObject drawingArea;
     private BoxCollider drawingAreaCollider;
 
-    public WallHandler wallHandler;
     public WallCreationManager wallCreationManager;
     public WallSelectionManager wallSelectionManager;
 
@@ -30,14 +29,14 @@ public class MouseInputManager : MonoBehaviour
             if (EditorTools.selectedTool == EditorTools.TOOLS.SELECTOR)
                 wallSelectionManager.HandleWallSelection();
             else if (EditorTools.selectedTool == EditorTools.TOOLS.WALL)
-                wallCreationManager.StartWallCreation(wallHandler, mousePosition);
+                wallCreationManager.StartWallCreation(mousePosition);
         }
         else if (Input.GetMouseButton(0))
         {
             if (EditorTools.selectedTool == EditorTools.TOOLS.WALL)
             {
                 mousePosition = SnapMouseToDrawingArea(mousePosition);
-                wallCreationManager.UpdateWall(wallHandler, mousePosition);
+                wallCreationManager.UpdateWall(mousePosition);
             }
         }
         else if (Input.GetMouseButtonUp(0))
@@ -45,7 +44,7 @@ public class MouseInputManager : MonoBehaviour
             if (EditorTools.selectedTool == EditorTools.TOOLS.WALL)
             {
                 mousePosition = SnapMouseToDrawingArea(mousePosition);
-                wallCreationManager.FinalizeWallCreation(wallHandler, mousePosition);
+                wallCreationManager.FinalizeWallCreation(mousePosition);
             }
         }
         else if (Input.GetMouseButtonDown(1))
