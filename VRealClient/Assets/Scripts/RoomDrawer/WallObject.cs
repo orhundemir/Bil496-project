@@ -10,10 +10,13 @@ public class WallObject : MonoBehaviour
     private GameObject wall, hinge1, hinge2;
     public Material hingeMaterial, hingeHoverMaterial;
 
-    public int wallWidth = 10, wallHeight = 1;
+    private float wallWidth = .6f, wallHeight = 0.1f;
+    private float hingeWidth, hingeScaleFactor = 1.3f;
 
     private void Awake()
     {
+        hingeWidth = wallWidth * hingeScaleFactor;
+
         wall = transform.GetChild(0).GetChild(0).gameObject;
         hinge1 = transform.GetChild(1).gameObject;
         hinge2 = transform.GetChild(2).gameObject;
@@ -56,6 +59,9 @@ public class WallObject : MonoBehaviour
 
         hinge1.transform.position = start;
         hinge2.transform.position = start + direction * distance;
+
+        hinge1.transform.localScale = new Vector3(hingeWidth, wallHeight, hingeWidth);
+        hinge2.transform.localScale = new Vector3(hingeWidth, wallHeight, hingeWidth);
     }
 
     public void ChangeWallMaterialToTransparent()
@@ -78,12 +84,12 @@ public class WallObject : MonoBehaviour
         wallMaterial = material;
     }
 
-    public int GetWidth()
+    public float GetWidth()
     {
         return wallWidth;
     }
 
-    public int GetHeight()
+    public float GetHeight()
     {
         return wallHeight;
     }

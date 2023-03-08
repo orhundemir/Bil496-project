@@ -22,7 +22,7 @@ public class WallUIManager : MonoBehaviour
     {
         if (angle < 0)
             angle += 360;
-        wallAngleText.text = angle + " " + (char) 176;
+        wallAngleText.text = angle + "" + (char) 176;
     }
 
     public void SetLengthValue(double length, int roundDigits)

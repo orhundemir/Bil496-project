@@ -10,7 +10,9 @@ public class WallCreationManager : MonoBehaviour
     private bool isDrawing = false;
 
     public GameObject wallPrefab;
-    public float lenghRatio = 1;
+
+    // Defines the scale/meter ratio
+    private float lenghRatio = 2f;
 
     // Initialize the wall creation process at the given mouse position
     public void StartWallCreation(Vector3 mousePosition)
@@ -24,7 +26,7 @@ public class WallCreationManager : MonoBehaviour
         previewWall = wall.GetComponent<WallObject>();
         previewWall.ChangeWallMaterialToTransparent();
 
-        uiManager.SetCanvasPosition(clickPosition + new Vector3(0, 1f, 15f));
+        uiManager.SetCanvasPosition(clickPosition + new Vector3(0, 1f, 1f));
         uiManager.SetActive(true);
     }
 
@@ -72,33 +74,25 @@ public class WallCreationManager : MonoBehaviour
     {
         Vector3 direction = end - start;
         float distance = direction.magnitude;
+        direction.Normalize();
 
-        centerPosition = new Vector3();
-        wallAngle = 0;
-        wallLength = 0;
-
-        if (distance > 0)
+        // Round the angle of rotation to the nearest integer and rotate the wall object accordingly
+        Quaternion rotation = Quaternion.LookRotation(direction);
+        int angle = Mathf.RoundToInt(rotation.eulerAngles.y);
+        if (limitAngles)
         {
-            direction.Normalize();
-
-            // Round the angle of rotation to the nearest integer and rotate the wall object accordingly
-            Quaternion rotation = Quaternion.LookRotation(direction);
-            int angle = Mathf.RoundToInt(rotation.eulerAngles.y);
-            if (limitAngles)
-            {
-                rotation.eulerAngles = new Vector3(0, angle, 0);
-                direction = Quaternion.Euler(0, -90, 0) * rotation * Vector3.right;
-            }
-            wallObject.transform.rotation = rotation;
-
-            Vector3 scale = new Vector3(wallObject.GetWidth(), wallObject.GetHeight(), distance);
-            wallObject.transform.GetChild(0).localScale = scale;
-
-            // Calculate the output values, they will be passed into WallUIManager later
-            wallAngle = angle - 90;
-            centerPosition = start + (direction * distance) / 2 + new Vector3(0, 0.5f, 0);
-            wallLength = wallObject.transform.GetChild(0).localScale.z / lenghRatio;
+            rotation.eulerAngles = new Vector3(0, angle, 0);
+            direction = Quaternion.Euler(0, -90, 0) * rotation * Vector3.right;
         }
+        wallObject.transform.rotation = rotation;
+
+        Vector3 scale = new Vector3(wallObject.GetWidth(), wallObject.GetHeight(), distance);
+        wallObject.transform.GetChild(0).localScale = scale;
+
+        // Calculate the output values, they will be passed into WallUIManager later
+        wallAngle = angle - 90;
+        centerPosition = start + (direction * distance) / 2f + new Vector3(0, 0.5f, 0);
+        wallLength = wallObject.transform.GetChild(0).localScale.z / lenghRatio;
     }
 
     // If the given position is contained inside a hinge, this method moves the position to the hinge's center
