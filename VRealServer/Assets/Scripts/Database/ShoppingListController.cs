@@ -9,7 +9,6 @@ public class ShoppingListController{
         string query = "INSERT INTO SHOPPING_LIST (user_id, model_id) VALUES ("+shoppingList.user_id+","+shoppingList.model_id+")";
         command.CommandText = query;
         command.ExecuteNonQuery();
-        ConnectionManager.closeConnection(conn);
         return true;
     }
     public ShoppingList selectShoppingList(NpgsqlConnection conn, int id){//Returning shopping list with given id
@@ -23,7 +22,6 @@ public class ShoppingListController{
             shoppingList.user_id = int.Parse(JsonConvert.SerializeObject(reader.GetValue(1)));
             shoppingList.model_id = int.Parse((JsonConvert.SerializeObject(reader.GetValue(2))));
         }
-        ConnectionManager.closeConnection(conn);
         return shoppingList;
     }
     public List<ShoppingList> selectUSerShoppingLists(NpgsqlConnection conn, User user){//Selecting a users shopping lists in database

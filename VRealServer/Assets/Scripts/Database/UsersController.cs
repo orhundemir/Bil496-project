@@ -6,7 +6,6 @@ public class UsersController{
         string query = "INSERT INTO USERS (e_mail) VALUES ('"+user.e_mail+"')";
         command.CommandText = query;
         command.ExecuteNonQuery();
-        ConnectionManager.closeConnection(conn);
         return true;
     }
     public User selectUser(NpgsqlConnection conn, string e_mail){//Returns user with given e_mail usefull for checking existance of user in database e.g. login
@@ -18,7 +17,6 @@ public class UsersController{
         while (reader.Read()){
              user.e_mail = JsonConvert.SerializeObject(reader.GetValue(0));
         }
-        ConnectionManager.closeConnection(conn);
         return user;
     }
     public User selectUser(NpgsqlConnection conn, int id){//Returns user with given id usefull for geting user from relational tables
@@ -30,7 +28,6 @@ public class UsersController{
         while (reader.Read()){
              user.e_mail = JsonConvert.SerializeObject(reader.GetValue(0));
         }
-        ConnectionManager.closeConnection(conn);
         return user;
     }
 }

@@ -6,7 +6,6 @@ public class ModelController{
         string query = "INSERT INTO MODEL (modelUrl, name, price, stock) VALUES ('"+model.model+"','"+model.name+"',"+model.price+","+model.stock+")";
         command.CommandText = query;
         command.ExecuteNonQuery();
-        ConnectionManager.closeConnection(conn);
         return true;
     }
     public Model selectModel(NpgsqlConnection conn, int id){//Returning model with given id usefull for getting model from relational tables
@@ -22,7 +21,6 @@ public class ModelController{
             model.price = float.Parse(JsonConvert.SerializeObject(reader.GetValue(3)));
             model.stock = int.Parse(JsonConvert.SerializeObject(reader.GetValue(4)));
         }
-        ConnectionManager.closeConnection(conn);
         return model;
     }
 }

@@ -8,7 +8,6 @@ public class RoomUserController{
         string query = "INSERT INTO ROOM_USERS (user_id, scene_id) VALUES ("+roomUser.user_id+","+roomUser.scene_id+")";
         command.CommandText = query;
         command.ExecuteNonQuery();
-        ConnectionManager.closeConnection(conn);
         return true;
     }
     public List<RoomUser> selectRoomsUser(NpgsqlConnection conn, Room room){//Selecting users from database which can access gien room

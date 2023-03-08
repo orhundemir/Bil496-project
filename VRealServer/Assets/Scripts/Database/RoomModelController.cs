@@ -9,7 +9,6 @@ public class RoomModelController{
         string query = "INSERT INTO ROOM_MODEL (scene_id, model_id, x, y, z) VALUES ("+roomModel.scene_id+","+roomModel.model_id+","+roomModel.x+","+roomModel.y+","+roomModel.z+")";
         command.CommandText = query;
         command.ExecuteNonQuery();
-        ConnectionManager.closeConnection(conn);
         return true;
     }
     public List<RoomModel> selectRoomsModels(NpgsqlConnection conn, Room room){//Selecting a users room model in database

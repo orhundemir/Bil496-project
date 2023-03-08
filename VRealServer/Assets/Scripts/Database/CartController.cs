@@ -9,7 +9,6 @@ public class CartController{
         string query = "INSERT INTO CART (user_id, shoppingList_id) VALUES ("+cart.user_id+","+cart.shoppingList_id+")";
         command.CommandText = query;
         command.ExecuteNonQuery();
-        ConnectionManager.closeConnection(conn);
         return true;
     }
     public Cart selectCart(NpgsqlConnection conn, int id){//Returning cart with given id
@@ -23,7 +22,6 @@ public class CartController{
             cart.user_id = int.Parse(JsonConvert.SerializeObject(reader.GetValue(1)));
             cart.shoppingList_id = int.Parse((JsonConvert.SerializeObject(reader.GetValue(2))));
         }
-        ConnectionManager.closeConnection(conn);
         return cart;
     }
     public List<Cart> selectUSerCarts(NpgsqlConnection conn, User user){//Selecting a users constructed cart in database

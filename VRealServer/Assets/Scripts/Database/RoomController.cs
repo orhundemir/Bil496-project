@@ -7,7 +7,6 @@ public class RoomController{
         string query = "INSERT INTO Rooms (name) VALUES ('"+room.name+"')";
         command.CommandText = query;
         command.ExecuteNonQuery();
-        ConnectionManager.closeConnection(conn);
         return true;
     }
     public Room selectRoom(NpgsqlConnection conn, int id){//Returning room with given id usefull for getting room from relational tables
@@ -20,7 +19,6 @@ public class RoomController{
             room.id  = int.Parse(JsonConvert.SerializeObject(reader.GetValue(0)));
             room.name = JsonConvert.SerializeObject(reader.GetValue(1));
         }
-        ConnectionManager.closeConnection(conn);
         return room;
     }
     //Name won't be unique so getting room from names will be manually done by user from relational tables
