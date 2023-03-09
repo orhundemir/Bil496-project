@@ -6,8 +6,8 @@ using Npgsql;
 public class DBManager : MonoBehaviour
 {
     private static DBManager _singleton;
+     private static NpgsqlConnection conn;
 
-    private NpgsqlConnection conn;
     public static DBManager Singleton
     {
         get => _singleton;
@@ -28,29 +28,44 @@ public class DBManager : MonoBehaviour
     {
         Singleton = this;
     }
-    //Public NpgsqlConnextion object set within the parameters inside the ConnectionManager class
-    public void setConnection(){
+    //Public NpgsqlConnection object set within the parameters inside the ConnectionManager class
+    private void setConnection(){
         conn = ConnectionManager.getConnection();
         openConnection();
     }
     //Returns NpgsqlConnection object
-    public NpgsqlConnection getConnection(){
+    public static NpgsqlConnection getConnection(){
         return conn;
     }
     //Opens connection to the database
     public void openConnection(){
         conn.Open();
     }
-    //Closes connection to the database too many idle connections can and will crash server
+    //Closes connection to the database
     public void closeConnection(){
         conn.Close();
+    }
+
+    public static User checkUser(User user){
+        UsersController uc = new UsersController();
+        User temp = uc.selectUser(conn, user.e_mail);
+        if(temp.e_mail == null){
+            Debug.Log("User: "+user.e_mail+" not exist adding new user to database");
+            uc.insertUser(conn, user);
+            temp = checkUser(temp);
+        }
+        else {
+            Debug.Log("Logged in as: "+user.e_mail);
+        }
+        return temp;
     }
     public Dictionary<ushort, Player> playerList { get; private set; }
 
     private void Start()
     {
         playerList = new Dictionary<ushort, Player>();
-        
+        setConnection();
+
     }
     
 

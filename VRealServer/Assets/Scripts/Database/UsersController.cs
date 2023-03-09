@@ -11,22 +11,24 @@ public class UsersController{
     public User selectUser(NpgsqlConnection conn, string e_mail){//Returns user with given e_mail usefull for checking existance of user in database e.g. login
         User user = new User();
         NpgsqlCommand command = conn.CreateCommand();
-        string query = "SELECT e_mail FROM USERS WHERE e_mail = '"+e_mail+"'";
+        string query = "SELECT e_mail, id FROM USERS WHERE e_mail = '"+e_mail+"'";
         command.CommandText = query;
         NpgsqlDataReader reader = command.ExecuteReader();
         while (reader.Read()){
              user.e_mail = JsonConvert.SerializeObject(reader.GetValue(0));
+             user.id = int.Parse(JsonConvert.SerializeObject(reader.GetValue(1)));
         }
         return user;
     }
     public User selectUser(NpgsqlConnection conn, int id){//Returns user with given id usefull for geting user from relational tables
         User user = new User();
         NpgsqlCommand command = conn.CreateCommand();
-        string query = "SELECT e_mail FROM USERS WHERE id = "+id;
+        string query = "SELECT e_mail, id FROM USERS WHERE e_mail = '"+id+"'";
         command.CommandText = query;
         NpgsqlDataReader reader = command.ExecuteReader();
         while (reader.Read()){
              user.e_mail = JsonConvert.SerializeObject(reader.GetValue(0));
+             user.id = int.Parse(JsonConvert.SerializeObject(reader.GetValue(1)));
         }
         return user;
     }
