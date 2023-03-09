@@ -74,6 +74,10 @@ public class MouseInputManager : MonoBehaviour
                 windowCreationManager.UpdateWindow(mousePosition);
             }
         }
+        else if (windowCreationManager.WindowObjectExists())
+        {
+            windowCreationManager.ResetWindow();
+        }
     }
 
     private Vector3 GetMouseWorldPosition()

@@ -52,7 +52,18 @@ public class WindowCreationManager : MonoBehaviour
 
     public void PlaceWindow(Vector3 mousePosition)
     {
+        GameObject wall = GetObjectByTagOnRaycastHit(Input.mousePosition, "Wall");
+        if (wall != null)
+        {
+            windowObject.ChangeMaterialToWindow();
+            windowObject = null;
+        }
+    }
 
+    public void ResetWindow()
+    {
+        Destroy(windowObject.gameObject);
+        windowObject = null;
     }
 
     private GameObject CreateWindow(Vector3 position)
