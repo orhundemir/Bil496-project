@@ -17,7 +17,6 @@ public class WindowCreationManager : MonoBehaviour
         windowObject.ChangeMaterialToInvalid();
 
         window.transform.localScale = new Vector3(.6f, 0.1f, windowObject.GetLength());
-
     }
 
     public void UpdateWindow(Vector3 mousePosition)
@@ -26,16 +25,28 @@ public class WindowCreationManager : MonoBehaviour
 
         if (wall == null)
         {
-            windowObject.transform.position = new Vector3(mousePosition.x, 0f, mousePosition.z);
+            windowObject.ChangeMaterialToInvalid();
+
             windowObject.transform.rotation = Quaternion.Euler(0, 90f, 0);
+            windowObject.transform.position = new Vector3(mousePosition.x, 0f, mousePosition.z);
+
+            windowObject.transform.SetParent(transform);
         }
         else
         {
+            windowObject.ChangeMaterialToValid();
+
+            WallObject wallObject = wall.transform.parent.parent.GetComponent<WallObject>();
+            Vector3 wallStartPosition = wallObject.hinge1.transform.position;
+            Vector3 wallEndPosition = wallObject.hinge2.transform.position;
+
+            Vector3 wallVector = wallEndPosition - wallStartPosition;
+            Vector3 mouseVector = mousePosition - wallStartPosition;
+            Vector3 projection = Vector3.Project(mouseVector, wallVector);
+
+            windowObject.transform.SetParent(wall.transform.parent.parent);
+            windowObject.transform.position = wallStartPosition + projection + new Vector3(0, 0.05f, 0);
             windowObject.transform.rotation = wall.transform.rotation;
-            windowObject.transform.position = new Vector3(mousePosition.x, 0f, mousePosition.z);
-            //windowObject.transform.position = wall.transform.position * -0.5f;
-            //float projection = Vector3.Dot(mouseDirection, wallDirection);
-            //Vector3 wallCenterPoint = wallStart + wallDirection * projection; ;
         }
     }
 
@@ -46,7 +57,7 @@ public class WindowCreationManager : MonoBehaviour
 
     private GameObject CreateWindow(Vector3 position)
     {
-        return Instantiate(windowPrefab, position, Quaternion.Euler(0, 90f, 0));
+        return Instantiate(windowPrefab, position, Quaternion.Euler(0, 90f, 0), transform);
     }
 
     private GameObject GetObjectByTagOnRaycastHit(Vector3 position, string tag)

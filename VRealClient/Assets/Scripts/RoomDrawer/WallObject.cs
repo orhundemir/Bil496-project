@@ -7,7 +7,10 @@ public class WallObject : MonoBehaviour
 
     public Material wallMaterial, previewMaterial, selectedMaterial;
 
-    private GameObject wall, hinge1, hinge2;
+    private GameObject wall;
+    public GameObject hinge1 { get; private set;  }
+    public GameObject hinge2 { get; private set; }
+
     public Material hingeMaterial, hingeHoverMaterial;
 
     private float wallWidth = .6f, wallHeight = 0.1f;

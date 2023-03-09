@@ -12,7 +12,7 @@ public class WindowObject : MonoBehaviour
 
     private void Awake()
     {
-        window = transform.GetChild(0).GetChild(0).gameObject;
+        window = transform.GetChild(0).gameObject;
     }
 
     public void ChangeMaterialToWindow()
