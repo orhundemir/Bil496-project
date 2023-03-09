@@ -9,6 +9,7 @@ public class MouseInputManager : MonoBehaviour
 
     public WallCreationManager wallCreationManager;
     public WallSelectionManager wallSelectionManager;
+    public WindowCreationManager windowCreationManager;
 
     void Start()
     {
@@ -24,13 +25,17 @@ public class MouseInputManager : MonoBehaviour
     {
         Vector3 mousePosition = GetMouseWorldPosition();
 
+        // Left mouse pressed
         if (Input.GetMouseButtonDown(0) && IsPositionValid(mousePosition))
         {
             if (EditorTools.selectedTool == EditorTools.TOOLS.SELECTOR)
                 wallSelectionManager.HandleWallSelection();
             else if (EditorTools.selectedTool == EditorTools.TOOLS.WALL)
                 wallCreationManager.StartWallCreation(mousePosition);
+            else if (EditorTools.selectedTool == EditorTools.TOOLS.WINDOW)
+                windowCreationManager.PlaceWindow(mousePosition);
         }
+        // Left mouse dragged
         else if (Input.GetMouseButton(0))
         {
             if (EditorTools.selectedTool == EditorTools.TOOLS.WALL)
@@ -39,6 +44,7 @@ public class MouseInputManager : MonoBehaviour
                 wallCreationManager.UpdateWall(mousePosition);
             }
         }
+        // Left mouse released
         else if (Input.GetMouseButtonUp(0))
         {
             if (EditorTools.selectedTool == EditorTools.TOOLS.WALL)
@@ -47,11 +53,25 @@ public class MouseInputManager : MonoBehaviour
                 wallCreationManager.FinalizeWallCreation(mousePosition);
             }
         }
+        // Right mouse pressed
         else if (Input.GetMouseButtonDown(1))
         {
             if (EditorTools.selectedTool == EditorTools.TOOLS.SELECTOR)
             {
                 wallSelectionManager.RemoveSelectedWalls();
+            }
+        }
+
+        if (EditorTools.selectedTool == EditorTools.TOOLS.WINDOW)
+        {
+            if (!windowCreationManager.WindowObjectExists())
+            {
+                windowCreationManager.StartWindowCreation(mousePosition);
+            }
+            else
+            {
+                mousePosition = SnapMouseToDrawingArea(mousePosition);
+                windowCreationManager.UpdateWindow(mousePosition);
             }
         }
     }

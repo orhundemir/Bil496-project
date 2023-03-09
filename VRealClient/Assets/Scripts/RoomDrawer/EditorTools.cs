@@ -14,6 +14,31 @@ public class EditorTools : MonoBehaviour
     }
     public static TOOLS selectedTool = TOOLS.WALL;
 
+    // Onclick methods for the tools menu
+    public void SelectSelectorTool()
+    {
+        Debug.Log("SELECTOR");
+        selectedTool = TOOLS.SELECTOR;
+    }
+
+    public void SelectWallTool()
+    {
+        Debug.Log("WALL");
+        selectedTool = TOOLS.WALL;
+    }
+
+    public void SelectDoorTool()
+    {
+        Debug.Log("DOOR");
+        selectedTool = TOOLS.DOOR;
+    }
+
+    public void SelectWindowTool()
+    {
+        Debug.Log("WINDOW");
+        selectedTool = TOOLS.WINDOW;
+    }
+
     // All code below this line is temporary, only for testing purposes
     private void Update()
     {
@@ -24,23 +49,19 @@ public class EditorTools : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            selectedTool = TOOLS.SELECTOR;
-            Debug.Log("SELECTOR");
+            SelectSelectorTool();
         }
         else if (Input.GetKey(KeyCode.Alpha2))
         {
-            selectedTool = TOOLS.WALL;
-            Debug.Log("WALL");
+            SelectWallTool();
         }
         else if (Input.GetKeyUp(KeyCode.Alpha3))
         {
-            selectedTool = TOOLS.WINDOW;
-            Debug.Log("WINDOW");
+            SelectWindowTool();
         }
         else if (Input.GetKeyUp(KeyCode.Alpha4))
         {
-            selectedTool = TOOLS.DOOR;
-            Debug.Log("DOOR");
+            SelectDoorTool();
         }
     }
 

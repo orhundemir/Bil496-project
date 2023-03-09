@@ -253,7 +253,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5579352485947770564}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.675437, y: -0.25, z: -18.74983}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -280,8 +280,6 @@ MonoBehaviour:
   selectedMaterial: {fileID: 2100000, guid: 96a88a8cfc7c5434c9464c6f2fae7c68, type: 2}
   hingeMaterial: {fileID: 2100000, guid: f8267ea7bef561a4099ad7fccdd4dfa3, type: 2}
   hingeHoverMaterial: {fileID: 2100000, guid: 9b28787f1dad1554a92e16554b769e80, type: 2}
-  wallWidth: 10
-  wallHeight: 1
 --- !u!1 &9195360045430512955
 GameObject:
   m_ObjectHideFlags: 0
