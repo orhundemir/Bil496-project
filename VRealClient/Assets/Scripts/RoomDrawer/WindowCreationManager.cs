@@ -23,7 +23,7 @@ public class WindowCreationManager : MonoBehaviour
         switch (currentState)
         {
             case WindowCreationState.None:
-                // Create a new window instance if it does not exist
+                // Create a new window instance if it does not exist and switch to the Invalid state by default
                 if (windowObject == null)
                 {
                     CreateWindow(mousePosition);
@@ -46,7 +46,7 @@ public class WindowCreationManager : MonoBehaviour
                 break;
 
             case WindowCreationState.Valid:
-                // Return to the Invalid state if the mouse is not hovering over a wall
+                // If the mouse is not hovering over a wall, return to the Invalid state
                 if (wallAtMousePosition == null)
                 {
                     currentState = WindowCreationState.Invalid;
@@ -62,7 +62,7 @@ public class WindowCreationManager : MonoBehaviour
         }
     }
 
-    // Create a new window instance at the given position and switch to the invalid state as default
+    // Create a new window instance at the given position and switch to the Invalid state as default
     private void CreateWindow(Vector3 position)
     {
         GameObject window = Instantiate(windowPrefab, position, Quaternion.Euler(0, 90f, 0), transform);
@@ -72,7 +72,8 @@ public class WindowCreationManager : MonoBehaviour
         windowObject.ChangeMaterialToInvalid();
     }
 
-    // Move the window towards the given position, this is being used to make the window follow the mouse
+    // Move the window towards the given position
+    // This is being used to make the window follow the mouse during the Invalid state
     private void MoveWindow(Vector3 position)
     {
         windowObject.transform.rotation = Quaternion.Euler(0, 90f, 0);
@@ -109,6 +110,8 @@ public class WindowCreationManager : MonoBehaviour
         float wallLength = wallVector.magnitude;
         float windowLength = windowObject.transform.localScale.z;
 
+        // Clamp the projection position to be inside the wall
+        // Takes the window's length into account to prevent it from overflowing out of the wall
         if (projectionLength + windowLength / 2f > wallLength)
             projection = wallVector.normalized * (wallLength - windowLength / 2f);
         else if (projectionLength - windowLength / 2f < 0f)
@@ -117,7 +120,7 @@ public class WindowCreationManager : MonoBehaviour
         return projection;
     }
 
-    // If the window is in a valid state, finalize it's creation process
+    // If the window is in the Valid state, place it on the wall that is currently being hovered and stop updating said window
     public void TryToPlaceWindow()
     {
         if (currentState == WindowCreationState.Valid)
@@ -129,7 +132,7 @@ public class WindowCreationManager : MonoBehaviour
         }
     }
 
-    // Delete the window object and return back to the None state
+    // Delete the current window object and return back to the None state
     public void ResetWindow()
     {
         if (currentState != WindowCreationState.None)
