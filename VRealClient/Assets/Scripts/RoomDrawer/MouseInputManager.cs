@@ -33,7 +33,7 @@ public class MouseInputManager : MonoBehaviour
             else if (EditorTools.selectedTool == EditorTools.TOOLS.WALL)
                 wallCreationManager.StartWallCreation(mousePosition);
             else if (EditorTools.selectedTool == EditorTools.TOOLS.WINDOW)
-                windowCreationManager.PlaceWindow(mousePosition);
+                windowCreationManager.TryToPlaceWindow();
         }
         // Left mouse dragged
         else if (Input.GetMouseButton(0))
@@ -63,21 +63,9 @@ public class MouseInputManager : MonoBehaviour
         }
 
         if (EditorTools.selectedTool == EditorTools.TOOLS.WINDOW)
-        {
-            if (!windowCreationManager.WindowObjectExists())
-            {
-                windowCreationManager.StartWindowCreation(mousePosition);
-            }
-            else
-            {
-                mousePosition = SnapMouseToDrawingArea(mousePosition);
-                windowCreationManager.UpdateWindow(mousePosition);
-            }
-        }
-        else if (windowCreationManager.WindowObjectExists())
-        {
+            windowCreationManager.HandleWindowCreation(mousePosition);
+        else
             windowCreationManager.ResetWindow();
-        }
     }
 
     private Vector3 GetMouseWorldPosition()
