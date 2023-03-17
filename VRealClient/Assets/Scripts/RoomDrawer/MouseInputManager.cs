@@ -9,7 +9,7 @@ public class MouseInputManager : MonoBehaviour
 
     public WallCreationManager wallCreationManager;
     public WallSelectionManager wallSelectionManager;
-    public WindowCreationManager windowCreationManager;
+    public AddOnCreationManager addOnCreationManager;
 
     void Start()
     {
@@ -32,8 +32,8 @@ public class MouseInputManager : MonoBehaviour
                 wallSelectionManager.HandleWallSelection();
             else if (EditorTools.selectedTool == EditorTools.TOOLS.WALL)
                 wallCreationManager.StartWallCreation(mousePosition);
-            else if (EditorTools.selectedTool == EditorTools.TOOLS.WINDOW)
-                windowCreationManager.TryToPlaceWindow();
+            else if (EditorTools.selectedTool == EditorTools.TOOLS.WINDOW || EditorTools.selectedTool == EditorTools.TOOLS.DOOR)
+                addOnCreationManager.TryToPlaceAddOn();
         }
         // Left mouse dragged
         else if (Input.GetMouseButton(0))
@@ -63,9 +63,11 @@ public class MouseInputManager : MonoBehaviour
         }
 
         if (EditorTools.selectedTool == EditorTools.TOOLS.WINDOW)
-            windowCreationManager.HandleWindowCreation(mousePosition);
+            addOnCreationManager.HandleAddOnCreation(mousePosition, AddOnCreationManager.AddOnType.Window);
+        else if (EditorTools.selectedTool == EditorTools.TOOLS.DOOR)
+            addOnCreationManager.HandleAddOnCreation(mousePosition, AddOnCreationManager.AddOnType.Door);
         else
-            windowCreationManager.ResetWindow();
+            addOnCreationManager.ResetAddOn();
     }
 
     private Vector3 GetMouseWorldPosition()

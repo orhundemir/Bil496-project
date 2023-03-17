@@ -3337,7 +3337,7 @@ MonoBehaviour:
   drawingArea: {fileID: 792274059}
   wallCreationManager: {fileID: 1263109551}
   wallSelectionManager: {fileID: 1263109555}
-  windowCreationManager: {fileID: 1263109556}
+  addOnCreationManager: {fileID: 1263109556}
 --- !u!114 &1263109553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3386,10 +3386,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1263109547}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31b1d89bee0d7a24dbcf9c34ef9ac28c, type: 3}
+  m_Script: {fileID: 11500000, guid: 45fed8776fe65af46b53b199e35996f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   windowPrefab: {fileID: 2398018009478990487, guid: 1e663a3aa04656442a09d08f99bd3cf1,
+    type: 3}
+  doorPrefab: {fileID: 2398018009478990487, guid: 9d41e201df6ded54bb458d5359164365,
     type: 3}
 --- !u!1 &1370070356
 GameObject:
