@@ -15,6 +15,7 @@ public class AddOnCreationManager : MonoBehaviour
         Window,
         Door
     }
+    private AddOnType currentObjectsType;
 
     private enum AddOnCreationState
     {
@@ -26,6 +27,14 @@ public class AddOnCreationManager : MonoBehaviour
 
     public void HandleAddOnCreation(Vector3 mousePosition, AddOnType addOnType)
     {
+        // This check is added to handle the case where the currently selected tool is switched between Window and Door
+        // The state machine has to be reset in this case to create a new prefab which matches the new tool
+        if (currentObjectsType != addOnType)
+        {
+            ResetAddOn();
+        }
+        currentObjectsType = addOnType;
+        
         GameObject wallAtMousePosition = GetObjectByTagOnRaycastHit(Input.mousePosition, "Wall");
 
         switch (currentState)

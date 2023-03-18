@@ -28,17 +28,17 @@ public class MouseInputManager : MonoBehaviour
         // Left mouse pressed
         if (Input.GetMouseButtonDown(0) && IsPositionValid(mousePosition))
         {
-            if (EditorTools.selectedTool == EditorTools.TOOLS.SELECTOR)
+            if (EditorTools.SelectedTool == EditorTools.Tool.Selector)
                 wallSelectionManager.HandleWallSelection();
-            else if (EditorTools.selectedTool == EditorTools.TOOLS.WALL)
+            else if (EditorTools.SelectedTool == EditorTools.Tool.Wall)
                 wallCreationManager.StartWallCreation(mousePosition);
-            else if (EditorTools.selectedTool == EditorTools.TOOLS.WINDOW || EditorTools.selectedTool == EditorTools.TOOLS.DOOR)
+            else if (EditorTools.SelectedTool == EditorTools.Tool.Window || EditorTools.SelectedTool == EditorTools.Tool.Door)
                 addOnCreationManager.TryToPlaceAddOn();
         }
         // Left mouse dragged
         else if (Input.GetMouseButton(0))
         {
-            if (EditorTools.selectedTool == EditorTools.TOOLS.WALL)
+            if (EditorTools.SelectedTool == EditorTools.Tool.Wall)
             {
                 mousePosition = SnapMouseToDrawingArea(mousePosition);
                 wallCreationManager.UpdateWall(mousePosition);
@@ -47,7 +47,7 @@ public class MouseInputManager : MonoBehaviour
         // Left mouse released
         else if (Input.GetMouseButtonUp(0))
         {
-            if (EditorTools.selectedTool == EditorTools.TOOLS.WALL)
+            if (EditorTools.SelectedTool == EditorTools.Tool.Wall)
             {
                 mousePosition = SnapMouseToDrawingArea(mousePosition);
                 wallCreationManager.FinalizeWallCreation(mousePosition);
@@ -56,15 +56,17 @@ public class MouseInputManager : MonoBehaviour
         // Right mouse pressed
         else if (Input.GetMouseButtonDown(1))
         {
-            if (EditorTools.selectedTool == EditorTools.TOOLS.SELECTOR)
+            if (EditorTools.SelectedTool == EditorTools.Tool.Selector)
             {
                 wallSelectionManager.RemoveSelectedWalls();
             }
         }
 
-        if (EditorTools.selectedTool == EditorTools.TOOLS.WINDOW)
+        // Run the state machine of the add-on depending on the selected tool
+        // Reset the add-on object when the currently selected Tool is changed
+        if (EditorTools.SelectedTool == EditorTools.Tool.Window)
             addOnCreationManager.HandleAddOnCreation(mousePosition, AddOnCreationManager.AddOnType.Window);
-        else if (EditorTools.selectedTool == EditorTools.TOOLS.DOOR)
+        else if (EditorTools.SelectedTool == EditorTools.Tool.Door)
             addOnCreationManager.HandleAddOnCreation(mousePosition, AddOnCreationManager.AddOnType.Door);
         else
             addOnCreationManager.ResetAddOn();

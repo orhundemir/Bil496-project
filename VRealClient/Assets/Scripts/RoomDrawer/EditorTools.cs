@@ -5,64 +5,34 @@ using UnityEngine;
 public class EditorTools : MonoBehaviour
 {
     
-    public enum TOOLS
+    public enum Tool
     {
-        SELECTOR,
-        WALL,
-        WINDOW,
-        DOOR
+        Selector,
+        Wall,
+        Window,
+        Door
     }
-    public static TOOLS selectedTool = TOOLS.WALL;
+    public static Tool SelectedTool { get; private set; } = Tool.Wall;
 
     // Onclick methods for the tools menu
     public void SelectSelectorTool()
     {
-        Debug.Log("SELECTOR");
-        selectedTool = TOOLS.SELECTOR;
+        SelectedTool = Tool.Selector;
     }
 
     public void SelectWallTool()
     {
-        Debug.Log("WALL");
-        selectedTool = TOOLS.WALL;
+        SelectedTool = Tool.Wall;
     }
 
     public void SelectDoorTool()
     {
-        Debug.Log("DOOR");
-        selectedTool = TOOLS.DOOR;
+        SelectedTool = Tool.Door;
     }
 
     public void SelectWindowTool()
     {
-        Debug.Log("WINDOW");
-        selectedTool = TOOLS.WINDOW;
-    }
-
-    // All code below this line is temporary, only for testing purposes
-    private void Update()
-    {
-        ChangeTools();
-    }
-
-    private void ChangeTools()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SelectSelectorTool();
-        }
-        else if (Input.GetKey(KeyCode.Alpha2))
-        {
-            SelectWallTool();
-        }
-        else if (Input.GetKeyUp(KeyCode.Alpha3))
-        {
-            SelectWindowTool();
-        }
-        else if (Input.GetKeyUp(KeyCode.Alpha4))
-        {
-            SelectDoorTool();
-        }
+        SelectedTool = Tool.Window;
     }
 
 }
