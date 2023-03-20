@@ -100,10 +100,8 @@ public class SaveLoadSampleScript : MonoBehaviour
                 gameDataList.Add(tempGameDataObject);
 
                 gameObjectList[i].transform.localPosition = new Vector3(posx, posy, posz);
-
-                //to not move continuously when consecutive load applied
-                gameObjectList[i].transform.localRotation = Quaternion.Euler(0, 0, 0);
-                gameObjectList[i].transform.Rotate(rotx, roty, rotz);
+                gameObjectList[i].transform.localRotation = Quaternion.Euler(rotx, roty, rotz);
+                gameObjectList[i].SetActive(isActive);
 
             }
             stream.Close();
