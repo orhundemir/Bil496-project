@@ -129,6 +129,8 @@ public class RoomUIManager : MonoBehaviour {
         ceiling.transform.localScale = ceilingScale;
 
         ceiling.name = "Ceiling";
+        Player.list[NetworkManager.Singleton.Client.Id].RoomCenter = roomCenter;
+        Player.list[NetworkManager.Singleton.Client.Id].Ceiling=ceiling;
         return ceiling;
     }
 
@@ -139,6 +141,7 @@ public class RoomUIManager : MonoBehaviour {
         floor.GetComponent<Renderer>().material = drawingArea.GetComponent<Renderer>().material;
 
         floor.name = "Floor";
+        Player.list[NetworkManager.Singleton.Client.Id].Floor = floor;
         return floor;
     }
 
