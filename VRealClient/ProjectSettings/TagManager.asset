@@ -8,6 +8,7 @@ TagManager:
   - Hinge
   - Window
   - Door
+  - RoomLight
   layers:
   - Default
   - TransparentFX

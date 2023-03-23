@@ -5,6 +5,7 @@ using System;
 
 public class Initiator : MonoBehaviour
 {
+    [SerializeField] private GameObject RoomLight;
     void Awake()
     {
         Player temp = Player.list[NetworkManager.Singleton.Client.Id];
@@ -15,6 +16,11 @@ public class Initiator : MonoBehaviour
         {
             player.SpawnWalls(go);
         }
-
+        
+        Instantiate(player.Ceiling);
+        Instantiate(player.Floor);
+        Vector3 lightPos = player.Ceiling.transform.position;
+        lightPos.y = 2.5f;
+        Instantiate(RoomLight,lightPos,Quaternion.identity);
     }
 }
