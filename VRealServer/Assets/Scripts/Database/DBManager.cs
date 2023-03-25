@@ -31,7 +31,6 @@ public class DBManager : MonoBehaviour
     //Public NpgsqlConnection object set within the parameters inside the ConnectionManager class
     private void setConnection(){
         conn = ConnectionManager.getConnection();
-        openConnection();
     }
     //Returns NpgsqlConnection object
     public static NpgsqlConnection getConnection(){

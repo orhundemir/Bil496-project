@@ -2,13 +2,16 @@ using Npgsql;
 using Newtonsoft.Json;
 public class ModelController{
     public bool insertModel(NpgsqlConnection conn, Model model){//Inserting given Model to database id will be determined by last model's id+1 in database
+        conn.Open();
         NpgsqlCommand command = conn.CreateCommand();
         string query = "INSERT INTO MODEL (modelUrl, name, price, stock) VALUES ('"+model.model+"','"+model.name+"',"+model.price+","+model.stock+")";
         command.CommandText = query;
         command.ExecuteNonQuery();
+        conn.Close();
         return true;
     }
     public Model selectModel(NpgsqlConnection conn, int id){//Returning model with given id usefull for getting model from relational tables
+        conn.Open();
         Model model = new Model();
         NpgsqlCommand command = conn.CreateCommand();
         string query = "SELECT * FROM MODEL WHERE id = "+id;
@@ -21,6 +24,7 @@ public class ModelController{
             model.price = float.Parse(JsonConvert.SerializeObject(reader.GetValue(3)));
             model.stock = int.Parse(JsonConvert.SerializeObject(reader.GetValue(4)));
         }
+        conn.Close();
         return model;
     }
 }
