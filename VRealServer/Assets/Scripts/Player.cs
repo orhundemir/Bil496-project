@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
 
 
 
-    //User servera baðlandýðý bilgisi gelince server tarafýnda (Guest) Player gameobject oluþturuluyor.
+    //User servera baï¿½landï¿½ï¿½ï¿½ bilgisi gelince server tarafï¿½nda (Guest) Player gameobject oluï¿½turuluyor.
     public static void Spawn(ushort id)
     {
         Player player = Instantiate(GameLogic.Singleton.PlayerPrefab, new Vector3(0f, 1f, 0f), Quaternion.identity).GetComponent<Player>();
@@ -28,8 +28,8 @@ public class Player : MonoBehaviour
         list.Add(id, player);
     }
 
-    //User google sign in baðlandýðý bilgisi gelince server tarafýnda daha önceden oluþan guest object update ediliyor.
-    //ve client'a kendi player objectini oluþtursun diye SendSpawn mesajýný yolluyor.
+    //User google sign in baï¿½landï¿½ï¿½ï¿½ bilgisi gelince server tarafï¿½nda daha ï¿½nceden oluï¿½an guest object update ediliyor.
+    //ve client'a kendi player objectini oluï¿½tursun diye SendSpawn mesajï¿½nï¿½ yolluyor.
     public static void Spawn(ushort id, string _email, string _nameAndSurname, string _uid)
     {
         foreach (Player player in list.Values)
@@ -42,8 +42,15 @@ public class Player : MonoBehaviour
                 player.NameAndSurname = _nameAndSurname;
                 player.Uid = _uid;
 
-                //player bilgileri çekilsin diye DBManager'a gönderiliyor.
+                //player bilgileri ï¿½ekilsin diye DBManager'a gï¿½nderiliyor.
                 DBManager.Singleton.playerList[id] = player;
+
+            
+                User user = new User(id, _email);
+
+                user = DBManager.checkUser(user);
+                user.name = _nameAndSurname;
+                
                 player.SendSpawned();
             }
         }
@@ -56,25 +63,25 @@ public class Player : MonoBehaviour
         }
         else
         {
-            Debug.Log("Guest Player " + id + "' in Server'a baðlanma giriþimi baþarýsýz oldu.");
+            Debug.Log("Guest Player " + id + "' in Server'a baï¿½lanma giriï¿½imi baï¿½arï¿½sï¿½z oldu.");
         }
     }
 
 
 
-    //Client email bilgisini gönderdiði zaman log gösteriliyor ve tutulan liste gelen client bilgileri güncelleniyor.
+    //Client email bilgisini gï¿½nderdiï¿½i zaman log gï¿½steriliyor ve tutulan liste gelen client bilgileri gï¿½ncelleniyor.
     public static void ShowEmailLog(ushort id, string _email)
     {
         Debug.Log("Email is: " + _email);
         list.GetValueOrDefault(id).Email = _email;
     }
-    //Client isim bilgisini gönderdiði zaman log gösteriliyor ve tutulan liste gelen client bilgileri güncelleniyor.
+    //Client isim bilgisini gï¿½nderdiï¿½i zaman log gï¿½steriliyor ve tutulan liste gelen client bilgileri gï¿½ncelleniyor.
     public static void ShowNameSurnameLog(ushort id, string _nameSurname)
     {
         Debug.Log("Name and Surname: " + _nameSurname);
         list.GetValueOrDefault(id).NameAndSurname = _nameSurname;
     }
-    //Client uid bilgisini gönderdiði zaman log gösteriliyor ve tutulan liste gelen client bilgileri güncelleniyor.
+    //Client uid bilgisini gï¿½nderdiï¿½i zaman log gï¿½steriliyor ve tutulan liste gelen client bilgileri gï¿½ncelleniyor.
     public static void ShowGoogleUidLog(ushort id, string _uid)
     {
         Debug.Log("UID is: " + _uid);
