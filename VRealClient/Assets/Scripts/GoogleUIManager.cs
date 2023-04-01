@@ -1,9 +1,10 @@
 ﻿using RiptideNetworking;
+using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GoogleUIManager : MonoBehaviour
-{
+{ 
     private static GoogleUIManager _singleton;
     public static GoogleUIManager Singleton
     {
@@ -21,9 +22,8 @@ public class GoogleUIManager : MonoBehaviour
     }
 
     [Header("ConnectGoogle")]
-    [SerializeField] private GameObject googleUI;
-    [SerializeField] private InputField usernameField; //FIX ME: Google Api entegrasyonuna bağlı olarak ihtiyac olmayabilir.
-    [SerializeField] private InputField passwordField; //FIX ME: Google Api entegrasyonuna bağlı olarak ihtiyac olmayabilir.
+      [SerializeField] private GameObject googleUI;
+      [SerializeField] private GameObject ConnectionTimeOutText;
 
     private void Awake()
     {
@@ -32,33 +32,39 @@ public class GoogleUIManager : MonoBehaviour
 
     public void GoogleConnectClicked()
     {
-        ConnectGoogle();
+        GoogleAuthenticator.GetAuthCode();
+        ConnectGoogleAsync();
     }
 
-
-    public void ConnectGoogle()
+    public async Task ConnectGoogleAsync()
     {
-        //TO DO Google Sign in burada yapılmalıdır.
-
-        //FIX ME authentication degiskene baglanmalidir ve parametreler Googledan gelen bilgiye göre düzenlenmelidir. 
-        if (true) 
+        float timer = 0;
+        while (!FirebaseAuthHandler.verified)
         {
-            usernameField.interactable = false;
-            passwordField.interactable = false;
-            googleUI.SetActive(false);
-
-            SendGoogleEmail("example@gmail.com");
-            SendGoogleNameSurname("Ali Veli Selami");
-            SendGoogleUID("asasd541654awdad_-97dwalsdj");
-
+            await Task.Delay(100); //100ms bekle
+            timer += Time.timeScale;
+            if(timer >= 300)
+            {
+                break;
+            }
         }
-        //ELSE
-            // usernameField.interactable = false;
-            // passwordField.interactable = false;
-            // googleUI.SetActive(false);
+
+        if (FirebaseAuthHandler.verified)
+        {
+            SendGoogleUID(FirebaseAuthHandler.userId);
+            SendGoogleEmail(FirebaseAuthHandler.email);
+            //SendGoogleNameSurname(FirebaseAuthHandler.name);
+            //Debug.Log(FirebaseAuthHandler.email);
+            googleUI.SetActive(false);
+            SceneManager.LoadScene("RoomDrawing");
+        }
+        else
+        {
+            ConnectionTimeOutText.SetActive(true);
+            googleUI.SetActive(true);
+            Debug.Log("Failed");
+        }
     }
-
-
 
     public void SendGoogleEmail(string _email)
     {
@@ -78,9 +84,4 @@ public class GoogleUIManager : MonoBehaviour
         message.AddString(_uid);
         NetworkManager.Singleton.Client.Send(message);
     }
-
-    
-
-
-
 }

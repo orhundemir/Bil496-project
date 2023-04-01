@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Connect")]
     [SerializeField] private GameObject connectUI;
+    [SerializeField] private GameObject ConnectionTimeOutText;
     [SerializeField] public GameObject googleUI;
 
     private void Awake()
@@ -35,6 +36,7 @@ public class UIManager : MonoBehaviour
     public void ConnectClicked()
     {
         connectUI.SetActive(false);
+        googleUI.SetActive(true);
         NetworkManager.Singleton.Connect();
     }
     public void SendConnect()
@@ -47,6 +49,7 @@ public class UIManager : MonoBehaviour
     public void BackToMain()
     {
         googleUI.SetActive(false);
+        ConnectionTimeOutText.SetActive(false);
         connectUI.SetActive(true);
     }
 }
