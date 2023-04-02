@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Wall
   - Hinge
+  - Window
+  - Door
+  - RoomLight
   layers:
   - Default
   - TransparentFX

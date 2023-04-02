@@ -12,6 +12,10 @@ public class Player : MonoBehaviour
     public string Email { get; private set; }
     public string Uid { get; private set; }
     public GameObject[] Walls { get; set; }
+    public GameObject Floor { get; set; }  
+    public GameObject Ceiling { get; set; }
+    public Vector3 RoomCenter { get; set; }
+
 
 
     private void OnDestroy()
@@ -40,14 +44,41 @@ public class Player : MonoBehaviour
         {
             player.Walls[i] = this.Walls[i];
         }
+        player.Floor = this.Floor;
+        player.Ceiling = this.Ceiling;
+        player.RoomCenter = this.RoomCenter;
         Player.list.Remove(Id);
         Player.list.Add(player.Id, player);
+    }
+
+    private static IEnumerator LoadYourAsyncScene(ushort id, string destinationScene)
+    {
+        // Set the current Scene to be able to unload it later
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        // The Application loads the Scene in the background at the same time as the current Scene.
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(destinationScene, LoadSceneMode.Additive);
+
+        // Wait until the last operation fully loads to return anything
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+
+        // Move the GameObject (you attach this in the Inspector) to the newly loaded Scene
+
+        SceneManager.MoveGameObjectToScene(list[id].gameObject, SceneManager.GetSceneByName(destinationScene));
+        SceneManager.MoveGameObjectToScene(NetworkManager.Singleton.gameObject, SceneManager.GetSceneByName(destinationScene));
+        // Unload the previous Scene
+        SceneManager.UnloadSceneAsync(currentScene);
     }
 
     // Client basarili þekilde Sign in oldu. Player spawn oluyor.
     // Þimdilik basit bir capsule oluþuyor ihtiyaca göre deðiþebilir.
     public static void Spawn(ushort id, string _email, string _uid, Vector3 position)
     {
+        position.x = -5.63f;
+        position.y = 0.8f;
         GameObject go = Instantiate(GameLogic.Singleton.LocalPlayerPrefab, position, Quaternion.identity);
         Player player  = go.GetComponent<Player>();
         player.name = _email;
@@ -74,29 +105,6 @@ public class Player : MonoBehaviour
     public static void MovePlayerToDestinationScene(ushort id, string destinationScene)
     {
         list[id].StartCoroutine(LoadYourAsyncScene(id, destinationScene));
-    }
-
-
-    private static IEnumerator LoadYourAsyncScene(ushort id, string destinationScene)
-    {
-        // Set the current Scene to be able to unload it later
-        Scene currentScene = SceneManager.GetActiveScene();
-
-        // The Application loads the Scene in the background at the same time as the current Scene.
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(destinationScene, LoadSceneMode.Additive);
-
-        // Wait until the last operation fully loads to return anything
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
-        }
-
-        // Move the GameObject (you attach this in the Inspector) to the newly loaded Scene
-        
-        SceneManager.MoveGameObjectToScene(list[id].gameObject, SceneManager.GetSceneByName(destinationScene));
-        SceneManager.MoveGameObjectToScene(NetworkManager.Singleton.gameObject, SceneManager.GetSceneByName(destinationScene));
-        // Unload the previous Scene
-        SceneManager.UnloadSceneAsync(currentScene);
     }
     #endregion
 }

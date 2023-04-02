@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 
 
 
-    //User servera bağlandığı bilgisi gelince server tarafında (Guest) Player gameobject oluşturuluyor.
+    //User servera baÃ°landÃ½Ã°Ã½ bilgisi gelince server tarafÃ½nda (Guest) Player gameobject oluÃ¾turuluyor.
     public static void Spawn(ushort id)
     {
         Player player = Instantiate(GameLogic.Singleton.PlayerPrefab, new Vector3(0f, 1f, 0f), Quaternion.identity).GetComponent<Player>();
@@ -27,8 +27,8 @@ public class Player : MonoBehaviour
         list.Add(id, player);
     }
 
-    //User google sign in bağlandığı bilgisi gelince server tarafında daha önceden oluşan guest object update ediliyor.
-    //ve client'a kendi player objectini oluştursun diye SendSpawn mesajını yolluyor.
+    //User google sign in baÃ°landÃ½Ã°Ã½ bilgisi gelince server tarafÃ½nda daha Ã¶nceden oluÃ¾an guest object update ediliyor.
+    //ve client'a kendi player objectini oluÃ¾tursun diye SendSpawn mesajÃ½nÃ½ yolluyor.
     public static void Spawn(ushort id, string _email, string _uid)
     {
         foreach (Player player in list.Values)
@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
                 player.Email = _email;
                 player.Uid = _uid;
 
-                //player bilgileri çekilsin diye DBManager'a gönderiliyor.
+                //player bilgileri Ã§ekilsin diye DBManager'a gÃ¶nderiliyor.
                 DBManager.Singleton.playerList[id] = player;
                 player.SendSpawned();
             }
@@ -54,27 +54,35 @@ public class Player : MonoBehaviour
         }
         else
         {
-            Debug.Log("Guest Player " + id + "' in Server'a bağlanma girişimi başarısız oldu.");
+            Debug.Log("Guest Player " + id + "' in Server'a baÃ°lanma giriÃ¾imi baÃ¾arÃ½sÃ½z oldu.");
         }
     }
 
 
 
-    //Client email bilgisini gönderdiği zaman log gösteriliyor ve tutulan liste gelen client bilgileri güncelleniyor.
+    //Client email bilgisini gÃ¶nderdiÃ°i zaman log gÃ¶steriliyor ve tutulan liste gelen client bilgileri gÃ¼ncelleniyor.
     public static void ShowEmailLog(ushort id, string _email)
     {
         Debug.Log("Email is: " + _email);
         list.GetValueOrDefault(id).Email = _email;
     }
     
-    //Client uid bilgisini gönderdiği zaman log gösteriliyor ve tutulan liste gelen client bilgileri güncelleniyor.
+    //Client uid bilgisini gÃ¶nderdiÃ°i zaman log gÃ¶steriliyor ve tutulan liste gelen client bilgileri gÃ¼ncelleniyor.
     public static void ShowGoogleUidLog(ushort id, string _uid)
     {
         Debug.Log("UID is: " + _uid);
         list.GetValueOrDefault(id).Uid = _uid;
     }
 
-
+    private Message AddSpawnData(Message message)
+    {
+        message.AddUShort(Id);
+        message.AddString(Email);
+        message.AddString(NameAndSurname);
+        message.AddString(Uid);
+        message.AddVector3(transform.position);
+        return message;
+    }
 
     #region Messages
     private void SendSpawned()
@@ -87,8 +95,6 @@ public class Player : MonoBehaviour
         NetworkManager.Singleton.Server.Send(AddSpawnData(Message.Create(MessageSendMode.reliable, ServerToClientId.playerSpawned)), toClientId);
     }
 
-   
-
     private Message AddSpawnData(Message message)
     {
         message.AddUShort(Id);
@@ -97,7 +103,6 @@ public class Player : MonoBehaviour
         message.AddVector3(transform.position);
         return message;
     }
-
 
     [MessageHandler((ushort)ClientToServerId.connect)]
     private static void Connect(ushort fromClientId, Message message)
