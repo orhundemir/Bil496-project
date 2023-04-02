@@ -43,7 +43,7 @@ public class GoogleUIManager : MonoBehaviour
         {
             await Task.Delay(100); //100ms bekle
             timer += Time.timeScale;
-            if(timer >= 300)
+            if(timer >= 120)
             {
                 break;
             }
@@ -51,18 +51,17 @@ public class GoogleUIManager : MonoBehaviour
 
         if (FirebaseAuthHandler.verified)
         {
-            SendGoogleUID(FirebaseAuthHandler.userId);
             SendGoogleEmail(FirebaseAuthHandler.email);
-            //SendGoogleNameSurname(FirebaseAuthHandler.name);
+            SendGoogleUID(FirebaseAuthHandler.userId);
             //Debug.Log(FirebaseAuthHandler.email);
             googleUI.SetActive(false);
-            SceneManager.LoadScene("RoomDrawing");
+            Player.MovePlayerToDestinationScene(NetworkManager.Singleton.Client.Id,"RoomDrawing");
         }
         else
         {
             ConnectionTimeOutText.SetActive(true);
             googleUI.SetActive(true);
-            Debug.Log("Failed");
+            Debug.Log("Google Sign In Failed");
         }
     }
 
@@ -72,12 +71,7 @@ public class GoogleUIManager : MonoBehaviour
         message.AddString(_email);
         NetworkManager.Singleton.Client.Send(message);
     }
-    public void SendGoogleNameSurname(string _nameSurname)
-    {
-        Message message = Message.Create(MessageSendMode.reliable, ClientToServerId.googleNameSurname);
-        message.AddString(_nameSurname);
-        NetworkManager.Singleton.Client.Send(message);
-    }
+  
     public void SendGoogleUID(string _uid)
     {
         Message message = Message.Create(MessageSendMode.reliable, ClientToServerId.googleUID);

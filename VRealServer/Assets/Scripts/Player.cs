@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
 
     public ushort Id { get; private set; }
     public string Email { get; private set; }
-    public string NameAndSurname { get; private set; }
     public string Uid { get; private set; }
 
 
@@ -30,7 +29,7 @@ public class Player : MonoBehaviour
 
     //User google sign in baðlandýðý bilgisi gelince server tarafýnda daha önceden oluþan guest object update ediliyor.
     //ve client'a kendi player objectini oluþtursun diye SendSpawn mesajýný yolluyor.
-    public static void Spawn(ushort id, string _email, string _nameAndSurname, string _uid)
+    public static void Spawn(ushort id, string _email, string _uid)
     {
         foreach (Player player in list.Values)
         {
@@ -39,7 +38,6 @@ public class Player : MonoBehaviour
                 player.name = $"Player {id} ({(string.IsNullOrEmpty(_email) ? "Guest" : _email)})";
                 player.Id = id;
                 player.Email = _email;
-                player.NameAndSurname = _nameAndSurname;
                 player.Uid = _uid;
 
                 //player bilgileri çekilsin diye DBManager'a gönderiliyor.
@@ -68,12 +66,7 @@ public class Player : MonoBehaviour
         Debug.Log("Email is: " + _email);
         list.GetValueOrDefault(id).Email = _email;
     }
-    //Client isim bilgisini gönderdiði zaman log gösteriliyor ve tutulan liste gelen client bilgileri güncelleniyor.
-    public static void ShowNameSurnameLog(ushort id, string _nameSurname)
-    {
-        Debug.Log("Name and Surname: " + _nameSurname);
-        list.GetValueOrDefault(id).NameAndSurname = _nameSurname;
-    }
+    
     //Client uid bilgisini gönderdiði zaman log gösteriliyor ve tutulan liste gelen client bilgileri güncelleniyor.
     public static void ShowGoogleUidLog(ushort id, string _uid)
     {
@@ -100,7 +93,6 @@ public class Player : MonoBehaviour
     {
         message.AddUShort(Id);
         message.AddString(Email);
-        message.AddString(NameAndSurname);
         message.AddString(Uid);
         message.AddVector3(transform.position);
         return message;
@@ -117,16 +109,12 @@ public class Player : MonoBehaviour
     {
         ShowEmailLog(fromClientId, message.GetString());
     }
-    [MessageHandler((ushort)ClientToServerId.googleNameSurname)]
-    private static void GoogleNameSurname(ushort fromClientId, Message message)
-    {
-        ShowNameSurnameLog(fromClientId, message.GetString());
-    }
+    
     [MessageHandler((ushort)ClientToServerId.googleUID)]
     private static void GoogleUID(ushort fromClientId, Message message)
     {
         ShowGoogleUidLog(fromClientId, message.GetString());
-        Spawn(fromClientId, list.GetValueOrDefault(fromClientId).Email, list.GetValueOrDefault(fromClientId).NameAndSurname, list.GetValueOrDefault(fromClientId).Uid);
+        Spawn(fromClientId, list.GetValueOrDefault(fromClientId).Email, list.GetValueOrDefault(fromClientId).Uid);
     }
 
     [MessageHandler((ushort)ClientToServerId.roomTemplate)]
