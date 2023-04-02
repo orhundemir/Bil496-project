@@ -13,7 +13,6 @@ public enum ClientToServerId : ushort
 {
     connect = 1,
     googleEmail,
-    googleNameSurname,
     googleUID,
     roomTemplate,
 }
