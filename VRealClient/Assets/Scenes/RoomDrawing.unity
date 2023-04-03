@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18339676, g: 0.22899793, b: 0.30605394, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1363,7 +1363,7 @@ GameObject:
   - component: {fileID: 391995221}
   - component: {fileID: 391995220}
   - component: {fileID: 391995224}
-  - component: {fileID: 391995223}
+  - component: {fileID: 391995225}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1437,18 +1437,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &391995223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 391995219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f759db60f0f6c9c439196ecad90a8611, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &391995224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1461,18 +1449,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a78da3f00f3328541b4526c0b0b5ec5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineThickness: 1
-  lineIntensity: 1.2
-  fillAmount: 0.108
-  lineColor0: {r: 0, g: 0.5882353, b: 1, a: 1}
+  lineThickness: 2
+  lineIntensity: 1.3
+  fillAmount: 0
+  lineColor0: {r: 0, g: 0.34117648, b: 1, a: 1}
   lineColor1: {r: 0, g: 1, b: 0, a: 1}
-  lineColor2: {r: 0, g: 0, b: 1, a: 1}
+  lineColor2: {r: 1, g: 0, b: 0.10413933, a: 1}
   additiveRendering: 0
   backfaceCulling: 1
   fillColor: {r: 0, g: 0, b: 1, a: 1}
   useFillColor: 0
   cornerOutlines: 0
-  addLinesBetweenColors: 1
+  addLinesBetweenColors: 0
   scaleWithScreenSize: 1
   alphaCutoff: 0.5
   flipY: 0
@@ -1482,6 +1470,18 @@ MonoBehaviour:
   outlineShaderMaterial: {fileID: 0}
   renderTexture: {fileID: 0}
   extraRenderTexture: {fileID: 0}
+--- !u!114 &391995225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391995219}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f759db60f0f6c9c439196ecad90a8611, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &397054538
 GameObject:
   m_ObjectHideFlags: 0
