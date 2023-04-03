@@ -97,7 +97,7 @@ public class RoomUIManager : MonoBehaviour {
         return walls;
     }
 
-    // Rescales the doors and windows to fit the adjusted walls
+    // Rescales the doors and windows to fit the adjusted walls and returns them as a list
     private List<GameObject> GetAdjustedAddOns(GameObject wall, float wallHeight, float wallWidth)
     {
         List<GameObject> addOns = new List<GameObject>();

@@ -29,13 +29,15 @@ public class WallSelectionManager : MonoBehaviour
 
     public void SelectWall(GameObject wall)
     {
-        wall.GetComponent<WallObject>().ChangeWallMaterialToSelected();
+        // wall.GetComponent<WallObject>().ChangeWallMaterialToSelected();
+        wall.GetComponent<WallObject>().ToggleOutlines(true);
         selectedWalls.Add(wall);
     }
 
     public void DeselectWall(GameObject wall)
     {
-        wall.GetComponent<WallObject>().ChangeWallMaterialToChosenTexture();
+        // wall.GetComponent<WallObject>().ChangeWallMaterialToChosenTexture();
+        wall.GetComponent<WallObject>().ToggleOutlines(false);
         selectedWalls.Remove(wall);
     }
 

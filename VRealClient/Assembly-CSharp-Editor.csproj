@@ -923,6 +923,10 @@
       <Project>{005BA11B-A31B-1131-0CFA-E83FCAE052DA}</Project>
       <Name>Assembly-CSharp</Name>
     </ProjectReference>
+    <ProjectReference Include="OEBIF.csproj">
+      <Project>{96583F9E-4761-0082-D6A4-3EB24BCE36EB}</Project>
+      <Name>OEBIF</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
