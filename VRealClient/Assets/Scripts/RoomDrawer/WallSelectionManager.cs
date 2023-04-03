@@ -11,14 +11,19 @@ public class WallSelectionManager : MonoBehaviour
     public void HandleWallSelection()
     {
         GameObject wall = GetObjectByTagOnRaycastHit(Input.mousePosition, "Wall");
-        if (wall != null)
-        {
-            wall = wall.transform.parent.parent.gameObject;
+        GameObject hinge = GetObjectByTagOnRaycastHit(Input.mousePosition, "Hinge");
 
-            if (!selectedWalls.Contains(wall))
-                SelectWall(wall);
-            else
-                DeselectWall(wall);
+        if (wall != null || hinge != null)
+        {
+            GameObject selectedObject = wall != null ? wall.transform.parent.parent.gameObject : hinge.transform.parent.gameObject;
+
+            if (selectedObject != null)
+            {
+                if (!selectedWalls.Contains(selectedObject))
+                    SelectWall(selectedObject);
+                else
+                    DeselectWall(selectedObject);
+            }
         }
     }
 
