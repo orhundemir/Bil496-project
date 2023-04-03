@@ -32,6 +32,7 @@ public class RoomUIManager : MonoBehaviour {
     // Sends the walls to the VR scene, which comes after the Room Drawing Scene
     // Also sends the wall info to the server to be saved for later
     // TODO: Send the floor and ceiling to both the server and the next scene
+    // TODO: Fix window and door scaling
     public void SendRoomTemplate(GameObject[] walls, GameObject ceiling, GameObject floor) {
         Message message = Message.Create(MessageSendMode.reliable, ClientToServerId.roomTemplate);
         message.AddInt(walls.Length);
@@ -95,26 +96,24 @@ public class RoomUIManager : MonoBehaviour {
         return walls;
     }
 
-    private GameObject CreateRoomCeiling(float ceilingHeight)
+    public GameObject CreateRoomCeiling(float ceilingHeight)
     {
-        List<Vector3> hingePositions = new List<Vector3>();
-        for (int i = 1; i < rootWall.transform.childCount; i++)
-        {
-            Transform wall = rootWall.transform.GetChild(i);
-
-            Transform hinge1 = wall.transform.Find("Hinge1");
-            Transform hinge2 = wall.transform.Find("Hinge2");
-            hingePositions.Add(hinge1.position);
-            hingePositions.Add(hinge2.position);
-        }
-
         // Find the minimum and maximum x and z coordinates
         float minX = float.MaxValue;
         float maxX = float.MinValue;
         float minZ = float.MaxValue;
         float maxZ = float.MinValue;
-        foreach (var pos in hingePositions)
+        for (int i = 1; i < rootWall.transform.childCount; i++)
         {
+            Transform hinge1 = rootWall.transform.GetChild(i).Find("Hinge1");
+            Transform hinge2 = rootWall.transform.GetChild(i).Find("Hinge2");
+
+            Vector3 pos = hinge1.position;
+            if (pos.x < minX) minX = pos.x;
+            if (pos.x > maxX) maxX = pos.x;
+            if (pos.z < minZ) minZ = pos.z;
+            if (pos.z > maxZ) maxZ = pos.z;
+            pos = hinge2.position;
             if (pos.x < minX) minX = pos.x;
             if (pos.x > maxX) maxX = pos.x;
             if (pos.z < minZ) minZ = pos.z;
@@ -130,7 +129,7 @@ public class RoomUIManager : MonoBehaviour {
 
         ceiling.name = "Ceiling";
         Player.list[NetworkManager.Singleton.Client.Id].RoomCenter = roomCenter;
-        Player.list[NetworkManager.Singleton.Client.Id].Ceiling=ceiling;
+        Player.list[NetworkManager.Singleton.Client.Id].Ceiling = ceiling;
         return ceiling;
     }
 
