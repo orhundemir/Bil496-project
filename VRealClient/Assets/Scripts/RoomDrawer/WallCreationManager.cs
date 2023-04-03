@@ -77,14 +77,18 @@ public class WallCreationManager : MonoBehaviour
         direction.Normalize();
 
         // Round the angle of rotation to the nearest integer and rotate the wall object accordingly
-        Quaternion rotation = Quaternion.LookRotation(direction);
-        int angle = Mathf.RoundToInt(rotation.eulerAngles.y);
-        if (limitAngles)
+        int angle = 0;
+        if (distance > 0.01f)
         {
-            rotation.eulerAngles = new Vector3(0, angle, 0);
-            direction = Quaternion.Euler(0, -90, 0) * rotation * Vector3.right;
+            Quaternion rotation = Quaternion.LookRotation(direction);
+            angle = Mathf.RoundToInt(rotation.eulerAngles.y);
+            if (limitAngles)
+            {
+                rotation.eulerAngles = new Vector3(0, angle, 0);
+                direction = Quaternion.Euler(0, -90, 0) * rotation * Vector3.right;
+            }
+            wallObject.transform.rotation = rotation;
         }
-        wallObject.transform.rotation = rotation;
 
         Vector3 scale = new Vector3(wallObject.GetWidth(), wallObject.GetHeight(), distance);
         wallObject.transform.GetChild(0).localScale = scale;
