@@ -87,15 +87,52 @@ public class RoomUIManager : MonoBehaviour {
 
             Vector3 scale = wallScaler.transform.localScale;
             float wallHeight = wallPrefab.GetComponent<WallObject>().GetFinalHeight();
-
             wallScaler.transform.localScale = new Vector3(scale.x, wallHeight / 2f, scale.z);
             wallScaler.transform.position = wallPrefab.position + new Vector3(0f, wallHeight / 4f, 0f);
             wallScaler.transform.rotation = wallPrefab.rotation;
 
+            List<GameObject> addOns = GetAdjustedAddOns(wallPrefab.gameObject, wallHeight / 2f, wallScaler.transform.localScale.x);
+            walls.AddRange(addOns);
             walls.Add(wallScaler);
         }
 
         return walls;
+    }
+
+    // Rescales the doors and windows to fit the adjusted walls
+    private List<GameObject> GetAdjustedAddOns(GameObject wall, float wallHeight, float wallWidth)
+    {
+        List<GameObject> addOns = new List<GameObject>();
+        float offsetWidth = wallWidth * 1.1f;
+
+        for (int i = 0; i < wall.transform.childCount; i++)
+        {
+            GameObject child = wall.transform.GetChild(i).gameObject;
+            if (child.transform.childCount == 0)
+                continue;
+
+            string childTag = child.transform.GetChild(0).tag;
+            if (childTag != "Window" && childTag != "Door")
+                continue;
+
+            AddOnObject addOnObject = child.GetComponent<AddOnObject>();
+            float addOnSize = addOnObject.GetLength();
+            float doorHeight = wallHeight * 0.75f;
+            Vector3 addOnScale = new Vector3(offsetWidth, childTag == "Door" ? doorHeight : addOnSize, addOnSize);
+
+            Vector3 wallPos = wall.transform.GetChild(0).transform.position;
+            Vector3 addOnPos = child.transform.position;
+            float yOffset = childTag == "Door" ? (wallHeight - doorHeight) / 2 : 0f;
+
+            child.transform.localScale = addOnScale;
+            child.transform.position = new Vector3(addOnPos.x, wallPos.y - yOffset, addOnPos.z);
+
+            child.name = childTag;
+            child.transform.GetChild(0).name = $"{childTag} Shape";
+            addOns.Add(child);
+        }
+
+        return addOns;
     }
 
     public GameObject CreateRoomCeiling(float ceilingHeight)
@@ -105,21 +142,20 @@ public class RoomUIManager : MonoBehaviour {
         float maxX = float.MinValue;
         float minZ = float.MaxValue;
         float maxZ = float.MinValue;
-        for (int i = 1; i < rootWall.transform.childCount; i++)
+        for (int i = 0; i < rootWall.transform.childCount; i++)
         {
+            if (!rootWall.transform.GetChild(i).CompareTag("WallObject"))
+                continue;
+
             Transform hinge1 = rootWall.transform.GetChild(i).Find("Hinge1");
             Transform hinge2 = rootWall.transform.GetChild(i).Find("Hinge2");
 
-            Vector3 pos = hinge1.position;
-            if (pos.x < minX) minX = pos.x;
-            if (pos.x > maxX) maxX = pos.x;
-            if (pos.z < minZ) minZ = pos.z;
-            if (pos.z > maxZ) maxZ = pos.z;
-            pos = hinge2.position;
-            if (pos.x < minX) minX = pos.x;
-            if (pos.x > maxX) maxX = pos.x;
-            if (pos.z < minZ) minZ = pos.z;
-            if (pos.z > maxZ) maxZ = pos.z;
+            Vector3 pos1 = hinge1.position;
+            Vector3 pos2 = hinge2.position;
+            minX = Mathf.Min(minX, pos1.x, pos2.x);
+            maxX = Mathf.Max(maxX, pos1.x, pos2.x);
+            minZ = Mathf.Min(minZ, pos1.z, pos2.z);
+            maxZ = Mathf.Max(maxZ, pos1.z, pos2.z);
         }
 
         // Create a new object using the ceiling prefab which has the calculated boundary values

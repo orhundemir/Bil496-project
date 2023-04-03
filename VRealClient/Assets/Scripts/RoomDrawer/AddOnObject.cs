@@ -17,7 +17,7 @@ public class AddOnObject : MonoBehaviour
         if (addOn.CompareTag("Door"))
             addOnLength = 1.5f;
         else if (addOn.CompareTag("Window"))
-            addOnLength = 2f;
+            addOnLength = 1.8f;
     }
 
     public void ChangeMaterialToFinal()
