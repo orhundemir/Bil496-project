@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     public string Email { get; private set; }
     public string NameAndSurname { get; private set; }
     public string Uid { get; private set; }
-    public GameObject[] Walls { get; set; }
+    public List<GameObject> Walls { get; set; }
     public GameObject Floor { get; set; }  
     public GameObject Ceiling { get; set; }
     public Vector3 RoomCenter { get; set; }
@@ -40,11 +40,11 @@ public class Player : MonoBehaviour
         player.NameAndSurname = this.NameAndSurname;
         player.Uid = this.Uid;
 
-        int size = this.Walls.Length;
-        player.Walls = new GameObject[size];
+        int size = this.Walls.Count;
+        player.Walls = new List<GameObject>(size);
         for (int i = 0; i < size; i++)
         {
-            player.Walls[i] = this.Walls[i];
+            player.Walls.Add(this.Walls[i]);
         }
         player.Floor = this.Floor;
         player.Ceiling = this.Ceiling;

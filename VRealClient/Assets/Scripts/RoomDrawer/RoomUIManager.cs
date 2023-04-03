@@ -33,9 +33,9 @@ public class RoomUIManager : MonoBehaviour {
     // Also sends the wall info to the server to be saved for later
     // TODO: Send the floor and ceiling to both the server and the next scene
     // TODO: Fix window and door scaling
-    public void SendRoomTemplate(GameObject[] walls, GameObject ceiling, GameObject floor) {
+    public void SendRoomTemplate(List<GameObject> walls, GameObject ceiling, GameObject floor) {
         Message message = Message.Create(MessageSendMode.reliable, ClientToServerId.roomTemplate);
-        message.AddInt(walls.Length);
+        message.AddInt(walls.Count);
 
         Player playerCopy = Player.list[NetworkManager.Singleton.Client.Id];
         playerCopy.Walls = walls;
@@ -54,7 +54,7 @@ public class RoomUIManager : MonoBehaviour {
     // This is called from the on-click action of the Next button from the RoomDrawingScene
     // TODO: Scale and position the doors and windows to fit the new wall heights
     public void ClickedNext() {
-        GameObject[] walls = GetFinalWallList();
+        List<GameObject> walls = GetFinalWallList();
 
         float wallHeight = walls[0].transform.parent.GetComponent<WallObject>().GetFinalHeight();
         float ceilingAndFloorHeight = 0.3f;
@@ -71,13 +71,15 @@ public class RoomUIManager : MonoBehaviour {
     }
 
     // Scale the walls in the y direction to give them their final height and return them as a list
-    private GameObject[] GetFinalWallList()
+    private List<GameObject> GetFinalWallList()
     {
-        GameObject[] walls = new GameObject[rootWall.transform.childCount - 1];
-
-        for (int i = 1; i < rootWall.transform.childCount; i++)
+        List<GameObject> walls = new();
+        for (int i = 0; i < rootWall.transform.childCount; i++)
         {
             Transform wallPrefab = rootWall.transform.GetChild(i);
+            if (!wallPrefab.CompareTag("WallObject"))
+                continue;
+
             GameObject wallScaler = wallPrefab.GetChild(0).gameObject;
             GameObject wall = wallScaler.transform.GetChild(0).gameObject;
             wall.name = "Wall Shape";
@@ -90,7 +92,7 @@ public class RoomUIManager : MonoBehaviour {
             wallScaler.transform.position = wallPrefab.position + new Vector3(0f, wallHeight / 4f, 0f);
             wallScaler.transform.rotation = wallPrefab.rotation;
 
-            walls[i - 1] = wallScaler;
+            walls.Add(wallScaler);
         }
 
         return walls;
