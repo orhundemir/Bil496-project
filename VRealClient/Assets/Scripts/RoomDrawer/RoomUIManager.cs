@@ -29,10 +29,9 @@ public class RoomUIManager : MonoBehaviour {
         Singleton = this;
     }
 
-    // Sends the walls to the VR scene, which comes after the Room Drawing Scene
+    // Sends the walls, windows and doors to the VR scene, which comes after the Room Drawing Scene
     // Also sends the wall info to the server to be saved for later
-    // TODO: Send the floor and ceiling to both the server and the next scene
-    // TODO: Fix window and door scaling
+    // TODO: Send the floor and ceiling to the server
     public void SendRoomTemplate(List<GameObject> walls, GameObject ceiling, GameObject floor) {
         Message message = Message.Create(MessageSendMode.reliable, ClientToServerId.roomTemplate);
         message.AddInt(walls.Count);
@@ -52,7 +51,6 @@ public class RoomUIManager : MonoBehaviour {
     }
 
     // This is called from the on-click action of the Next button from the RoomDrawingScene
-    // TODO: Scale and position the doors and windows to fit the new wall heights
     public void ClickedNext() {
         List<GameObject> walls = GetFinalWallList();
 

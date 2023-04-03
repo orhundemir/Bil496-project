@@ -52,12 +52,21 @@ public class WallCreationManager : MonoBehaviour
             // If the mouse is released on a hinge, move the walls ending position to its center
             Vector3 releasePosition = AdjustPositionForHinge(mousePosition);
             // Update the wall one last time to apply the possible position change
-            UpdateWallTransformValues(previewWall, clickPosition, releasePosition, false, out _, out _, out _);
+            UpdateWallTransformValues(previewWall, clickPosition, releasePosition, false, out _, out _, out double wallLength);
 
-            // Change its material from transparent to opaque and place hinges at both ends of it
-            previewWall.ChangeWallMaterialToChosenTexture();
-            previewWall.AdjustHingePositions(clickPosition, releasePosition);
-            previewWall.ActivateHinges();
+            if (wallLength > 0.3f)
+            {
+                // Change its material from transparent to opaque and place hinges at both ends of it
+                previewWall.ChangeWallMaterialToChosenTexture();
+                previewWall.AdjustHingePositions(clickPosition, releasePosition);
+                previewWall.ActivateHinges();
+            }
+            else
+            {
+                // Delete the wall if it is smaller than 30 cm
+                Destroy(previewWall.gameObject);
+                previewWall = null;
+            }
 
             uiManager.SetActive(false);
         }
