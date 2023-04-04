@@ -77,6 +77,7 @@ public class Player : MonoBehaviour
         list.GetValueOrDefault(id).Uid = _uid;
     }
 
+
     private Message AddSpawnData(Message message)
     {
         message.AddUShort(Id);
@@ -95,15 +96,6 @@ public class Player : MonoBehaviour
     private void SendSpawned(ushort toClientId)
     {
         NetworkManager.Singleton.Server.Send(AddSpawnData(Message.Create(MessageSendMode.reliable, ServerToClientId.playerSpawned)), toClientId);
-    }
-
-    private Message AddSpawnData(Message message)
-    {
-        message.AddUShort(Id);
-        message.AddString(Email);
-        message.AddString(Uid);
-        message.AddVector3(transform.position);
-        return message;
     }
 
     [MessageHandler((ushort)ClientToServerId.connect)]
