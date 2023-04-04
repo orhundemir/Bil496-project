@@ -3,7 +3,6 @@ using RiptideNetworking.Utils;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 public enum ServerToClientId : ushort
 {
     playerSpawned = 1,
@@ -73,14 +72,19 @@ public class NetworkManager : MonoBehaviour
 
     private void DidConnect(object sender, EventArgs e)
     {
+        UIManager.Singleton.warning.SetActive(false);
         UIManager.Singleton.SendConnect();
-        UIManager.Singleton.googleUI.SetActive(true);
+        UIManager.Singleton.connectToServer.SetActive(false);
+        UIManager.Singleton.googleSignIN.SetActive(true);
         Debug.Log(sender.ToString() + "is connected to server but it must sign in via Google");
     }
 
     private void FailedToConnect(object sender, EventArgs e)
     {
-        UIManager.Singleton.BackToMain();
+        Debug.LogWarning(sender.ToString() + "Failed to connect server.");
+        UIManager.Singleton.connectToServer.SetActive(true);
+        UIManager.Singleton.googleSignIN.SetActive(false);
+        UIManager.Singleton.warning.SetActive(true);
     }
 
     private void PlayerLeft(object sender, ClientDisconnectedEventArgs e)
@@ -90,7 +94,12 @@ public class NetworkManager : MonoBehaviour
 
     private void DidDisconnect(object sender, EventArgs e)
     {
-        UIManager.Singleton.BackToMain();
+        Debug.LogWarning(sender.ToString() + "Server connection down.");
+        UIManager.Singleton.settings.SetActive(false);
+        UIManager.Singleton.welcome.SetActive(false);
+        UIManager.Singleton.connectToServer.SetActive(true);
+        UIManager.Singleton.googleSignIN.SetActive(false);
+        UIManager.Singleton.warning.SetActive(true);
     }
 
 }

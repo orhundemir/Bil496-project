@@ -1,0 +1,7 @@
+﻿[*.cs]
+
+# CS0618: Tür veya üye artık kullanılmıyor
+dotnet_diagnostic.CS0618.severity = none
+
+# IDE0055: Biçimlendirme Düzeltme
+dotnet_diagnostic.IDE0055.severity = none

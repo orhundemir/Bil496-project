@@ -86,11 +86,7 @@ public class Player : MonoBehaviour
         player.Email = _email;
         player.Uid = _uid;
         list.Add(id, player);
-
-
-        // Aciklama: Oyuncu Google Sign'ini gerçekleþtirdi ve spawn olmaya hazýr hale geldi.
-        // Sahne deðiþimi gerekli.
-        MovePlayerToDestinationScene(id, "RoomDrawing");
+        go.SetActive(false);
     }
 
     [MessageHandler((ushort)ServerToClientId.playerSpawned)]
