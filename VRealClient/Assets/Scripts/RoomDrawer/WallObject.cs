@@ -6,7 +6,7 @@ using cakeslice;
 public class WallObject : MonoBehaviour
 {
 
-    public Material wallMaterial, previewMaterial, selectedMaterial;
+    public Material wallMaterial, previewMaterial;
 
     private GameObject wall;
     public GameObject hinge1 { get; private set; }
@@ -76,11 +76,6 @@ public class WallObject : MonoBehaviour
     public void ChangeWallMaterialToChosenTexture()
     {
         wall.GetComponent<Renderer>().material = wallMaterial;
-    }
-
-    public void ChangeWallMaterialToSelected()
-    {
-        wall.GetComponent<Renderer>().material = selectedMaterial;
     }
 
     public void SetChosenTextureMaterial(Material material)

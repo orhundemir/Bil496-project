@@ -27,9 +27,8 @@ public class WallEditing : MonoBehaviour
         }
     }
 
-    public void ChangeWallColour() //Material selectedMaterial
+    public void ChangeWallColour()
     {
-        //Material selectedColor = new Material(selectedMaterial);
         Material selectedColor = new Material(defaultWallMaterial);
         selectedColor.color = colorPicker.color;
         List<GameObject> selectedWalls = wallSelectionManager.GetSelectedWalls();
