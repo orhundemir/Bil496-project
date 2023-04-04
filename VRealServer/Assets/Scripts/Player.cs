@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 
 
 
-    //User servera baðlandýðý bilgisi gelince server tarafýnda (Guest) Player gameobject oluþturuluyor.
+
     public static void Spawn(ushort id)
     {
         Player player = Instantiate(GameLogic.Singleton.PlayerPrefab, new Vector3(0f, 1f, 0f), Quaternion.identity).GetComponent<Player>();
@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
         player.Id = id;
         list.Add(id, player);
     }
+
 
     //User google sign in baðlandýðý bilgisi gelince server tarafýnda daha önceden oluþan guest object update ediliyor.
     //ve client'a kendi player objectini oluþtursun diye SendSpawn mesajýný yolluyor.
@@ -40,8 +41,10 @@ public class Player : MonoBehaviour
                 player.Email = _email;
                 player.Uid = _uid;
 
-                //player bilgileri çekilsin diye DBManager'a gönderiliyor.
+
                 DBManager.Singleton.playerList[id] = player;
+                User user = new User(id, _email);
+                user = DBManager.checkUser(user);
                 player.SendSpawned();
             }
         }
@@ -54,24 +57,34 @@ public class Player : MonoBehaviour
         }
         else
         {
-            Debug.Log("Guest Player " + id + "' in Server'a baðlanma giriþimi baþarýsýz oldu.");
+            Debug.Log("Guest Player " + id + "' in Server'a baglanma girisimi basarisiz oldu.");
+
         }
     }
 
 
 
-    //Client email bilgisini gönderdiði zaman log gösteriliyor ve tutulan liste gelen client bilgileri güncelleniyor.
+
     public static void ShowEmailLog(ushort id, string _email)
     {
         Debug.Log("Email is: " + _email);
         list.GetValueOrDefault(id).Email = _email;
     }
-    
-    //Client uid bilgisini gönderdiði zaman log gösteriliyor ve tutulan liste gelen client bilgileri güncelleniyor.
+
     public static void ShowGoogleUidLog(ushort id, string _uid)
     {
         Debug.Log("UID is: " + _uid);
         list.GetValueOrDefault(id).Uid = _uid;
+    }
+
+
+    private Message AddSpawnData(Message message)
+    {
+        message.AddUShort(Id);
+        message.AddString(Email);
+        message.AddString(Uid);
+        message.AddVector3(transform.position);
+        return message;
     }
 
     #region Messages
@@ -83,15 +96,6 @@ public class Player : MonoBehaviour
     private void SendSpawned(ushort toClientId)
     {
         NetworkManager.Singleton.Server.Send(AddSpawnData(Message.Create(MessageSendMode.reliable, ServerToClientId.playerSpawned)), toClientId);
-    }
-
-    private Message AddSpawnData(Message message)
-    {
-        message.AddUShort(Id);
-        message.AddString(Email);
-        message.AddString(Uid);
-        message.AddVector3(transform.position);
-        return message;
     }
 
     [MessageHandler((ushort)ClientToServerId.connect)]
