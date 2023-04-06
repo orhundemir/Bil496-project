@@ -114,6 +114,7 @@ public class RoomUIManager : MonoBehaviour {
                 continue;
 
             AddOnObject addOnObject = child.GetComponent<AddOnObject>();
+            addOnObject.ChangeMaterialToRealistic();
             float addOnSize = addOnObject.GetLength();
             float doorHeight = wallHeight * 0.75f;
             Vector3 addOnScale = new Vector3(offsetWidth, childTag == "Door" ? doorHeight : addOnSize, addOnSize);
