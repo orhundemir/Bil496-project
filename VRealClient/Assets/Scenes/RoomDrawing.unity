@@ -1147,7 +1147,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22475538, guid: 751f7137cfffd4a16b1a4c191e687d64, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 147
+      value: 142.99997
       objectReference: {fileID: 0}
     - target: {fileID: 22475538, guid: 751f7137cfffd4a16b1a4c191e687d64, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1410,7 +1410,7 @@ PrefabInstance:
     - target: {fileID: 2085654096552893926, guid: 443b2097a2e1c854799bb2cc8c6592cd,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeWallpaper
+      value: ChangeGroundTexture
       objectReference: {fileID: 0}
     - target: {fileID: 2085654096552893926, guid: 443b2097a2e1c854799bb2cc8c6592cd,
         type: 3}
@@ -2148,7 +2148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22475538, guid: 751f7137cfffd4a16b1a4c191e687d64, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 51
+      value: 46.999977
       objectReference: {fileID: 0}
     - target: {fileID: 22475538, guid: 751f7137cfffd4a16b1a4c191e687d64, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2442,7 +2442,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22475538, guid: 751f7137cfffd4a16b1a4c191e687d64, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 718
+      value: 713
       objectReference: {fileID: 0}
     - target: {fileID: 22475538, guid: 751f7137cfffd4a16b1a4c191e687d64, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2518,7 +2518,7 @@ PrefabInstance:
     - target: {fileID: 2085654096552893926, guid: 443b2097a2e1c854799bb2cc8c6592cd,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeWallpaper
+      value: ChangeGroundTexture
       objectReference: {fileID: 0}
     - target: {fileID: 2085654096552893926, guid: 443b2097a2e1c854799bb2cc8c6592cd,
         type: 3}
@@ -3617,7 +3617,7 @@ PrefabInstance:
     - target: {fileID: 2085654096552893926, guid: 443b2097a2e1c854799bb2cc8c6592cd,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeWallpaper
+      value: ChangeGroundTexture
       objectReference: {fileID: 0}
     - target: {fileID: 2085654096552893926, guid: 443b2097a2e1c854799bb2cc8c6592cd,
         type: 3}
@@ -4004,7 +4004,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22475538, guid: 751f7137cfffd4a16b1a4c191e687d64, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 718
+      value: 713
       objectReference: {fileID: 0}
     - target: {fileID: 22475538, guid: 751f7137cfffd4a16b1a4c191e687d64, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -4357,8 +4357,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 721.28125, y: 0}
-  m_SizeDelta: {x: 402.6102, y: 980.0005}
+  m_AnchoredPosition: {x: 714.9155, y: 0}
+  m_SizeDelta: {x: 415.3414, y: 980.0005}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &800171470
 MonoBehaviour:
@@ -4439,7 +4439,7 @@ PrefabInstance:
     - target: {fileID: 2085654096552893926, guid: 443b2097a2e1c854799bb2cc8c6592cd,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeWallpaper
+      value: ChangeGroundTexture
       objectReference: {fileID: 0}
     - target: {fileID: 2085654096552893926, guid: 443b2097a2e1c854799bb2cc8c6592cd,
         type: 3}
@@ -4604,7 +4604,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 814434539}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.5892645}
+  m_LocalPosition: {x: 0, y: 0, z: -1.589}
   m_LocalScale: {x: 0.53956395, y: 0.5395638, z: 0.5395638}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4613,8 +4613,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 14.215114, y: -1.1478105}
-  m_SizeDelta: {x: 33.318, y: 26.918}
+  m_AnchoredPosition: {x: 13.463, y: 0.5}
+  m_SizeDelta: {x: 30.53, y: 19.536}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &814434541
 MonoBehaviour:
@@ -4637,8 +4637,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 15
+    m_Font: {fileID: 12800000, guid: 9fdd0d9dd7a514bed838747f4e303108, type: 3}
+    m_FontSize: 12
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
@@ -4760,7 +4760,7 @@ PrefabInstance:
     - target: {fileID: 2085654096552893926, guid: 443b2097a2e1c854799bb2cc8c6592cd,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeWallpaper
+      value: ChangeGroundTexture
       objectReference: {fileID: 0}
     - target: {fileID: 2085654096552893926, guid: 443b2097a2e1c854799bb2cc8c6592cd,
         type: 3}
@@ -5091,7 +5091,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22475538, guid: 751f7137cfffd4a16b1a4c191e687d64, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 718
+      value: 713
       objectReference: {fileID: 0}
     - target: {fileID: 22475538, guid: 751f7137cfffd4a16b1a4c191e687d64, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5765,6 +5765,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6640073681224162410, guid: 4214b57e615806c448ba9d993d629531,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6640073681224162410, guid: 4214b57e615806c448ba9d993d629531,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -119
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4214b57e615806c448ba9d993d629531, type: 3}
 --- !u!1 &1202238220 stripped
@@ -5832,7 +5842,7 @@ PrefabInstance:
     - target: {fileID: 2085654096552893926, guid: 443b2097a2e1c854799bb2cc8c6592cd,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeWallpaper
+      value: ChangeGroundTexture
       objectReference: {fileID: 0}
     - target: {fileID: 2085654096552893926, guid: 443b2097a2e1c854799bb2cc8c6592cd,
         type: 3}
@@ -6383,7 +6393,7 @@ PrefabInstance:
     - target: {fileID: 2085654096552893926, guid: 443b2097a2e1c854799bb2cc8c6592cd,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeWallpaper
+      value: ChangeGroundTexture
       objectReference: {fileID: 0}
     - target: {fileID: 2085654096552893926, guid: 443b2097a2e1c854799bb2cc8c6592cd,
         type: 3}
@@ -7282,7 +7292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22475538, guid: 751f7137cfffd4a16b1a4c191e687d64, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -45
+      value: -49.000023
       objectReference: {fileID: 0}
     - target: {fileID: 22475538, guid: 751f7137cfffd4a16b1a4c191e687d64, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -7784,7 +7794,7 @@ PrefabInstance:
     - target: {fileID: 2085654096552893926, guid: 443b2097a2e1c854799bb2cc8c6592cd,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeWallpaper
+      value: ChangeGroundTexture
       objectReference: {fileID: 0}
     - target: {fileID: 2085654096552893926, guid: 443b2097a2e1c854799bb2cc8c6592cd,
         type: 3}
@@ -8043,7 +8053,7 @@ PrefabInstance:
     - target: {fileID: 2085654096552893926, guid: 443b2097a2e1c854799bb2cc8c6592cd,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeWallpaper
+      value: ChangeGroundTexture
       objectReference: {fileID: 0}
     - target: {fileID: 2085654096552893926, guid: 443b2097a2e1c854799bb2cc8c6592cd,
         type: 3}
@@ -8383,7 +8393,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 5.7, y: 2}
+  m_AnchoredPosition: {x: 5.7, y: 0.9}
   m_SizeDelta: {x: 11.213, y: 11.91}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1715151773
@@ -8989,8 +8999,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 15
+    m_Font: {fileID: 12800000, guid: 9fdd0d9dd7a514bed838747f4e303108, type: 3}
+    m_FontSize: 12
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 1
@@ -9455,7 +9465,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22475538, guid: 751f7137cfffd4a16b1a4c191e687d64, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 718
+      value: 713
       objectReference: {fileID: 0}
     - target: {fileID: 22475538, guid: 751f7137cfffd4a16b1a4c191e687d64, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -9531,7 +9541,7 @@ PrefabInstance:
     - target: {fileID: 2085654096552893926, guid: 443b2097a2e1c854799bb2cc8c6592cd,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeWallpaper
+      value: ChangeGroundTexture
       objectReference: {fileID: 0}
     - target: {fileID: 2085654096552893926, guid: 443b2097a2e1c854799bb2cc8c6592cd,
         type: 3}
@@ -10056,7 +10066,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 22475538, guid: 751f7137cfffd4a16b1a4c191e687d64, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -141
+      value: -145
       objectReference: {fileID: 0}
     - target: {fileID: 22475538, guid: 751f7137cfffd4a16b1a4c191e687d64, type: 3}
       propertyPath: m_AnchoredPosition.y
