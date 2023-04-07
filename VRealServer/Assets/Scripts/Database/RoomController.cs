@@ -5,7 +5,7 @@ public class RoomController{
     public bool insertRoom(NpgsqlConnection conn, Room room){//Inserting given room to database id will be determined by last room's id+1 in database
         conn.Open();
         NpgsqlCommand command = conn.CreateCommand();
-        string query = "INSERT INTO Rooms (name) VALUES ('"+room.name+"')";
+        string query = "INSERT INTO Rooms (name, wall, ceiling, floor, furniture) VALUES ('"+room.name+"', '"+room.wall+"', '"+room.ceiling+"', '"+room.floor+"', '"+room.furniture+"')";
         command.CommandText = query;
         command.ExecuteNonQuery();
         conn.Close();
@@ -15,15 +15,36 @@ public class RoomController{
         conn.Open();
         Room room = new Room();
         NpgsqlCommand command = conn.CreateCommand();
-        string query = "SELECT * FROM USERS WHERE id = "+id;
+        string query = "SELECT * FROM Rooms WHERE id = "+id;
         command.CommandText = query;
         NpgsqlDataReader reader = command.ExecuteReader();
         while (reader.Read()){
             room.id  = int.Parse(JsonConvert.SerializeObject(reader.GetValue(0)));
             room.name = JsonConvert.SerializeObject(reader.GetValue(1));
+            room.wall = JsonConvert.SerializeObject(reader.GetValue(2));
+            room.ceiling = JsonConvert.SerializeObject(reader.GetValue(3));
+            room.floor = JsonConvert.SerializeObject(reader.GetValue(4));
+            room.furniture = JsonConvert.SerializeObject(reader.GetValue(5));
         }
         conn.Close();
         return room;
     }
-    //Name won't be unique so getting room from names will be manually done by user from relational tables
+    public Room selectRoomWithName(NpgsqlConnection conn, string name){//Returning room with given name
+        conn.Open();
+        Room room = new Room();
+        NpgsqlCommand command = conn.CreateCommand();
+        string query = "SELECT * FROM Rooms WHERE name = '"+name+"'";
+        command.CommandText = query;
+        NpgsqlDataReader reader = command.ExecuteReader();
+        while (reader.Read()){
+            room.id  = int.Parse(JsonConvert.SerializeObject(reader.GetValue(0)));
+            room.name = JsonConvert.SerializeObject(reader.GetValue(1));
+            room.wall = JsonConvert.SerializeObject(reader.GetValue(2));
+            room.ceiling = JsonConvert.SerializeObject(reader.GetValue(3));
+            room.floor = JsonConvert.SerializeObject(reader.GetValue(4));
+            room.furniture = JsonConvert.SerializeObject(reader.GetValue(5));
+        }
+        conn.Close();
+        return room;
+    }
 }
