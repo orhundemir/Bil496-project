@@ -48,6 +48,7 @@ MonoBehaviour:
   finalMaterial: {fileID: 2100000, guid: 2a90aec7d2e4b33488ac630042f4c155, type: 2}
   validMaterial: {fileID: 2100000, guid: bd5d4692c4a554747a969f0e5839550e, type: 2}
   invalidMaterial: {fileID: 2100000, guid: f90a4988c86b6974aaa351986fa0dd61, type: 2}
+  realisticMaterial: {fileID: 2100000, guid: 24833b3a2ebcc6a48926f6e18224a92b, type: 2}
 --- !u!1 &4190738752040089645
 GameObject:
   m_ObjectHideFlags: 0
