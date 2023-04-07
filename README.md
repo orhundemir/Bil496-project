@@ -14,6 +14,7 @@ Client tarafında:
 * Edit->Preferences-> VIU kısmında Simulator kısmı işaretlenmelidir.
 * Warningler headset takılmadığı ve EventSystem Warningleridir. Ignore edilebilir.
 * VReal sahnesine geçişte kullanılan sample sahne sebebiyle bir exception gelmektedir. Ignore edilebilir.
+* ÖNEMLİ: Tek makine kullanılan geliştirme ortamında Google Sign in yapıldıktan sonra. Server uygulamasına bir kez tıklanmalıdır. Aksi halde hata gelmektedir.
 
 Not: VReal sahnesinde çalışacaklar aşağıdaki linkteki videoyu izlemesi tavsiye edilir.
 	https://www.youtube.com/watch?v=P4UxJJg6VgY&t=402s

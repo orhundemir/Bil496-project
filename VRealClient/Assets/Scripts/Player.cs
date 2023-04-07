@@ -10,7 +10,6 @@ public class Player : MonoBehaviour
 
     public ushort Id { get; private set; }
     public string Email { get; private set; }
-    public string NameAndSurname { get; private set; }
     public string Uid { get; private set; }
     public List<GameObject> Walls { get; set; }
     public GameObject Floor { get; set; }  
@@ -37,7 +36,6 @@ public class Player : MonoBehaviour
         player.name = this.Email;
         player.Id = NetworkManager.Singleton.Client.Id;
         player.Email = this.Email;
-        player.NameAndSurname = this.NameAndSurname;
         player.Uid = this.Uid;
 
         int size = this.Walls.Count;
@@ -77,7 +75,7 @@ public class Player : MonoBehaviour
 
     // Client basarili þekilde Sign in oldu. Player spawn oluyor.
     // Þimdilik basit bir capsule oluþuyor ihtiyaca göre deðiþebilir.
-    public static void Spawn(ushort id, string _email, string _nameAndSurname, string _uid, Vector3 position)
+    public static void Spawn(ushort id, string _email, string _uid, Vector3 position)
     {
         position.x = -5.63f;
         position.y = 0.8f;
@@ -86,20 +84,15 @@ public class Player : MonoBehaviour
         player.name = _email;
         player.Id = id;
         player.Email = _email;
-        player.NameAndSurname = _nameAndSurname;
         player.Uid = _uid;
         list.Add(id, player);
-
-
-        // Aciklama: Oyuncu Google Sign'ini gerçekleþtirdi ve spawn olmaya hazýr hale geldi.
-        // Sahne deðiþimi gerekli.
-        MovePlayerToDestinationScene(id, "RoomDrawing");
+        go.SetActive(false);
     }
 
     [MessageHandler((ushort)ServerToClientId.playerSpawned)]
     private static void SpawnPlayer(Message message)
     {
-        Spawn(message.GetUShort(), message.GetString(), message.GetString(), message.GetString(), message.GetVector3());
+        Spawn(message.GetUShort(), message.GetString(), message.GetString(), message.GetVector3());
         Debug.Log("Client connected to server successfully");
     }
 
