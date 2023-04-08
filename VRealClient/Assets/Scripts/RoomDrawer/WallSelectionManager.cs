@@ -7,30 +7,35 @@ public class WallSelectionManager : MonoBehaviour
 
     private List<GameObject> selectedWalls = new List<GameObject>();
 
-    // If the mouse was clicked on a wall, select or deselect it based on its current state
+    // If the mouse was clicked on a wall or one of its hinges, select or deselect it based on its current state
     public void HandleWallSelection()
     {
         GameObject wall = GetObjectByTagOnRaycastHit(Input.mousePosition, "Wall");
-        if (wall != null)
-        {
-            wall = wall.transform.parent.parent.gameObject;
+        GameObject hinge = GetObjectByTagOnRaycastHit(Input.mousePosition, "Hinge");
 
-            if (!selectedWalls.Contains(wall))
-                SelectWall(wall);
-            else
-                DeselectWall(wall);
+        if (wall != null || hinge != null)
+        {
+            GameObject selectedObject = wall != null ? wall.transform.parent.parent.gameObject : hinge.transform.parent.gameObject;
+
+            if (selectedObject != null)
+            {
+                if (!selectedWalls.Contains(selectedObject))
+                    SelectWall(selectedObject);
+                else
+                    DeselectWall(selectedObject);
+            }
         }
     }
 
     public void SelectWall(GameObject wall)
     {
-        wall.GetComponent<WallObject>().ChangeWallMaterialToSelected();
+        wall.GetComponent<WallObject>().ToggleOutlines(true);
         selectedWalls.Add(wall);
     }
 
     public void DeselectWall(GameObject wall)
     {
-        wall.GetComponent<WallObject>().ChangeWallMaterialToChosenTexture();
+        wall.GetComponent<WallObject>().ToggleOutlines(false);
         selectedWalls.Remove(wall);
     }
 

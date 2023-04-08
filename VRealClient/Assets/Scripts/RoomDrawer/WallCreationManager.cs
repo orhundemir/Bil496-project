@@ -52,12 +52,21 @@ public class WallCreationManager : MonoBehaviour
             // If the mouse is released on a hinge, move the walls ending position to its center
             Vector3 releasePosition = AdjustPositionForHinge(mousePosition);
             // Update the wall one last time to apply the possible position change
-            UpdateWallTransformValues(previewWall, clickPosition, releasePosition, false, out _, out _, out _);
+            UpdateWallTransformValues(previewWall, clickPosition, releasePosition, false, out _, out _, out double wallLength);
 
-            // Change its material from transparent to opaque and place hinges at both ends of it
-            previewWall.ChangeWallMaterialToChosenTexture();
-            previewWall.AdjustHingePositions(clickPosition, releasePosition);
-            previewWall.ActivateHinges();
+            if (wallLength > 0.3f)
+            {
+                // Change its material from transparent to opaque and place hinges at both ends of it
+                previewWall.ChangeWallMaterialToChosenTexture();
+                previewWall.AdjustHingePositions(clickPosition, releasePosition);
+                previewWall.ActivateHinges();
+            }
+            else
+            {
+                // Delete the wall if it is smaller than 30 cm
+                Destroy(previewWall.gameObject);
+                previewWall = null;
+            }
 
             uiManager.SetActive(false);
         }
@@ -77,14 +86,18 @@ public class WallCreationManager : MonoBehaviour
         direction.Normalize();
 
         // Round the angle of rotation to the nearest integer and rotate the wall object accordingly
-        Quaternion rotation = Quaternion.LookRotation(direction);
-        int angle = Mathf.RoundToInt(rotation.eulerAngles.y);
-        if (limitAngles)
+        int angle = 0;
+        if (distance > 0.01f)
         {
-            rotation.eulerAngles = new Vector3(0, angle, 0);
-            direction = Quaternion.Euler(0, -90, 0) * rotation * Vector3.right;
+            Quaternion rotation = Quaternion.LookRotation(direction);
+            angle = Mathf.RoundToInt(rotation.eulerAngles.y);
+            if (limitAngles)
+            {
+                rotation.eulerAngles = new Vector3(0, angle, 0);
+                direction = Quaternion.Euler(0, -90, 0) * rotation * Vector3.right;
+            }
+            wallObject.transform.rotation = rotation;
         }
-        wallObject.transform.rotation = rotation;
 
         Vector3 scale = new Vector3(wallObject.GetWidth(), wallObject.GetHeight(), distance);
         wallObject.transform.GetChild(0).localScale = scale;

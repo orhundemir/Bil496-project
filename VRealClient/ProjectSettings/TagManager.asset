@@ -9,6 +9,7 @@ TagManager:
   - Window
   - Door
   - RoomLight
+  - WallObject
   layers:
   - Default
   - TransparentFX
