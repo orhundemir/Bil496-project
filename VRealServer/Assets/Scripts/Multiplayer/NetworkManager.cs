@@ -5,6 +5,8 @@ using UnityEngine;
 public enum ServerToClientId : ushort
 {
     playerSpawned = 1,
+    roomNames,
+    roomTemplate,
 }
 
 public enum ClientToServerId : ushort
@@ -12,6 +14,8 @@ public enum ClientToServerId : ushort
     connect = 1,
     googleEmail,
     googleUID,
+    roomName,
+    prevRoomName,
     roomTemplate,
 }
 

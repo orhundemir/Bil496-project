@@ -11,10 +11,13 @@ public class Player : MonoBehaviour
     public ushort Id { get; private set; }
     public string Email { get; private set; }
     public string Uid { get; private set; }
+    public string RoomName { get; set; }
     public List<GameObject> Walls { get; set; }
     public GameObject Floor { get; set; }  
     public GameObject Ceiling { get; set; }
     public Vector3 RoomCenter { get; set; }
+
+    public static List<string> roomsArr = new List<string>();
 
 
 
@@ -23,10 +26,78 @@ public class Player : MonoBehaviour
         list.Remove(Id);
     }
 
-    // Vr sahnesinde duvar objelerinin yaratýlmasýný saðlýyor.
+    // Vr sahnesinde duvar objelerinin yaratÃ½lmasÃ½nÃ½ saÃ°lÃ½yor.
     public void SpawnWalls(GameObject wall)
     {
         Instantiate(wall, wall.transform.position, wall.transform.rotation);
+    }
+
+    // Client basarili Ã¾ekilde Sign in oldu. Player spawn oluyor.
+    // Ãžimdilik basit bir capsule oluÃ¾uyor ihtiyaca gÃ¶re deÃ°iÃ¾ebilir.
+    public static void Spawn(ushort id, string _email, string _uid, Vector3 position)
+    {
+        position.x = -5.63f;
+        position.y = 0.8f;
+        Player player = Instantiate(GameLogic.Singleton.LocalPlayerPrefab, position, Quaternion.identity).GetComponent<Player>();
+        player.Id = id;
+        player.name = _email;
+        player.Email = _email;
+        player.Uid = _uid;
+        list[id] = player;
+        player.gameObject.SetActive(false);
+    }
+
+
+    public static void AssingRoomObjectsToPlayer(Message message)
+    {
+        // Bu mesajda oda objeleri bulunmakta bu oda objelerini serverdan dbden aldÃ½.
+        //Clientda bu oda objesini create edebilmesi iÃ§in bu mesajda bulunan oda objeleri 
+        // playerÃ½n ilgili game objelerine veya game object arraylerine atanmalÃ½dÃ½r.
+    }
+
+
+
+
+
+    #region Messages
+    [MessageHandler((ushort)ServerToClientId.playerSpawned)]
+    private static void SpawnPlayer(Message message)
+    {
+        Spawn(message.GetUShort(), message.GetString(), message.GetString(), message.GetVector3());
+        Debug.Log("Client connected to server successfully");
+    }
+
+    [MessageHandler((ushort)ServerToClientId.roomNames)]
+    private static void RoomNames(Message message)
+    {
+
+        // Oda isimleri ana menÃ¼de listelenecek
+        
+        roomsArr.Add("a");
+        roomsArr.Add("a");
+        roomsArr.Add("a");
+        roomsArr.Add("a");
+
+        
+        Debug.Log("Server oda isimlerini gÃ¶nderdi.");   
+    }
+
+    [MessageHandler((ushort)ServerToClientId.roomTemplate)]
+    private static void RoomTemplate(Message message)
+    {
+        Debug.Log("Server oda objelerini gÃ¶nderdi.");
+        AssingRoomObjectsToPlayer(message);
+
+    }
+    #endregion
+
+
+
+
+    #region ScenePassingProcess
+    public static void MovePlayerToDestinationScene(ushort id, string destinationScene)
+    {
+        list[id].StartCoroutine(LoadYourAsyncScene(id, destinationScene));
     }
 
     // Oyuncu objesini VR gozluge uyumlu objeye ceviriyor
@@ -37,6 +108,7 @@ public class Player : MonoBehaviour
         player.Id = NetworkManager.Singleton.Client.Id;
         player.Email = this.Email;
         player.Uid = this.Uid;
+        player.RoomName = this.RoomName;
 
         int size = this.Walls.Count;
         player.Walls = new List<GameObject>(size);
@@ -71,36 +143,6 @@ public class Player : MonoBehaviour
         SceneManager.MoveGameObjectToScene(NetworkManager.Singleton.gameObject, SceneManager.GetSceneByName(destinationScene));
         // Unload the previous Scene
         SceneManager.UnloadSceneAsync(currentScene);
-    }
-
-    // Client basarili þekilde Sign in oldu. Player spawn oluyor.
-    // Þimdilik basit bir capsule oluþuyor ihtiyaca göre deðiþebilir.
-    public static void Spawn(ushort id, string _email, string _uid, Vector3 position)
-    {
-        position.x = -5.63f;
-        position.y = 0.8f;
-        GameObject go = Instantiate(GameLogic.Singleton.LocalPlayerPrefab, position, Quaternion.identity);
-        Player player  = go.GetComponent<Player>();
-        player.name = _email;
-        player.Id = id;
-        player.Email = _email;
-        player.Uid = _uid;
-        list.Add(id, player);
-        go.SetActive(false);
-    }
-
-    [MessageHandler((ushort)ServerToClientId.playerSpawned)]
-    private static void SpawnPlayer(Message message)
-    {
-        Spawn(message.GetUShort(), message.GetString(), message.GetString(), message.GetVector3());
-        Debug.Log("Client connected to server successfully");
-    }
-
-
-    #region ScenePassingProcess
-    public static void MovePlayerToDestinationScene(ushort id, string destinationScene)
-    {
-        list[id].StartCoroutine(LoadYourAsyncScene(id, destinationScene));
     }
     #endregion
 }
