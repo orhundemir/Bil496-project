@@ -29,6 +29,20 @@ public class RoomController{
         conn.Close();
         return room;
     }
+        public Room getRoomName(NpgsqlConnection conn, int id){//Returning room's name with given id usefull for getting room from relational tables
+        conn.Open();
+        Room room = new Room();
+        NpgsqlCommand command = conn.CreateCommand();
+        string query = "SELECT name FROM Rooms WHERE id = "+id;
+        command.CommandText = query;
+        NpgsqlDataReader reader = command.ExecuteReader();
+        while (reader.Read()){
+            room.id  = id;
+            room.name = JsonConvert.SerializeObject(reader.GetValue(0));
+        }
+        conn.Close();
+        return room;
+    }
     public Room selectRoomWithName(NpgsqlConnection conn, string name){//Returning room with given name
         conn.Open();
         Room room = new Room();
