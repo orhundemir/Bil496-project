@@ -83,11 +83,8 @@ public class DBManager : MonoBehaviour
         return ret;
     }
 
-    public Dictionary<ushort, Player> playerList { get; private set; }
-
     private void Start()
     {
-        playerList = new Dictionary<ushort, Player>();
         setConnection();
     }
     
