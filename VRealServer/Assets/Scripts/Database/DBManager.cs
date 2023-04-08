@@ -77,6 +77,14 @@ public class DBManager : MonoBehaviour
         RoomController rc = new RoomController();
         RoomUserController ruc = new RoomUserController();
         
+        List<Room> usersRooms = myRooms(user);
+        int count = 1;
+        for(int i = 0; i<usersRooms.Count; i++){
+            if(string.Compare(room.name, usersRooms[i].name) == 0){
+                count++;
+                room.name = room.name+count;
+            }
+        }
         rc.insertRoom(conn, room);
         int room_id = rc.getLastRoomId(conn);
 
