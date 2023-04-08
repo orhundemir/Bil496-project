@@ -58,6 +58,20 @@ public class DBManager : MonoBehaviour
         }
         return temp;
     }
+    public static List<Room> myRooms(User user){//Returns list of rooms with ID and name is usefulll but wall, ceiling, floor, furniture is dummy
+        List<Room> ret = new List<Room>();
+        //TO DO
+        return ret;
+    }
+    public static void insertRoom(Room room){//Inserts given room to database
+        RoomController rc = new RoomController();
+        rc.insertRoom(conn, room);
+    }
+    public static Room loadRoom(int id){//ID and name will be correct in the list when myRooms called
+        RoomController rc = new RoomController();
+        Room ret = rc.selectRoom(conn, id);
+        return ret;
+    }
 
     public Dictionary<ushort, Player> playerList { get; private set; }
 
