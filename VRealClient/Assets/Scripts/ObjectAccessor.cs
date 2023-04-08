@@ -2,15 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectAccesser : MonoBehaviour
+public class ObjectAccessor : MonoBehaviour
 {
     public GameObject[] gameObjectList;
-
 
     // A singleton object to access the functions and variables of this class
     // without any need to create object of this class every time
     // when new instance created gameObjectList will be empty by default !!!
-    public static ObjectAccesser singletonInstance { get; private set; }
+    public static ObjectAccessor singletonInstance { get; private set; }
 
     private void Awake()
     {
@@ -42,9 +41,7 @@ public class ObjectAccesser : MonoBehaviour
                 item.transform.localPosition = new Vector3(0, 0, 0);
                 item.SetActive(true);
             }
-                
         }
     }
-
 
 }

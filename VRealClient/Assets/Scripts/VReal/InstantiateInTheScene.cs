@@ -6,6 +6,6 @@ public class InstantiateInTheScene : MonoBehaviour
 {
     public void PutObjectToTheScene()
     {
-        ObjectAccesser.singletonInstance.SetActivetWithTheName(this.name);
+        ObjectAccessor.singletonInstance.SetActivetWithTheName(this.name);
     }
 }
