@@ -5,7 +5,7 @@ using UnityEngine;
 public class AddOnObject : MonoBehaviour
 {
 
-    public Material finalMaterial, validMaterial, invalidMaterial;
+    public Material finalMaterial, validMaterial, invalidMaterial, realisticMaterial;
 
     private GameObject addOn;
     private float addOnLength;
@@ -17,7 +17,7 @@ public class AddOnObject : MonoBehaviour
         if (addOn.CompareTag("Door"))
             addOnLength = 1.5f;
         else if (addOn.CompareTag("Window"))
-            addOnLength = 2f;
+            addOnLength = 1.8f;
     }
 
     public void ChangeMaterialToFinal()
@@ -33,6 +33,11 @@ public class AddOnObject : MonoBehaviour
     public void ChangeMaterialToValid()
     {
         addOn.GetComponent<Renderer>().material = validMaterial;
+    }
+
+    public void ChangeMaterialToRealistic()
+    {
+        addOn.GetComponent<Renderer>().material = realisticMaterial;
     }
 
     public float GetLength()

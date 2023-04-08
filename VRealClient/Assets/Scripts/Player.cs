@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     public string Email { get; private set; }
     public string Uid { get; private set; }
     public string RoomName { get; set; }
-    public GameObject[] Walls { get; set; }
+    public List<GameObject> Walls { get; set; }
     public GameObject Floor { get; set; }  
     public GameObject Ceiling { get; set; }
     public Vector3 RoomCenter { get; set; }
@@ -26,14 +26,14 @@ public class Player : MonoBehaviour
         list.Remove(Id);
     }
 
-    // Vr sahnesinde duvar objelerinin yaratýlmasýný saðlýyor.
+    // Vr sahnesinde duvar objelerinin yaratÃ½lmasÃ½nÃ½ saÃ°lÃ½yor.
     public void SpawnWalls(GameObject wall)
     {
         Instantiate(wall, wall.transform.position, wall.transform.rotation);
     }
 
-    // Client basarili þekilde Sign in oldu. Player spawn oluyor.
-    // Þimdilik basit bir capsule oluþuyor ihtiyaca göre deðiþebilir.
+    // Client basarili Ã¾ekilde Sign in oldu. Player spawn oluyor.
+    // Ãžimdilik basit bir capsule oluÃ¾uyor ihtiyaca gÃ¶re deÃ°iÃ¾ebilir.
     public static void Spawn(ushort id, string _email, string _uid, Vector3 position)
     {
         position.x = -5.63f;
@@ -50,9 +50,9 @@ public class Player : MonoBehaviour
 
     public static void AssingRoomObjectsToPlayer(Message message)
     {
-        // Bu mesajda oda objeleri bulunmakta bu oda objelerini serverdan dbden aldý.
-        //Clientda bu oda objesini create edebilmesi için bu mesajda bulunan oda objeleri 
-        // playerýn ilgili game objelerine veya game object arraylerine atanmalýdýr.
+        // Bu mesajda oda objeleri bulunmakta bu oda objelerini serverdan dbden aldÃ½.
+        //Clientda bu oda objesini create edebilmesi iÃ§in bu mesajda bulunan oda objeleri 
+        // playerÃ½n ilgili game objelerine veya game object arraylerine atanmalÃ½dÃ½r.
     }
 
 
@@ -71,7 +71,7 @@ public class Player : MonoBehaviour
     private static void RoomNames(Message message)
     {
 
-        // Oda isimleri ana menüde listelenecek
+        // Oda isimleri ana menÃ¼de listelenecek
         
         roomsArr.Add("a");
         roomsArr.Add("a");
@@ -79,13 +79,13 @@ public class Player : MonoBehaviour
         roomsArr.Add("a");
 
         
-        Debug.Log("Server oda isimlerini gönderdi.");   
+        Debug.Log("Server oda isimlerini gÃ¶nderdi.");   
     }
 
     [MessageHandler((ushort)ServerToClientId.roomTemplate)]
     private static void RoomTemplate(Message message)
     {
-        Debug.Log("Server oda objelerini gönderdi.");
+        Debug.Log("Server oda objelerini gÃ¶nderdi.");
         AssingRoomObjectsToPlayer(message);
 
     }
@@ -110,11 +110,11 @@ public class Player : MonoBehaviour
         player.Uid = this.Uid;
         player.RoomName = this.RoomName;
 
-        int size = this.Walls.Length;
-        player.Walls = new GameObject[size];
+        int size = this.Walls.Count;
+        player.Walls = new List<GameObject>(size);
         for (int i = 0; i < size; i++)
         {
-            player.Walls[i] = this.Walls[i];
+            player.Walls.Add(this.Walls[i]);
         }
         player.Floor = this.Floor;
         player.Ceiling = this.Ceiling;

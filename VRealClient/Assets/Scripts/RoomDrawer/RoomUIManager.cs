@@ -29,12 +29,12 @@ public class RoomUIManager : MonoBehaviour {
         Singleton = this;
     }
 
-    // Sends the walls to the VR scene, which comes after the Room Drawing Scene
+    // Sends the walls, windows and doors to the VR scene, which comes after the Room Drawing Scene
     // Also sends the wall info to the server to be saved for later
-    // TODO: Send the floor and ceiling to both the server and the next scene
-    public void SendRoomTemplate(GameObject[] walls, GameObject ceiling, GameObject floor) {
+    // TODO: Send the floor and ceiling to the server
+    public void SendRoomTemplate(List<GameObject> walls, GameObject ceiling, GameObject floor) {
         Message message = Message.Create(MessageSendMode.reliable, ClientToServerId.roomTemplate);
-        message.AddInt(walls.Length);
+        message.AddInt(walls.Count);
 
         Player playerCopy = Player.list[NetworkManager.Singleton.Client.Id];
         playerCopy.Walls = walls;
@@ -51,9 +51,8 @@ public class RoomUIManager : MonoBehaviour {
     }
 
     // This is called from the on-click action of the Next button from the RoomDrawingScene
-    // TODO: Scale and position the doors and windows to fit the new wall heights
     public void ClickedNext() {
-        GameObject[] walls = GetFinalWallList();
+        List<GameObject> walls = GetFinalWallList();
 
         float wallHeight = walls[0].transform.parent.GetComponent<WallObject>().GetFinalHeight();
         float ceilingAndFloorHeight = 0.3f;
@@ -70,13 +69,15 @@ public class RoomUIManager : MonoBehaviour {
     }
 
     // Scale the walls in the y direction to give them their final height and return them as a list
-    private GameObject[] GetFinalWallList()
+    private List<GameObject> GetFinalWallList()
     {
-        GameObject[] walls = new GameObject[rootWall.transform.childCount - 1];
-
-        for (int i = 1; i < rootWall.transform.childCount; i++)
+        List<GameObject> walls = new();
+        for (int i = 0; i < rootWall.transform.childCount; i++)
         {
             Transform wallPrefab = rootWall.transform.GetChild(i);
+            if (!wallPrefab.CompareTag("WallObject"))
+                continue;
+
             GameObject wallScaler = wallPrefab.GetChild(0).gameObject;
             GameObject wall = wallScaler.transform.GetChild(0).gameObject;
             wall.name = "Wall Shape";
@@ -84,41 +85,76 @@ public class RoomUIManager : MonoBehaviour {
 
             Vector3 scale = wallScaler.transform.localScale;
             float wallHeight = wallPrefab.GetComponent<WallObject>().GetFinalHeight();
-
             wallScaler.transform.localScale = new Vector3(scale.x, wallHeight / 2f, scale.z);
             wallScaler.transform.position = wallPrefab.position + new Vector3(0f, wallHeight / 4f, 0f);
             wallScaler.transform.rotation = wallPrefab.rotation;
 
-            walls[i - 1] = wallScaler;
+            List<GameObject> addOns = GetAdjustedAddOns(wallPrefab.gameObject, wallHeight / 2f, wallScaler.transform.localScale.x);
+            walls.AddRange(addOns);
+            walls.Add(wallScaler);
         }
 
         return walls;
     }
 
-    private GameObject CreateRoomCeiling(float ceilingHeight)
+    // Rescales the doors and windows to fit the adjusted walls and returns them as a list
+    private List<GameObject> GetAdjustedAddOns(GameObject wall, float wallHeight, float wallWidth)
     {
-        List<Vector3> hingePositions = new List<Vector3>();
-        for (int i = 1; i < rootWall.transform.childCount; i++)
-        {
-            Transform wall = rootWall.transform.GetChild(i);
+        List<GameObject> addOns = new List<GameObject>();
+        float offsetWidth = wallWidth * 1.1f;
 
-            Transform hinge1 = wall.transform.Find("Hinge1");
-            Transform hinge2 = wall.transform.Find("Hinge2");
-            hingePositions.Add(hinge1.position);
-            hingePositions.Add(hinge2.position);
+        for (int i = 0; i < wall.transform.childCount; i++)
+        {
+            GameObject child = wall.transform.GetChild(i).gameObject;
+            if (child.transform.childCount == 0)
+                continue;
+
+            string childTag = child.transform.GetChild(0).tag;
+            if (childTag != "Window" && childTag != "Door")
+                continue;
+
+            AddOnObject addOnObject = child.GetComponent<AddOnObject>();
+            addOnObject.ChangeMaterialToRealistic();
+            float addOnSize = addOnObject.GetLength();
+            float doorHeight = wallHeight * 0.75f;
+            Vector3 addOnScale = new Vector3(offsetWidth, childTag == "Door" ? doorHeight : addOnSize, addOnSize);
+
+            Vector3 wallPos = wall.transform.GetChild(0).transform.position;
+            Vector3 addOnPos = child.transform.position;
+            float yOffset = childTag == "Door" ? (wallHeight - doorHeight) / 2 : 0f;
+
+            child.transform.localScale = addOnScale;
+            child.transform.position = new Vector3(addOnPos.x, wallPos.y - yOffset, addOnPos.z);
+
+            child.name = childTag;
+            child.transform.GetChild(0).name = $"{childTag} Shape";
+            addOns.Add(child);
         }
 
+        return addOns;
+    }
+
+    public GameObject CreateRoomCeiling(float ceilingHeight)
+    {
         // Find the minimum and maximum x and z coordinates
         float minX = float.MaxValue;
         float maxX = float.MinValue;
         float minZ = float.MaxValue;
         float maxZ = float.MinValue;
-        foreach (var pos in hingePositions)
+        for (int i = 0; i < rootWall.transform.childCount; i++)
         {
-            if (pos.x < minX) minX = pos.x;
-            if (pos.x > maxX) maxX = pos.x;
-            if (pos.z < minZ) minZ = pos.z;
-            if (pos.z > maxZ) maxZ = pos.z;
+            if (!rootWall.transform.GetChild(i).CompareTag("WallObject"))
+                continue;
+
+            Transform hinge1 = rootWall.transform.GetChild(i).Find("Hinge1");
+            Transform hinge2 = rootWall.transform.GetChild(i).Find("Hinge2");
+
+            Vector3 pos1 = hinge1.position;
+            Vector3 pos2 = hinge2.position;
+            minX = Mathf.Min(minX, pos1.x, pos2.x);
+            maxX = Mathf.Max(maxX, pos1.x, pos2.x);
+            minZ = Mathf.Min(minZ, pos1.z, pos2.z);
+            maxZ = Mathf.Max(maxZ, pos1.z, pos2.z);
         }
 
         // Create a new object using the ceiling prefab which has the calculated boundary values
@@ -130,7 +166,7 @@ public class RoomUIManager : MonoBehaviour {
 
         ceiling.name = "Ceiling";
         Player.list[NetworkManager.Singleton.Client.Id].RoomCenter = roomCenter;
-        Player.list[NetworkManager.Singleton.Client.Id].Ceiling=ceiling;
+        Player.list[NetworkManager.Singleton.Client.Id].Ceiling = ceiling;
         return ceiling;
     }
 

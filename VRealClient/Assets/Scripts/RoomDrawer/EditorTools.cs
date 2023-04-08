@@ -12,7 +12,7 @@ public class EditorTools : MonoBehaviour
         Window,
         Door
     }
-    public static Tool SelectedTool { get; private set; } = Tool.Wall;
+    public static Tool SelectedTool { get; private set; } = Tool.Selector;
 
     // Onclick methods for the tools menu
     public void SelectSelectorTool()
