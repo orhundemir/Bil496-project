@@ -79,10 +79,11 @@ public class DBManager : MonoBehaviour
         
         List<Room> usersRooms = myRooms(user);
         int count = 1;
+        string name = room.name;
         for(int i = 0; i<usersRooms.Count; i++){
             if(string.Compare(room.name, usersRooms[i].name) == 0){
                 count++;
-                room.name = room.name+count;
+                room.name = name+count;
             }
         }
         rc.insertRoom(conn, room);
