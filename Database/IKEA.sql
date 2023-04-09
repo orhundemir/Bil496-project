@@ -8,6 +8,7 @@ CREATE TABLE ROOMS(
 	name TEXT NOT NULL,
 	wall TEXT NOT NULL,
 	floor TEXT NOT NULL,
+	ceiling TEXT NOT NULL,
 	furniture TEXT NOT NULL
 );
 
