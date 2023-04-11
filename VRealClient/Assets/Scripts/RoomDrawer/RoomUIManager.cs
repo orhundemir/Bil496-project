@@ -53,6 +53,8 @@ public class RoomUIManager : MonoBehaviour {
     // This is called from the on-click action of the Next button from the RoomDrawingScene
     public void ClickedNext() {
         List<GameObject> walls = GetFinalWallList();
+        if (walls.Count == 0)
+            return;
 
         float wallHeight = walls[0].transform.parent.GetComponent<WallObject>().GetFinalHeight();
         float ceilingAndFloorHeight = 0.3f;
@@ -72,7 +74,7 @@ public class RoomUIManager : MonoBehaviour {
     private List<GameObject> GetFinalWallList()
     {
         List<GameObject> walls = new();
-        for (int i = 0; i < rootWall.transform.childCount; i++)
+        for (int i = 1; i < rootWall.transform.childCount; i++)
         {
             Transform wallPrefab = rootWall.transform.GetChild(i);
             if (!wallPrefab.CompareTag("WallObject"))
