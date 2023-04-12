@@ -34,6 +34,7 @@ def fetchProductInfo(productURLName):
     productMeasurements = product["itemMeasureReferenceText"]
 
     return {
+        "productId": productURLName,
         "productName": productName,
         "productType": productType,
         "productPrice": productPrice,
