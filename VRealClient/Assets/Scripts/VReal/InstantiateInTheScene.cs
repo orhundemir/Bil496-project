@@ -1,11 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 public class InstantiateInTheScene : MonoBehaviour
 {
+    private GameObject root;
+
+    public void Start()
+    {
+        root = GameObject.Find("Furnitures");
+    }
+
+    private UnityEngine.Object LoadPrefabFromFile(string filename)
+    {   
+        var loadedObject = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/VReal/Furnitures/" + filename + ".3ds");
+        if (loadedObject == null)
+        {
+            throw new FileNotFoundException("...no file found - please check the configuration");
+        }
+        return loadedObject;
+    }
+
     public void PutObjectToTheScene()
     {
-        ObjectAccessor.singletonInstance.SetActivetWithTheName(this.name);
+        var loadedPrefabResource = LoadPrefabFromFile(this.name);
+        Instantiate(loadedPrefabResource, Vector3.zero, Quaternion.identity, root.transform);
     }
 }
