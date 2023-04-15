@@ -5,11 +5,15 @@ using System;
 
 public class Initiator : MonoBehaviour
 {
+
     [SerializeField] private GameObject RoomLight;
+
+    private Player player;
+
     void Awake()
     {
         Player temp = Player.list[NetworkManager.Singleton.Client.Id];
-        Player player = Instantiate(GameLogic.Singleton.VROrigin, temp.transform.position, temp.transform.rotation).GetComponent<Player>();
+        player = Instantiate(GameLogic.Singleton.VROrigin, temp.transform.position, temp.transform.rotation).GetComponent<Player>();
         temp.CopyPlayer(player);
 
         foreach (GameObject go in player.Walls)
@@ -22,6 +26,11 @@ public class Initiator : MonoBehaviour
         Vector3 lightPos = player.Ceiling.transform.position;
         lightPos.y = 2.5f;
         Instantiate(RoomLight, lightPos, Quaternion.identity);
+    }
+
+    public Vector3 GetRoomCenter()
+    {
+        return player.RoomCenter;
     }
 
 }

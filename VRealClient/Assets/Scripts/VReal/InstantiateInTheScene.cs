@@ -6,11 +6,14 @@ using UnityEngine;
 
 public class InstantiateInTheScene : MonoBehaviour
 {
+
     private GameObject root;
+    private Vector3 roomCenter;
 
     public void Start()
     {
         root = GameObject.Find("Furnitures");
+        roomCenter = GameObject.Find("Initiator").GetComponent<Initiator>().GetRoomCenter();
     }
 
     private UnityEngine.Object LoadPrefabFromFile(string filename)
@@ -26,6 +29,6 @@ public class InstantiateInTheScene : MonoBehaviour
     public void PutObjectToTheScene()
     {
         var loadedPrefabResource = LoadPrefabFromFile(this.name);
-        Instantiate(loadedPrefabResource, Vector3.zero, Quaternion.identity, root.transform);
+        Instantiate(loadedPrefabResource, roomCenter, Quaternion.identity, root.transform);
     }
 }
