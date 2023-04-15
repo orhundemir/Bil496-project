@@ -58,9 +58,7 @@ public class MenuController : MonoBehaviour
 
     private void MenuButtonListener()
     {
-        bool sceneCanvasActive = sceneMenuCanvas.active;
-        bool catalogCanvasActive = catalogMenuCanvas.active;
-        sceneMenuCanvas.SetActive(!sceneMenuCanvas.active && !catalogCanvasActive);
+        sceneMenuCanvas.SetActive(!sceneMenuCanvas.active && !catalogMenuCanvas.active);
         catalogMenuCanvas.SetActive(false);
     }
 
