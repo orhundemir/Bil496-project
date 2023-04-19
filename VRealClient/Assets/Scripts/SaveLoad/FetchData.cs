@@ -30,11 +30,13 @@ public class FetchData : MonoBehaviour
     {
         Process process = new Process();
 
-        // Path to the Python interpreter, might require absolute path if python.exe is not added to the Environment Variables
+        // Path to the Python interpreter, will require absolute path if python.exe is not added to the Environment Variables
         process.StartInfo.FileName = "python.exe";
 
-        // Path to the Python file and ikea product codes as command line arguments
-        process.StartInfo.Arguments = "\"" + Directory.GetCurrentDirectory() + @"\Assets\Scripts\IKEA API\IkeaProductScraper.py" + "\" " + $"{string.Join(" ", requestedProducts)}";
+        // Path to the Python file and IKEA product names passed as command line arguments
+        process.StartInfo.Arguments = "\"" + Directory.GetCurrentDirectory() + 
+            @"\Assets\Scripts\IKEA API\IkeaProductScraper.py" +
+            "\" " + $"{string.Join(" ", requestedProducts)}";
 
         // Redirect the outputs and errors from Python to Unity
         process.StartInfo.RedirectStandardOutput = true;
