@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using Newtonsoft.Json;
 
-public class FetchData : MonoBehaviour
+public class FetchData : ScriptableObject
 {
 
     [SerializeField]

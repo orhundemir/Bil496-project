@@ -9,29 +9,17 @@ using System.Text.RegularExpressions;
 public class IkeaCartManager : MonoBehaviour
 {
 
-    
-    public void Start()
+    // Called from the on-click of the View Cart Button
+    public void AddFurnituresToIkeaCart()
     {
-        List<string> productNames = new List<string>
-        {
-            "uppland-cover-for-armchair-virestad-red-white-30472729",
-            "uppland-cover-for-armchair-virestad-red-white-30472729",
-            "uppland-cover-for-armchair-virestad-red-white-30472729",
-            "uppland-cover-for-armchair-virestad-red-white-30472729",
-            "tullsta-armchair-lofallet-beige-s89272714",
-            "tullsta-armchair-lofallet-beige-s89272714",
-            "ingolf-chair-white-70103250",
-            "test-for-exception-123abc123"
-        };
-        AddItemsToIkeaCart(productNames);    
+        List<string> productCodes = RetrieveProductCodes();
+        RunCartEndpoint(productCodes);
     }
 
-    public void AddItemsToIkeaCart(List<string> productNames)
+    // Runs the IKEA API to add the given products to the guest user's cart
+    // Automatically redirects to the IKEA website from Python
+    private void RunCartEndpoint(List<string> productCodes)
     {
-        List<string> productCodes = ExtractItemCodes(productNames);
-        
-        foreach (string a in productCodes)
-            UnityEngine.Debug.Log(a);
         Process process = new Process();
 
         // Path to the Python interpreter, will require absolute path if python.exe is not added to the Environment Variables
@@ -59,19 +47,27 @@ public class IkeaCartManager : MonoBehaviour
             UnityEngine.Debug.Log("Cart access was successful");
     }
 
-    private List<string> ExtractItemCodes(List<string> productNames)
+    private List<string> RetrieveProductCodes()
     {
-        List<string> productCodes = new List<string>(productNames.Count);
-        foreach (string productName in productNames)
-        {
-            string code = productName.Substring(productName.LastIndexOf("-") + 1);
+        int furnitureCount = transform.childCount;
+        List<string> productCodes = new List<string>(furnitureCount);
 
-            int startIndex = GetFirstDigitIndex(code);
-            if (startIndex != -1)
-                productCodes.Add(code.Substring(startIndex));
+        for (int i = 0; i < furnitureCount; i++)
+        {
+            string productName = transform.GetChild(i).name;
+            productCodes.Add(ExtractProductCode(productName));
         }
-        
+
         return productCodes;
+    }
+
+    private string ExtractProductCode(string productName)
+    {
+        string code = productName.Substring(productName.LastIndexOf("-") + 1);
+        int startIndex = GetFirstDigitIndex(code);
+        if (startIndex != -1)
+            code = code.Substring(startIndex);
+        return code.Replace("(Clone)", "");
     }
 
     private int GetFirstDigitIndex(string str)

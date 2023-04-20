@@ -23,7 +23,7 @@ public class RetrieveCatalogImages : MonoBehaviour
         }
 
         // Retrieve the needed data for each product from the IKEA API
-        FetchData fetchData = new FetchData();
+        FetchData fetchData = ScriptableObject.CreateInstance<FetchData>();
         AssignImages(fetchData.RunIkeaApi(productNames));
     }
 
