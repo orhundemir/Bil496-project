@@ -65,5 +65,6 @@ print(productsJson)
 
 # Send exception message for unfetched items back to Unity
 # This error has to be raised at the very end to avoid prematurely terminating and skipping remaining items
+notFoundProducts = [product for product in notFoundProducts if product is not None]
 if len(notFoundProducts) != 0:
     raise ProductNotFoundException(notFoundProducts)
