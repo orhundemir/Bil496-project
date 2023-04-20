@@ -1008,6 +1008,7 @@ GameObject:
   - component: {fileID: 1241009030477085641}
   - component: {fileID: -8820992963136803545}
   - component: {fileID: -1140246719291258512}
+  - component: {fileID: -4410331563258848787}
   m_Layer: 0
   m_Name: billy-oxberg-bookcase-with-panel-glass-doors-white-s69281776
   m_TagString: Untagged
@@ -1112,6 +1113,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07bda1fbfafd3a49980c0bfbab2514a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &-4410331563258848787
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5405492080642438901}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6306971857062322812
 GameObject:
   m_ObjectHideFlags: 0

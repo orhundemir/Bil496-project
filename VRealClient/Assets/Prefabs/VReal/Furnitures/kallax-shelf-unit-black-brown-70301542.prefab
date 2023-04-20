@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -6479400286405261992}
   - component: {fileID: 2895510715028052730}
   - component: {fileID: -2452299144276422379}
+  - component: {fileID: 2195699284069855930}
   m_Layer: 0
   m_Name: kallax-shelf-unit-black-brown-70301542
   m_TagString: Untagged
@@ -101,6 +102,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07bda1fbfafd3a49980c0bfbab2514a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &2195699284069855930
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278594210924322727}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2260583682843282222
 GameObject:
   m_ObjectHideFlags: 0

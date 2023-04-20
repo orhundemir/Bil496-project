@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -3914355035703269260}
   - component: {fileID: -8382049659164071954}
   - component: {fileID: -8710065339299918481}
+  - component: {fileID: 7840391591277995480}
   m_Layer: 0
   m_Name: alex-drawer-unit-black-brown-60473548
   m_TagString: Untagged
@@ -151,3 +152,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07bda1fbfafd3a49980c0bfbab2514a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &7840391591277995480
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6038763546508180231}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 360, y: 700, z: 580}
+  m_Center: {x: 0, y: 350, z: -0.000015258789}

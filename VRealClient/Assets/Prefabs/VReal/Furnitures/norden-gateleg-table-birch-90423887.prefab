@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -639302561396716082}
   - component: {fileID: 5613172429781119712}
   - component: {fileID: -6483981858074595324}
+  - component: {fileID: -6950576284090017272}
   m_Layer: 0
   m_Name: norden-gateleg-table-birch-90423887
   m_TagString: Untagged
@@ -151,3 +152,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07bda1fbfafd3a49980c0bfbab2514a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &-6950576284090017272
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6215443338330220303}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1585.7241, y: 872.4509, z: 1750.1595}
+  m_Center: {x: 195.84921, y: 441.30255, z: -58.925354}

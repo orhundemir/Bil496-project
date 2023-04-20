@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 4044391216044824497}
   - component: {fileID: 3655001474803236447}
   - component: {fileID: -511008877387773448}
+  - component: {fileID: 4241612395799950466}
   m_Layer: 0
   m_Name: hemnes-glass-door-cabinet-with-3-drawers-white-stain-50371772
   m_TagString: Untagged
@@ -268,6 +269,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07bda1fbfafd3a49980c0bfbab2514a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &4241612395799950466
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7775747585525881252}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8605242197432585517
 GameObject:
   m_ObjectHideFlags: 0

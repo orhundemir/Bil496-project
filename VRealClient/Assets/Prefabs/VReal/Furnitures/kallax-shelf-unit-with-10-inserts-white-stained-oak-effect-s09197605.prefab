@@ -427,6 +427,7 @@ GameObject:
   - component: {fileID: 1032543554326849191}
   - component: {fileID: 111390406850458045}
   - component: {fileID: 564351841906585139}
+  - component: {fileID: -4772457371085595875}
   m_Layer: 0
   m_Name: kallax-shelf-unit-with-10-inserts-white-stained-oak-effect-s09197605
   m_TagString: Untagged
@@ -531,6 +532,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07bda1fbfafd3a49980c0bfbab2514a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &-4772457371085595875
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3580123098274574693}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4158530039281931027
 GameObject:
   m_ObjectHideFlags: 0

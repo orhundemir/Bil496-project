@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3623426695761340972}
   - component: {fileID: 5287470321387670877}
   - component: {fileID: 1699068336724685030}
+  - component: {fileID: 3764522625704786787}
   m_Layer: 0
   m_Name: klippan-loveseat-kabusa-dark-gray-s29251781
   m_TagString: Untagged
@@ -153,3 +154,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07bda1fbfafd3a49980c0bfbab2514a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &3764522625704786787
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6748195886127594256}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 179.9538, y: 69.77062, z: 88.00001}
+  m_Center: {x: 0, y: 0.0000038146973, z: 0}

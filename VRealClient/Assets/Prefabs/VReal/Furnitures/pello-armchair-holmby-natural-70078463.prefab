@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2871170145265925564}
   - component: {fileID: -3920125475422561103}
   - component: {fileID: -4527387261243746645}
+  - component: {fileID: 8388499123546419031}
   m_Layer: 0
   m_Name: pello-armchair-holmby-natural-70078463
   m_TagString: Untagged
@@ -101,6 +102,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07bda1fbfafd3a49980c0bfbab2514a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &8388499123546419031
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5141631124309399081}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6618120262530957984
 GameObject:
   m_ObjectHideFlags: 0

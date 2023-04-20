@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -560452700577177968}
   - component: {fileID: -6512015008947157588}
   - component: {fileID: 4161571752820980299}
+  - component: {fileID: 184252488677999386}
   m_Layer: 0
   m_Name: uppland-armchair-hallarp-beige-s09322355
   m_TagString: Untagged
@@ -152,3 +153,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07bda1fbfafd3a49980c0bfbab2514a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &184252488677999386
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8326612355933023075}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 83.66438, y: 82.435875, z: 86.0689}
+  m_Center: {x: 0.0000019073486, y: 0.0000038146973, z: -0.0000038146973}

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -907591798771018472}
   - component: {fileID: -4943848395939873845}
   - component: {fileID: 1586236701516141461}
+  - component: {fileID: -7118450549424833991}
   m_Layer: 0
   m_Name: malm-2-drawer-chest-white-80214549
   m_TagString: Untagged
@@ -151,3 +152,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07bda1fbfafd3a49980c0bfbab2514a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &-7118450549424833991
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5925473175103052325}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 720, y: 1000, z: 632.6197}
+  m_Center: {x: -4.3247986, y: 514.92505, z: 17.329407}

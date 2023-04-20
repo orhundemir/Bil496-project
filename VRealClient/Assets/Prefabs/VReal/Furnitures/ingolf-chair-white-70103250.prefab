@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -3690376063482292455}
   - component: {fileID: -7646453047790683680}
   - component: {fileID: -1879002340055481447}
+  - component: {fileID: 3498893621473701442}
   m_Layer: 0
   m_Name: ingolf-chair-white-70103250
   m_TagString: Untagged
@@ -151,3 +152,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07bda1fbfafd3a49980c0bfbab2514a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &3498893621473701442
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5901253382939784770}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 478.7444, y: 913.4962, z: 592.0243}
+  m_Center: {x: 1.664299, y: 463.7464, z: -155.94855}
