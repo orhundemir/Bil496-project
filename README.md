@@ -1,4 +1,6 @@
 # Bil496-project
+* VR headsetle çalıştırma yapılacağı zaman Initiator scriptinde yorum satırında olan satırlar açılmalıdır. Simülatör kullanılacağı zaman oldugu gibi bırakılmalıdır.
+
 
 Server için  unity hub üzerinden open file seçeneği ile kodun çekildiği klasördeki VRealServer klasörü seçilerek çalıştırılmalıdır.
 
