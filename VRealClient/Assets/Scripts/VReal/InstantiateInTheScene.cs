@@ -18,7 +18,7 @@ public class InstantiateInTheScene : MonoBehaviour
 
     private UnityEngine.Object LoadPrefabFromFile(string filename)
     {   
-        var loadedObject = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/VReal/Furnitures/" + filename + ".3ds");
+        var loadedObject = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/VReal/Furnitures/" + filename + ".prefab");
         if (loadedObject == null)
         {
             throw new FileNotFoundException("...no file found - please check the configuration");
