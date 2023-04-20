@@ -22,7 +22,8 @@ public class ModelDeletionManager : MonoBehaviour
     {
         if (grabbedObject != null)
         {
-            // grabbedObject.GetComponent<BasicGrabbable>().ForceRelease();
+            //grabbedObject.GetComponent<BasicGrabbable>().ForceRelease();
+            //grabbedObject.SetActive(false);
             Destroy(grabbedObject);
             grabbedObject = null;
         }

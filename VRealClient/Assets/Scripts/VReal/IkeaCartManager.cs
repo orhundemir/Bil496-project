@@ -64,10 +64,14 @@ public class IkeaCartManager : MonoBehaviour
     private string ExtractProductCode(string productName)
     {
         string code = productName.Substring(productName.LastIndexOf("-") + 1);
+
         int startIndex = GetFirstDigitIndex(code);
         if (startIndex != -1)
             code = code.Substring(startIndex);
-        return code.Replace("(Clone)", "");
+        if (code.Contains("("))
+            code = code.Substring(0, code.IndexOf("("));
+
+        return code;
     }
 
     private int GetFirstDigitIndex(string str)

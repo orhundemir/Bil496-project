@@ -176,8 +176,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9095667461617803701}
   - component: {fileID: 2600264785544163868}
-  - component: {fileID: 635274349090664541}
   - component: {fileID: 2531204946371941503}
+  - component: {fileID: 635274349090664541}
   - component: {fileID: -8425334178322997624}
   m_Layer: 0
   m_Name: brimnes-bed-frame-with-storage-headboard-white-luroey-s29129601
@@ -233,13 +233,49 @@ MonoBehaviour:
   m_maxStretchScale: 1
   m_afterGrabbed:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2531204946371941503}
+        m_TargetAssemblyTypeName: DeleteModel, Assembly-CSharp
+        m_MethodName: SetAsGrabbed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_beforeRelease:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2531204946371941503}
+        m_TargetAssemblyTypeName: DeleteModel, Assembly-CSharp
+        m_MethodName: SetAsNotGrabbed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_onDrop:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2531204946371941503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8462718833595955983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b07bda1fbfafd3a49980c0bfbab2514a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!54 &635274349090664541
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -256,18 +292,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2531204946371941503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8462718833595955983}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b07bda1fbfafd3a49980c0bfbab2514a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &-8425334178322997624
 BoxCollider:
   m_ObjectHideFlags: 0
