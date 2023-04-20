@@ -30,13 +30,12 @@ def addItemsToCart(itemCodes):
 
     chrome_options = Options()
     chrome_options.add_experimental_option("detach", True)
-    browser = webdriver.Chrome(service=Service(
-        ChromeDriverManager().install()), options=chrome_options)
+    browser = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
     browser.implicitly_wait(10)
     browser.get(constants.local_base_url + "/shoppingcart")
-    WebDriverWait(browser, 10).until(EC.element_to_be_clickable(
-        (By.XPATH, '//*[@id="onetrust-accept-btn-handler"]'))).click()
+    WebDriverWait(browser, 10).until(EC.element_to_be_clickable((By.XPATH, '//*[@id="onetrust-accept-btn-handler"]'))).click()
+    time.sleep(1)
     browser.delete_cookie("guest")
     browser.add_cookie({
         'name': 'guest',
