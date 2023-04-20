@@ -11,31 +11,21 @@ public class Initiator : MonoBehaviour
     [SerializeField] private GameObject RoomLight;
     void Awake()
     {
-
+        
+        //VR gozluk kullanilacaksa asagidaki yorum satirlari acilmalidir.
         //XRGeneralSettings.Instance.Manager.InitializeLoaderSync();
-       // XRGeneralSettings.Instance.Manager.StartSubsystems();
-
-        Player temp = Player.list[NetworkManager.Singleton.Client.Id];
+        //XRGeneralSettings.Instance.Manager.StartSubsystems();
         VRModule.Initialize();
-        
-        //if (XRGeneralSettings.Instance.Manager.activeLoader == null)
-        //{
-        //    Debug.LogWarning("Initializing XR Failed. Check Editor or Player log for details.");
-        //}
-        //else
-        //{
-        //    Debug.Log("Starting XR...");
-        //    XRGeneralSettings.Instance.Manager.StartSubsystems();
-        //}
-        
+
+        //VR icin player olusturuluyor.
+        Player temp = Player.list[NetworkManager.Singleton.Client.Id];
         Player player = Instantiate(GameLogic.Singleton.VROrigin, temp.transform.position, temp.transform.rotation).GetComponent<Player>();
         temp.CopyPlayer(player);
-
+        //duvar,zemin,tavan ve isiklandirma objeleri olusturuluyor.
         foreach (GameObject go in player.Walls)
         {
             player.SpawnWalls(go);
         }
-
         Instantiate(player.Ceiling);
         Instantiate(player.Floor);
         Vector3 lightPos = player.Ceiling.transform.position;
