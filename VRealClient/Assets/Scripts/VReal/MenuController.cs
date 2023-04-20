@@ -23,7 +23,7 @@ public class MenuController : MonoBehaviour
     // Unassign the controller button listeners
     private void OnDestroy()
     {
-        ViveInput.RemoveListenerEx(HandRole.RightHand, ControllerButton.Trigger, ButtonEventType.Down, MenuButtonListener);
+        ViveInput.RemoveListenerEx(HandRole.RightHand, ControllerButton.Menu, ButtonEventType.Down, MenuButtonListener);
     }
 
     private void Start()

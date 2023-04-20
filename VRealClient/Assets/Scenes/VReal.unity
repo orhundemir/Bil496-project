@@ -648,9 +648,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Main Menu
-
-'
+  m_Text: View Cart
 --- !u!222 &107240038
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4915,7 +4913,7 @@ GameObject:
   - component: {fileID: 841066596}
   - component: {fileID: 841066595}
   m_Layer: 5
-  m_Name: MainMenuButton
+  m_Name: CartButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4939,7 +4937,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.318}
+  m_AnchoredPosition: {x: 0, y: -0.505}
   m_SizeDelta: {x: 678.5577, y: 118.3924}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &841066595
@@ -8348,17 +8346,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9a29d8f40156f094e963dd76aa2bd14c,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9a29d8f40156f094e963dd76aa2bd14c,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9a29d8f40156f094e963dd76aa2bd14c,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9a29d8f40156f094e963dd76aa2bd14c,
         type: 3}
@@ -8424,10 +8422,34 @@ MonoBehaviour:
   m_maxStretchScale: 1
   m_afterGrabbed:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1319484478}
+        m_TargetAssemblyTypeName: DeleteModel, Assembly-CSharp
+        m_MethodName: SetAsGrabbed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_beforeRelease:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1319484478}
+        m_TargetAssemblyTypeName: DeleteModel, Assembly-CSharp
+        m_MethodName: SetAsNotGrabbed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_onDrop:
     m_PersistentCalls:
       m_Calls: []
@@ -8444,6 +8466,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 500.8316, y: 760.804, z: 466.64957}
   m_Center: {x: -8.104309, y: 379.402, z: -30.069954}
+--- !u!114 &1319484478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1319484475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b07bda1fbfafd3a49980c0bfbab2514a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1326654781
 GameObject:
   m_ObjectHideFlags: 0
@@ -9327,6 +9361,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Hemnes_Day_Bed_Frame
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f75b06bf91b12db4a8e12e68b477d798,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f75b06bf91b12db4a8e12e68b477d798, type: 3}
@@ -11679,6 +11718,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1758593678}
+  - component: {fileID: 1758593679}
   m_Layer: 0
   m_Name: Furnitures
   m_TagString: Untagged
@@ -11701,6 +11741,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1758593679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758593677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54d34364e8b80674587ea3feca34744f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1761439640
 GameObject:
   m_ObjectHideFlags: 0
