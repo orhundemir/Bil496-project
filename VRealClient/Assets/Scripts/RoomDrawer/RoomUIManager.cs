@@ -182,7 +182,7 @@ public class RoomUIManager : MonoBehaviour {
         if (existingBoxCollider != null)
             Destroy(existingBoxCollider);
         BoxCollider boxCollider = ceiling.AddComponent<BoxCollider>();
-        boxCollider.size = ceiling.transform.localScale;
+        boxCollider.transform.localScale = ceiling.transform.localScale;
         Rigidbody rigidBody = ceiling.AddComponent<Rigidbody>();
         rigidBody.isKinematic = true;
         rigidBody.constraints = RigidbodyConstraints.FreezeAll;
@@ -205,7 +205,7 @@ public class RoomUIManager : MonoBehaviour {
         if (existingBoxCollider != null)
             Destroy(existingBoxCollider);
         BoxCollider boxCollider = floor.AddComponent<BoxCollider>();
-        boxCollider.size = floor.transform.localScale;
+        boxCollider.transform.localScale = floor.transform.localScale;
         Rigidbody rigidBody = floor.AddComponent<Rigidbody>();
         rigidBody.isKinematic = true;
         rigidBody.constraints = RigidbodyConstraints.FreezeAll;
