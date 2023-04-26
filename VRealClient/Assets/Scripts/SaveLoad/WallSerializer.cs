@@ -28,7 +28,7 @@ public class WallSerializer : MonoBehaviour{
             formatter.Serialize(stream, wall.transform.Find("Hinge2").position.y);
             formatter.Serialize(stream, wall.transform.Find("Hinge2").position.z);
 
-            //TO DO material
+            formatter.Serialize(stream, wall.transform.Find("wallMaterial"));
         }
         stream.Close();
     }
