@@ -3,17 +3,25 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using RiptideNetworking;
+using System.Text;
 
 public class WallSerializer : MonoBehaviour{
     public GameObject[] gameObjectList;
     public GameObject[] furniture;
     private List<Wall> wallList;
     private List<Furniture> furnitureList;
+
+    public string wall;
+    public string products;
+    public string ceiling;
+    public string floor;
     Player player;
 
     void Start()
         {
             wallList = new List<Wall>();
+            furnitureList = new List<Furniture>();
         }
     public void Save()
     {
@@ -49,7 +57,7 @@ public class WallSerializer : MonoBehaviour{
             formatter.Serialize(stream, wall.y2);
             formatter.Serialize(stream, wall.z2);
             
-            //formatter.Serialize(stream, wall.wallMaterial);
+            formatter.Serialize(stream, wall.wallMaterial);
 
         }
         stream.Close();
@@ -73,6 +81,13 @@ public class WallSerializer : MonoBehaviour{
             }
         }
         stream2.Close();
+        //TO DO ceiling and floor serialization
+
+        
+        wall = getString("walls.bin");
+        products = getString("furnitures.bin");
+        //TO DO ceiling = ceiling.bin
+        //TO DO floor = floor.bin
     }
 
     public void Load()
@@ -142,4 +157,21 @@ public class WallSerializer : MonoBehaviour{
             stream.Close();
         }
     }
+
+    private string getString(string filePath){//Method for reading binary files
+        using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
+        {
+            byte[] buffer = new byte[4096];
+
+            StringBuilder stringBuilder = new StringBuilder();
+            int bytesRead;
+            while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) > 0)
+            {
+                stringBuilder.Append(Encoding.UTF8.GetString(buffer, 0, bytesRead));
+            }
+            string ret = stringBuilder.ToString();
+            return ret;
+        }
+    }
+
 }
