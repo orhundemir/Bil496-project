@@ -8,7 +8,11 @@ using UnityEngine.XR;
 
 public class Initiator : MonoBehaviour
 {
+
     [SerializeField] private GameObject RoomLight;
+
+    private Player player;
+
     void Awake()
     {
         
@@ -19,7 +23,7 @@ public class Initiator : MonoBehaviour
 
         //VR icin player olusturuluyor.
         Player temp = Player.list[NetworkManager.Singleton.Client.Id];
-        Player player = Instantiate(GameLogic.Singleton.VROrigin, temp.transform.position, temp.transform.rotation).GetComponent<Player>();
+        player = Instantiate(GameLogic.Singleton.VROrigin, temp.transform.position, temp.transform.rotation).GetComponent<Player>();
         temp.CopyPlayer(player);
         //duvar,zemin,tavan ve isiklandirma objeleri olusturuluyor.
         foreach (GameObject go in player.Walls)
@@ -32,5 +36,10 @@ public class Initiator : MonoBehaviour
         lightPos.y = 2.5f;
         Instantiate(RoomLight, lightPos, Quaternion.identity);
     }
-    
+
+    public Vector3 GetRoomCenter()
+    {
+        return player.RoomCenter;
+    }
+
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class IkeaProduct {
 
+    public string productId;
     public string productName;
     public string productType;
     public string productPrice;
@@ -13,7 +14,7 @@ public class IkeaProduct {
     public string productMeasurements;
 
     public override string ToString() {
-        return "name: " + productName + "\ntype: " + productType + "\nprice: " + productPrice + "\nimage: " + productImageURL + "\nmeasurements: " + productMeasurements;
+        return "id : " + productId + "name: " + productName + "\ntype: " + productType + "\nprice: " + productPrice + "\nimage: " + productImageURL + "\nmeasurements: " + productMeasurements;
     }
 
 }
