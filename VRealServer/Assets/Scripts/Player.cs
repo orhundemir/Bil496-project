@@ -10,8 +10,12 @@ public class Player : MonoBehaviour
     public string Email { get; private set; }
     public string Uid { get; private set; }
 
+    public string roomName { get; private set; }
+
     private static User user;
     private static Room room;
+
+
 
 
     private void OnDestroy()
@@ -97,6 +101,8 @@ public class Player : MonoBehaviour
          */
          room = new Room();
          room.name = roomName;
+         list[id].roomName = roomName;
+         Debug.Log("Room opened name: "+roomName);
     }
     
     public static void SaveRoomTemplateToDB(ushort id, Message message)
@@ -109,10 +115,15 @@ public class Player : MonoBehaviour
 
        // string wall = message.GetString();
        // string furniture = message.GetString();
+       // string ceiling = message.GetString();
+       // string floor = message.GetString();
        // room.wall = wall;
        // room.furniture = furniture;
+       // room.ceiling = ceiling;
+       // room.floor = floor;
        // DBManager.insertRoom(room, user);
 
+        
         int size = message.GetInt();
 
         for (int i = 0; i < size; i++)
