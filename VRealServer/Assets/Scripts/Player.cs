@@ -101,7 +101,8 @@ public class Player : MonoBehaviour
         //Bu metotda gelen oda template okunup json,binary vs. formatına çevrildikten sonra db'ye kaydedilmelidir.
 
        // Bu metot şimdilik sadece oda çizim sahnesinde oda çizildikten duvarların konumlarının serverda ekrana basma işini yapıyor.
-      
+       // string wall = message.GetString();
+       // string furniture = message.GetString();
         int size = message.GetInt();
 
         for (int i = 0; i < size; i++)

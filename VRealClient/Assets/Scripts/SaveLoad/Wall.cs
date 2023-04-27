@@ -13,7 +13,7 @@ public class Wall{
     public float y2;
     public float z2;
     //Wall metarial
-    public Material wallMaterial;
+    public string wallMaterial;
     
     public string tostring(){
         return "Hinge1 coordinates: "+x1+", "+y1+", "+z1+" Hinge2 coordinates: "+x2+", "+y2+", "+z2+" Wall material: "+wallMaterial;
