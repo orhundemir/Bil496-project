@@ -64,13 +64,27 @@ public class DBManager : MonoBehaviour
         RoomController rc = new RoomController();
         RoomUserController ruc = new RoomUserController();
         List<Room> ret = new List<Room>();
-
+        List<RoomUser> list = ruc.selectUsersRoom(conn, user);
+        for(int i = 0; i<list.Count; i++){
+            Room room = rc.getRoomName(conn, list[i].scene_id);
+            ret.Add(room);
+        }
         
         return ret;
     }
     public static void insertRoom(Room room, User user){//Inserts given room to database
         RoomController rc = new RoomController();
         RoomUserController ruc = new RoomUserController();
+        
+        List<Room> usersRooms = myRooms(user);
+        int count = 1;
+        string name = room.name;
+        for(int i = 0; i<usersRooms.Count; i++){
+            if(string.Compare(room.name, usersRooms[i].name) == 0){
+                count++;
+                room.name = name+count;
+            }
+        }
         rc.insertRoom(conn, room);
         int room_id = rc.getLastRoomId(conn);
 
@@ -82,6 +96,7 @@ public class DBManager : MonoBehaviour
         Room ret = rc.selectRoom(conn, id);
         return ret;
     }
+
 
     private void Start()
     {
