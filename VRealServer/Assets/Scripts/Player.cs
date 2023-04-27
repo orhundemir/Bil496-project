@@ -40,8 +40,8 @@ public class Player : MonoBehaviour
                 player.Id = id;
                 player.Email = _email;
                 player.Uid = _uid;
-                User user = new User(id, _email);
-                user = DBManager.checkUser(user);
+                //User user = new User(id, _email);
+                //user = DBManager.checkUser(user);
                 player.SendSpawned(id);
             }
         }

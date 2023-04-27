@@ -53,6 +53,8 @@ public class RoomUIManager : MonoBehaviour {
     // This is called from the on-click action of the Next button from the RoomDrawingScene
     public void ClickedNext() {
         List<GameObject> walls = GetFinalWallList();
+        if (walls.Count == 0)
+            return;
 
         float wallHeight = walls[0].transform.parent.GetComponent<WallObject>().GetFinalHeight();
         float ceilingAndFloorHeight = 0.3f;
@@ -72,7 +74,7 @@ public class RoomUIManager : MonoBehaviour {
     private List<GameObject> GetFinalWallList()
     {
         List<GameObject> walls = new();
-        for (int i = 0; i < rootWall.transform.childCount; i++)
+        for (int i = 1; i < rootWall.transform.childCount; i++)
         {
             Transform wallPrefab = rootWall.transform.GetChild(i);
             if (!wallPrefab.CompareTag("WallObject"))
@@ -82,6 +84,17 @@ public class RoomUIManager : MonoBehaviour {
             GameObject wall = wallScaler.transform.GetChild(0).gameObject;
             wall.name = "Wall Shape";
             wallScaler.name = "Wall";
+
+            // Add box colliders and rigid bodies to the walls
+            BoxCollider existingBoxCollider = wall.GetComponent<BoxCollider>();
+            if (existingBoxCollider != null)
+                Destroy(existingBoxCollider);
+            BoxCollider boxCollider = wall.AddComponent<BoxCollider>();
+            boxCollider.size = wall.transform.localScale;
+            Rigidbody rigidBody = wall.AddComponent<Rigidbody>();
+            rigidBody.isKinematic = true;
+            rigidBody.constraints = RigidbodyConstraints.FreezeAll;
+            rigidBody.useGravity = false;
 
             Vector3 scale = wallScaler.transform.localScale;
             float wallHeight = wallPrefab.GetComponent<WallObject>().GetFinalHeight();
@@ -164,6 +177,17 @@ public class RoomUIManager : MonoBehaviour {
         GameObject ceiling = Instantiate(ceilingPrefab, roomCenter, Quaternion.identity);
         ceiling.transform.localScale = ceilingScale;
 
+        // Add a box collider and a rigid body to the ceiling
+        BoxCollider existingBoxCollider = ceiling.GetComponent<BoxCollider>();
+        if (existingBoxCollider != null)
+            Destroy(existingBoxCollider);
+        BoxCollider boxCollider = ceiling.AddComponent<BoxCollider>();
+        boxCollider.transform.localScale = ceiling.transform.localScale;
+        Rigidbody rigidBody = ceiling.AddComponent<Rigidbody>();
+        rigidBody.isKinematic = true;
+        rigidBody.constraints = RigidbodyConstraints.FreezeAll;
+        rigidBody.useGravity = false;
+
         ceiling.name = "Ceiling";
         Player.list[NetworkManager.Singleton.Client.Id].RoomCenter = roomCenter;
         Player.list[NetworkManager.Singleton.Client.Id].Ceiling = ceiling;
@@ -175,6 +199,17 @@ public class RoomUIManager : MonoBehaviour {
         GameObject floor = Instantiate(floorPrefab, floorPosition, Quaternion.identity);
         floor.transform.localScale = floorScale;
         floor.GetComponent<Renderer>().material = drawingArea.GetComponent<Renderer>().material;
+
+        // Add a box collider and a rigid body to the floor
+        BoxCollider existingBoxCollider = floor.GetComponent<BoxCollider>();
+        if (existingBoxCollider != null)
+            Destroy(existingBoxCollider);
+        BoxCollider boxCollider = floor.AddComponent<BoxCollider>();
+        boxCollider.transform.localScale = floor.transform.localScale;
+        Rigidbody rigidBody = floor.AddComponent<Rigidbody>();
+        rigidBody.isKinematic = true;
+        rigidBody.constraints = RigidbodyConstraints.FreezeAll;
+        rigidBody.useGravity = false;
 
         floor.name = "Floor";
         Player.list[NetworkManager.Singleton.Client.Id].Floor = floor;
