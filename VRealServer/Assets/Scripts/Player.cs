@@ -10,6 +10,13 @@ public class Player : MonoBehaviour
     public string Email { get; private set; }
     public string Uid { get; private set; }
 
+    public string roomName { get; private set; }
+
+    private static User user;
+    private static Room room;
+
+
+
 
     private void OnDestroy()
     {
@@ -40,8 +47,10 @@ public class Player : MonoBehaviour
                 player.Id = id;
                 player.Email = _email;
                 player.Uid = _uid;
-                //User user = new User(id, _email);
-                //user = DBManager.checkUser(user);
+                
+                user = new User(id, _email);
+                user = DBManager.checkUser(user);
+
                 player.SendSpawned(id);
             }
         }
@@ -92,6 +101,10 @@ public class Player : MonoBehaviour
          Clienta iletecek. Clientta bu objeleri Player sınıfının ilgili instancelarına atayacak.
         
          */
+         room = new Room();
+         room.name = roomName;
+         list[id].roomName = roomName;
+         Debug.Log("Room opened name: "+roomName);
     }
     
     public static void SaveRoomTemplateToDB(ushort id, Message message)
@@ -101,7 +114,18 @@ public class Player : MonoBehaviour
         //Bu metotda gelen oda template okunup json,binary vs. formatına çevrildikten sonra db'ye kaydedilmelidir.
 
        // Bu metot şimdilik sadece oda çizim sahnesinde oda çizildikten duvarların konumlarının serverda ekrana basma işini yapıyor.
-      
+
+       // string wall = message.GetString();
+       // string furniture = message.GetString();
+       // string ceiling = message.GetString();
+       // string floor = message.GetString();
+       // room.wall = wall;
+       // room.furniture = furniture;
+       // room.ceiling = ceiling;
+       // room.floor = floor;
+       // DBManager.insertRoom(room, user);
+
+        
         int size = message.GetInt();
 
         for (int i = 0; i < size; i++)
