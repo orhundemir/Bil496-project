@@ -15,7 +15,7 @@ public class WallSerializer : MonoBehaviour{
     {
         //Create binary formatter and a file stream object to write to a file in binary format
         BinaryFormatter formatter = new BinaryFormatter();
-        FileStream stream = new FileStream(fileName, FileMode.Create);
+        FileStream stream = new FileStream(fileName+".bin", FileMode.Create);
 
         //to use when we load the scene back, write needed data
         foreach (var wall in gameObjectList)
@@ -35,10 +35,10 @@ public class WallSerializer : MonoBehaviour{
 
     public void Load(string fileName)
     {
-        if (File.Exists(fileName))
+        if (File.Exists(fileName+".bin"))
         {
             BinaryFormatter formatter = new BinaryFormatter();
-            FileStream stream = new FileStream(fileName, FileMode.Open);
+            FileStream stream = new FileStream(fileName+".bin", FileMode.Open);
 
             //for every model, set position and rotation with the data that we read from file
             for (int i = 0; i < gameObjectList.Length; i++)
