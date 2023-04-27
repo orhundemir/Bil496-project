@@ -60,15 +60,17 @@ public class WallSerializer : MonoBehaviour{
 
         foreach (var item in furniture)
         {
-            formatter2.Serialize(stream, item.transform.localPosition.x);
-            formatter2.Serialize(stream, item.transform.localPosition.y);
-            formatter2.Serialize(stream, item.transform.localPosition.z);
+            if(item.activeSelf){
+                formatter2.Serialize(stream, item.transform.localPosition.x);
+                formatter2.Serialize(stream, item.transform.localPosition.y);
+                formatter2.Serialize(stream, item.transform.localPosition.z);
 
-            formatter2.Serialize(stream, item.transform.eulerAngles.x);
-            formatter2.Serialize(stream, item.transform.eulerAngles.y);
-            formatter2.Serialize(stream, item.transform.eulerAngles.z);
+                formatter2.Serialize(stream, item.transform.eulerAngles.x);
+                formatter2.Serialize(stream, item.transform.eulerAngles.y);
+                formatter2.Serialize(stream, item.transform.eulerAngles.z);
 
-            formatter2.Serialize(stream, item.name);
+                formatter2.Serialize(stream, item.name);
+            }
         }
         stream2.Close();
     }
@@ -130,6 +132,7 @@ public class WallSerializer : MonoBehaviour{
                 f.rotY = roty;
                 f.rotZ = rotz;
                 f.name = name;
+                f.isActive = true;
                 furnitureList.Add(f);
 
                 furniture[i].transform.localPosition = new Vector3(posx, posy, posz);

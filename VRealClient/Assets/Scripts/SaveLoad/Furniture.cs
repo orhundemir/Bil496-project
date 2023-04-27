@@ -6,4 +6,5 @@ public class Furniture{
     public float rotY;
     public float rotZ;
     public string name;
+    public bool isActive;
 }
