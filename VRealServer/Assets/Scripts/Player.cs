@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     public string Uid { get; private set; }
 
     private static User user;
+    private static Room room;
 
 
     private void OnDestroy()
@@ -94,6 +95,8 @@ public class Player : MonoBehaviour
          Clienta iletecek. Clientta bu objeleri Player sınıfının ilgili instancelarına atayacak.
         
          */
+         room = new Room();
+         room.name = roomName;
     }
     
     public static void SaveRoomTemplateToDB(ushort id, Message message)
@@ -106,8 +109,6 @@ public class Player : MonoBehaviour
 
        // string wall = message.GetString();
        // string furniture = message.GetString();
-       // Room room = new Room();
-       // room.name = name gelmeli;
        // room.wall = wall;
        // room.furniture = furniture;
        // DBManager.insertRoom(room, user);
