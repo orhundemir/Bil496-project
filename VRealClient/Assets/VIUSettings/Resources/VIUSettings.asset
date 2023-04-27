@@ -77,7 +77,7 @@ MonoBehaviour:
   m_enableExternalCameraSwitch: 1
   m_externalCameraSwitchKey: 109
   m_externalCameraSwitchKeyModifier: 303
-  m_activateOculusVRModule: 1
+  m_activateOculusVRModule: 0
   m_oculusVRAndroidManifestPath: 
   m_enableOculusSDKHandRenderModel: 1
   m_enableOculusSDKControllerRenderModel: 1
@@ -92,9 +92,9 @@ MonoBehaviour:
   m_simulatorKeyMoveSpeed: 1.5
   m_simulatorMouseRotateSpeed: 90
   m_simulatorKeyRotateSpeed: 90
-  m_simulatorLeftControllerModel: 2
-  m_simulatorRightControllerModel: 2
-  m_simulatorOtherModel: 3
+  m_simulatorLeftControllerModel: 43
+  m_simulatorRightControllerModel: 44
+  m_simulatorOtherModel: 5
   m_activateUnityNativeVRModule: 1
   m_activateUnityXRModule: 1
   m_preferUnityXRPointerPose: 0
