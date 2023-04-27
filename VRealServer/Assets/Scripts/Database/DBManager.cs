@@ -51,6 +51,8 @@ public class DBManager : MonoBehaviour
         if(temp.e_mail == null){
             Debug.Log("User: "+user.e_mail+" not exist adding new user to database");
             uc.insertUser(conn, user);
+            int id = uc.getLastUser(conn);
+            Debug.Log("Logged in as: "+user.e_mail+" user id is: "+id);
             temp = checkUser(temp);
         }
         else {
@@ -59,13 +61,21 @@ public class DBManager : MonoBehaviour
         return temp;
     }
     public static List<Room> myRooms(User user){//Returns list of rooms with ID and name is usefulll but wall, ceiling, floor, furniture is dummy
+        RoomController rc = new RoomController();
+        RoomUserController ruc = new RoomUserController();
         List<Room> ret = new List<Room>();
-        //TO DO
+
+        
         return ret;
     }
-    public static void insertRoom(Room room){//Inserts given room to database
+    public static void insertRoom(Room room, User user){//Inserts given room to database
         RoomController rc = new RoomController();
+        RoomUserController ruc = new RoomUserController();
         rc.insertRoom(conn, room);
+        int room_id = rc.getLastRoomId(conn);
+
+        RoomUser ru = new RoomUser(1, user.id, room_id);
+        ruc.insertRoomUser(conn, ru);
     }
     public static Room loadRoom(int id){//ID and name will be correct in the list when myRooms called
         RoomController rc = new RoomController();
@@ -73,11 +83,8 @@ public class DBManager : MonoBehaviour
         return ret;
     }
 
-    public Dictionary<ushort, Player> playerList { get; private set; }
-
     private void Start()
     {
-        playerList = new Dictionary<ushort, Player>();
         setConnection();
     }
     

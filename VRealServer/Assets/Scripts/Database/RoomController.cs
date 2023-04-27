@@ -2,14 +2,14 @@ using Npgsql;
 using Newtonsoft.Json;
 public class RoomController{
     
-    public bool insertRoom(NpgsqlConnection conn, Room room){//Inserting given room to database id will be determined by last room's id+1 in database
+    public int insertRoom(NpgsqlConnection conn, Room room){//Inserting given room to database id will be determined by last room's id+1 in database
         conn.Open();
         NpgsqlCommand command = conn.CreateCommand();
-        string query = "INSERT INTO Rooms (name, wall, ceiling, floor, furniture) VALUES ('"+room.name+"', '"+room.wall+"', '"+room.ceiling+"', '"+room.floor+"', '"+room.furniture+"')";
+        string query = "INSERT INTO Rooms (name, wall, ceiling, floor, furniture) VALUES ('"+room.name+"', '"+room.wall+"', '"+room.ceiling+"', '"+room.floor+"', '"+room.furniture+"') RETURNING id";
         command.CommandText = query;
-        command.ExecuteNonQuery();
+        int id = command.ExecuteNonQuery();
         conn.Close();
-        return true;
+        return id;
     }
     public Room selectRoom(NpgsqlConnection conn, int id){//Returning room with given id usefull for getting room from relational tables
         conn.Open();
@@ -46,5 +46,18 @@ public class RoomController{
         }
         conn.Close();
         return room;
+    }
+    public int getLastRoomId(NpgsqlConnection conn){
+        conn.Open();
+        int id = 0;
+        NpgsqlCommand command = conn.CreateCommand();
+        string query = "SELECT id FROM Rooms ORDER BY id DESC LIMIT 1";
+        command.CommandText = query;
+        NpgsqlDataReader reader = command.ExecuteReader();
+        while (reader.Read()){
+             id = int.Parse(JsonConvert.SerializeObject(reader.GetValue(0)));
+        }
+        conn.Close();
+        return id;
     }
 }

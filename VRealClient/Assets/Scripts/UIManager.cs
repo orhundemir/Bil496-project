@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using SlimUI.ModernMenu;
 using System.Threading.Tasks;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
@@ -30,7 +31,10 @@ public class UIManager : MonoBehaviour
     public GameObject welcome;
     public GameObject settings;
     public GameObject exit;
+
     public GameObject newDesign;
+    public TMP_Dropdown loadDesign;
+    public TMP_InputField input;
 
     [Header("Server Disconnect Warning")]
     public GameObject warning;
@@ -54,12 +58,73 @@ public class UIManager : MonoBehaviour
         NetworkManager.Singleton.Client.Send(message);
     }
 
+    public void SendRoomName()
+    {
+        
+            Message message = Message.Create(MessageSendMode.reliable, ClientToServerId.roomName);
+            message.AddString(input.text);
+            NetworkManager.Singleton.Client.Send(message);
+    }
+
+    public void SendPrevRoomName(string item)
+    {
+        Message message = Message.Create(MessageSendMode.reliable, ClientToServerId.prevRoomName);
+        //message.AddString(input.text);
+        //NetworkManager.Singleton.Client.Send(message);
+    }
+
+    public void SendGoogleEmail(string _email)
+    {
+        Message message = Message.Create(MessageSendMode.reliable, ClientToServerId.googleEmail);
+        message.AddString(_email);
+        NetworkManager.Singleton.Client.Send(message);
+    }
+
+    public void SendGoogleUID(string _uid)
+    {
+        Message message = Message.Create(MessageSendMode.reliable, ClientToServerId.googleUID);
+        message.AddString(_uid);
+        NetworkManager.Singleton.Client.Send(message);
+    }
+
+    public void ClickedLoadPrevRoom()
+    {
+        Debug.Log("room");
+        //SendPrevRoomName(loadDesign.itemText.text);
+    }
+    public void LoadRoomClicked()
+    {
+        loadDesign.gameObject.SetActive(true);
+        Player.roomsArr.Add("a");
+        Player.roomsArr.Add("b");
+        Player.roomsArr.Add("c");
+        Player.roomsArr.Add("d");
+        loadDesign.AddOptions(Player.roomsArr);
+    }
 
     public void NewDesignClicked()
     {
-        Player player = Player.list[NetworkManager.Singleton.Client.Id];
-        player.gameObject.SetActive(true);
-        Player.MovePlayerToDestinationScene(player.Id, "RoomDrawing");
+        loadDesign.gameObject.SetActive(false);
+        newDesign.SetActive(true);
+    }
+
+    public void NextClicked()
+    {
+        if (input.text != null)
+        {
+            SendRoomName();
+            Player player = Player.list[NetworkManager.Singleton.Client.Id];
+            player.RoomName = input.text;
+            newDesign.SetActive(false);
+            player.gameObject.SetActive(true);
+            Player.MovePlayerToDestinationScene(player.Id, "RoomDrawing");
+        }
+        
+    }
+    public void CancelClicked()
+    {
+        input.text = "";
+        newDesign.SetActive(false);
     }
 
     public void GoogleConnectClicked()
@@ -103,17 +168,5 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void SendGoogleEmail(string _email)
-    {
-        Message message = Message.Create(MessageSendMode.reliable, ClientToServerId.googleEmail);
-        message.AddString(_email);
-        NetworkManager.Singleton.Client.Send(message);
-    }
-
-    public void SendGoogleUID(string _uid)
-    {
-        Message message = Message.Create(MessageSendMode.reliable, ClientToServerId.googleUID);
-        message.AddString(_uid);
-        NetworkManager.Singleton.Client.Send(message);
-    }
+    
 }

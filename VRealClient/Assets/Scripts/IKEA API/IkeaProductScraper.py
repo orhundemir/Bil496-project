@@ -16,13 +16,11 @@ def fetchProductInfo(productURLName):
     try:
         product = searchResult["searchResultPage"]["products"]["main"]["items"][0]["product"]
     except IndexError:
-        notFoundProducts.append(productURLName)
         return None
 
     # Extract the desired information from the product dictionary
     productName = product["name"]
     if productName.lower() not in productURLName.lower():
-        notFoundProducts.append(productURLName)
         return None
 
     productType = product["typeName"]
@@ -55,6 +53,8 @@ for i in range(1, len(sys.argv)):
     productInfo = fetchProductInfo(sys.argv[i])
     if productInfo != None:
         products.append(productInfo)
+    else:
+        notFoundProducts.append(productInfo)
 
 # Serialize the products list into a JSON string
 productsJson = json.dumps(products)
