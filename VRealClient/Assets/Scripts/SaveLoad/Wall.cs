@@ -3,19 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Wall{
-    //Hinge1 coordinates
-    public float x1;
-    public float y1;
-    public float z1;
-    //Hinge1 coordinates
-    public float x2;
-    public float y2;
-    public float z2;
-    //Wall metarial
-    public string wallMaterial;
+public class Wall {
+
+    // wall/door/window = 0, ceiling/floor = 1
+    public int type;
+
+    public Vector3 position;
+    public Vector3 rotation;
+    public Vector3 scale;
+    public string material;
     
-    public string tostring(){
-        return "Hinge1 coordinates: "+x1+", "+y1+", "+z1+" Hinge2 coordinates: "+x2+", "+y2+", "+z2+" Wall material: "+wallMaterial;
+    public override string ToString() {
+        return "Position: " + position + " Rotation: " + rotation + " Scale " + scale + " Material " + material;
     }
 }

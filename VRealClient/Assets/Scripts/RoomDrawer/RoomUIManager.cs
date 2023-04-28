@@ -84,6 +84,7 @@ public class RoomUIManager : MonoBehaviour {
             GameObject wall = wallScaler.transform.GetChild(0).gameObject;
             wall.name = "Wall Shape";
             wallScaler.name = "Wall";
+            wallScaler.transform.tag = "Wall";
 
             // Add box colliders and rigid bodies to the walls
             BoxCollider existingBoxCollider = wall.GetComponent<BoxCollider>();
@@ -123,6 +124,7 @@ public class RoomUIManager : MonoBehaviour {
                 continue;
 
             string childTag = child.transform.GetChild(0).tag;
+            child.tag = childTag;
             if (childTag != "Window" && childTag != "Door")
                 continue;
 
@@ -189,6 +191,7 @@ public class RoomUIManager : MonoBehaviour {
         rigidBody.useGravity = false;
 
         ceiling.name = "Ceiling";
+        ceiling.transform.tag = "Ceiling";
         Player.list[NetworkManager.Singleton.Client.Id].RoomCenter = roomCenter;
         Player.list[NetworkManager.Singleton.Client.Id].Ceiling = ceiling;
         return ceiling;
@@ -212,6 +215,7 @@ public class RoomUIManager : MonoBehaviour {
         rigidBody.useGravity = false;
 
         floor.name = "Floor";
+        floor.transform.tag = "Floor";
         Player.list[NetworkManager.Singleton.Client.Id].Floor = floor;
         return floor;
     }

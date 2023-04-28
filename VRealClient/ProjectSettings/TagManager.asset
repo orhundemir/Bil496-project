@@ -10,6 +10,8 @@ TagManager:
   - Door
   - RoomLight
   - WallObject
+  - Ceiling
+  - Floor
   layers:
   - Default
   - TransparentFX

@@ -27,9 +27,10 @@ public class Player : MonoBehaviour
     }
 
     // Vr sahnesinde duvar objelerinin yaratýlmasýný saðlýyor.
-    public void SpawnWalls(GameObject wall)
+    public void SpawnWalls(GameObject wall, Transform parentObject)
     {
-        Instantiate(wall, wall.transform.position, wall.transform.rotation);
+        GameObject wallObject = Instantiate(wall, wall.transform.position, wall.transform.rotation);
+        wallObject.transform.parent = parentObject;
     }
 
     // Client basarili þekilde Sign in oldu. Player spawn oluyor.

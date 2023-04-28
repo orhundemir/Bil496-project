@@ -6,9 +6,11 @@ using UnityEngine;
 using RiptideNetworking;
 using System.Text;
 
-public class WallSerializer : MonoBehaviour{
+public class WallSerializer : MonoBehaviour {
+
     public GameObject[] gameObjectList;
     public GameObject[] furniture;
+
     private List<Wall> wallList;
     private List<Furniture> furnitureList;
 
@@ -16,29 +18,36 @@ public class WallSerializer : MonoBehaviour{
     public string products;
     public string ceiling;
     public string floor;
-    Player player;
 
     void Start()
-        {
-            wallList = new List<Wall>();
-            furnitureList = new List<Furniture>();
-        }
+    {
+        wallList = new List<Wall>();
+        furnitureList = new List<Furniture>();
+    }
+
     public void Save()
     {
-        GameObject walls = GameObject.FindGameObjectWithTag("WallObject");
-        for (int i = 0; i < walls.transform.childCount; i++)
+        // Turn all room entity objects into objects of the Wall class
+        Transform wallsParent = GameObject.Find("Walls").transform;
+        for (int i = 0; i < wallsParent.transform.childCount; i++)
         {
-            GameObject w = walls.transform.GetChild(i).gameObject;
+            GameObject obj = wallsParent.transform.GetChild(i).gameObject;
             Wall wall = new Wall();
-            Vector3 pos = w.transform.position;
-            Vector3 scale = w.transform.localScale;
-            wall.x1 = pos.x + scale.x;
-            wall.x2 = pos.x - scale.x;
-            wall.y1 = pos.y;
-            wall.y2 = pos.y;
-            wall.z1 = pos.z + scale.z;
-            wall.z2 = pos.z - scale.z;
-            wall.wallMaterial = w.transform.GetChild(0).GetComponent<Renderer>().material.name;
+            wall.position = obj.transform.position;
+            wall.rotation = obj.transform.eulerAngles;
+            wall.scale = obj.transform.localScale;
+
+            if (obj.CompareTag("Ceiling") || obj.CompareTag("Floor"))
+            {
+                wall.type = 1;
+                wall.material = obj.transform.GetComponent<Renderer>().material.name;
+            }
+            else
+            {
+                wall.type = 0;
+                wall.material = obj.transform.GetChild(0).GetComponent<Renderer>().material.name;
+            }
+
             wallList.Add(wall);
         }
 
@@ -47,47 +56,52 @@ public class WallSerializer : MonoBehaviour{
         FileStream stream = new FileStream("walls.bin", FileMode.Create);
 
         //to use when we load the scene back, write needed data
-        foreach (var wall in wallList)
+        foreach (Wall wall in wallList)
         {
-            formatter.Serialize(stream, wall.x1);
-            formatter.Serialize(stream, wall.y1);
-            formatter.Serialize(stream, wall.z1);
+            formatter.Serialize(stream, wall.type);
 
-            formatter.Serialize(stream, wall.x2);
-            formatter.Serialize(stream, wall.y2);
-            formatter.Serialize(stream, wall.z2);
-            
-            formatter.Serialize(stream, wall.wallMaterial);
+            formatter.Serialize(stream, wall.position.x);
+            formatter.Serialize(stream, wall.position.y);
+            formatter.Serialize(stream, wall.position.z);
 
+            formatter.Serialize(stream, wall.rotation.x);
+            formatter.Serialize(stream, wall.rotation.y);
+            formatter.Serialize(stream, wall.rotation.z);
+
+            formatter.Serialize(stream, wall.scale.x);
+            formatter.Serialize(stream, wall.scale.y);
+            formatter.Serialize(stream, wall.scale.z);
+
+            formatter.Serialize(stream, wall.material);
         }
         stream.Close();
-        
-        GameObject furnitures = GameObject.FindGameObjectWithTag("FurnitureObject");
+
+        GameObject furnitureParent = GameObject.Find("Furnitures");
         BinaryFormatter formatter2 = new BinaryFormatter();
         FileStream stream2 = new FileStream("furnitures.bin", FileMode.Create);
-
-        foreach (var item in furniture)
+        // Save furnitures in the scene into the furnitures.bin file
+        for (int i = 0; i < furnitureParent.transform.childCount; i++)
         {
-            if(item.activeSelf){
-                formatter2.Serialize(stream, item.transform.localPosition.x);
-                formatter2.Serialize(stream, item.transform.localPosition.y);
-                formatter2.Serialize(stream, item.transform.localPosition.z);
+            GameObject item = furnitureParent.transform.GetChild(i).gameObject;
 
-                formatter2.Serialize(stream, item.transform.eulerAngles.x);
-                formatter2.Serialize(stream, item.transform.eulerAngles.y);
-                formatter2.Serialize(stream, item.transform.eulerAngles.z);
+            formatter2.Serialize(stream2, item.transform.localPosition.x);
+            formatter2.Serialize(stream2, item.transform.localPosition.y);
+            formatter2.Serialize(stream2, item.transform.localPosition.z);
 
-                formatter2.Serialize(stream, item.name);
-            }
+            formatter2.Serialize(stream2, item.transform.eulerAngles.x);
+            formatter2.Serialize(stream2, item.transform.eulerAngles.y);
+            formatter2.Serialize(stream2, item.transform.eulerAngles.z);
+
+            formatter2.Serialize(stream2, item.transform.localScale.x);
+            formatter2.Serialize(stream2, item.transform.localScale.y);
+            formatter2.Serialize(stream2, item.transform.localScale.z);
+
+            formatter2.Serialize(stream2, item.name);
         }
         stream2.Close();
-        //TO DO ceiling and floor serialization
-
         
         wall = getString("walls.bin");
         products = getString("furnitures.bin");
-        //TO DO ceiling = ceiling.bin
-        //TO DO floor = floor.bin
     }
 
     public void Load()
@@ -97,27 +111,39 @@ public class WallSerializer : MonoBehaviour{
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream("walls.bin", FileMode.Open);
 
-            //for every model, set position and rotation with the data that we read from file
+            //for every model, set position, scale and rotation with the data that we read from file
             for (int i = 0; i < gameObjectList.Length; i++)
             {
-                float x1 = (float)formatter.Deserialize(stream);
-                float y1 = (float)formatter.Deserialize(stream);
-                float z1 = (float)formatter.Deserialize(stream);
-
-                float x2 = (float)formatter.Deserialize(stream);
-                float y2 = (float)formatter.Deserialize(stream);
-                float z2 = (float)formatter.Deserialize(stream);
-
-                Material wallMaterial = (Material)formatter.Deserialize(stream);
+                int type = (int)formatter.Deserialize(stream);
+                float x = (float)formatter.Deserialize(stream);
+                float y = (float)formatter.Deserialize(stream);
+                float z = (float)formatter.Deserialize(stream);
+                float rotationX = (float)formatter.Deserialize(stream);
+                float rotationY = (float)formatter.Deserialize(stream);
+                float rotationZ = (float)formatter.Deserialize(stream);
+                float scaleX = (float)formatter.Deserialize(stream);
+                float scaleY = (float)formatter.Deserialize(stream);
+                float scaleZ = (float)formatter.Deserialize(stream);
+                string materialName = (string)formatter.Deserialize(stream);
+                //Material wallMaterial = (Material)formatter.Deserialize(stream);
 
                 Wall wall = new Wall();
-                wall.x1 = x1;
-                wall.y1 = y1;
-                wall.z1 = z1;
-                wall.x2 = x2;
-                wall.y2 = y2;
-                wall.z2 = z2;
-                wall.wallMaterial = wallMaterial.name;
+                wall.type = type;
+                wall.position = new Vector3(x, y, z);
+                wall.rotation = new Vector3(rotationX, rotationY, rotationZ);
+                wall.scale = new Vector3(scaleX, scaleY, scaleZ);
+                wall.material = materialName;
+
+                /* TODO
+                 * VReal sahnesine zemin ve tavan haricindeki objeler parent-child olarak ikili olarak gonderiliyor
+                 * O objeler load edilirken ayni hiyerarsi olusturulmali
+                 * Asil 3 boyutlu sekli child'lar iceriyor
+                 * Duvarlar icin child'larin z pozisyonu 0.5f, kalan butun objelerin childlarinin tum transformlari default
+                 * 
+                 * Tavan ve zemin icin child-parent iliskisine gerek yok, Wall class'ina bir de type ekledim.
+                 * Type = 1 zemin ve tavan icin, Type = 0 kalan her sey icin
+                 * Sadece Type = 0 olanlar icin bu hiyerarsi olusturulmali
+                 */
 
                 wallList.Add(wall);
 
@@ -137,6 +163,9 @@ public class WallSerializer : MonoBehaviour{
                 float rotx = (float)formatter.Deserialize(stream);
                 float roty = (float)formatter.Deserialize(stream);
                 float rotz = (float)formatter.Deserialize(stream);
+                float scalex = (float)formatter.Deserialize(stream);
+                float scaley = (float)formatter.Deserialize(stream);
+                float scalez = (float)formatter.Deserialize(stream);
                 string name = (string)formatter.Deserialize(stream);
 
                 Furniture f = new Furniture();
@@ -146,12 +175,16 @@ public class WallSerializer : MonoBehaviour{
                 f.rotX = rotx;
                 f.rotY = roty;
                 f.rotZ = rotz;
+                f.scaleX = scalex;
+                f.scaleY = scaley;
+                f.scaleZ = scalez;
                 f.name = name;
                 f.isActive = true;
                 furnitureList.Add(f);
 
                 furniture[i].transform.localPosition = new Vector3(posx, posy, posz);
                 furniture[i].transform.localRotation = Quaternion.Euler(rotx, roty, rotz);
+                furniture[i].transform.localScale = new Vector3(scalex, scaley, scalez);
 
             }
             stream.Close();
