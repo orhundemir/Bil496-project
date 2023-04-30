@@ -104,7 +104,21 @@ public class WallSerializer : MonoBehaviour {
         products = getString("furnitures.bin");
     }
 
-    public void Load()
+    public void createLoadFile(string w, string f){
+        byte[] textDataw = Encoding.UTF8.GetBytes(w);
+        byte[] textDataf = Encoding.UTF8.GetBytes(f);
+        FileStream stream = new FileStream("walls.bin", FileMode.Create);
+        FileStream stream2 = new FileStream("furnitures.bin", FileMode.Create);
+
+        stream.Write(textDataw, 0, textDataw.Length);
+        stream2.Write(textDataf, 0, textDataf.Length);
+        
+        stream.Close();
+        stream2.Close();
+        Load();
+    }
+
+    private void Load()
     {
         if (File.Exists("walls.bin"))
         {
