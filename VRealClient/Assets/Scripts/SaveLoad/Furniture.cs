@@ -5,6 +5,9 @@ public class Furniture{
     public float rotX;
     public float rotY;
     public float rotZ;
+    public float scaleX;
+    public float scaleY;
+    public float scaleZ;
     public string name;
     public bool isActive;
 }

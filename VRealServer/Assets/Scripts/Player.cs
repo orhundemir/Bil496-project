@@ -48,8 +48,8 @@ public class Player : MonoBehaviour
                 player.Email = _email;
                 player.Uid = _uid;
                 
-                user = new User(id, _email);
-                user = DBManager.checkUser(user);
+                //user = new User(id, _email);
+                //user = DBManager.checkUser(user);
 
                 player.SendSpawned(id);
             }
