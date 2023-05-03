@@ -1,6 +1,6 @@
-using RiptideNetworking;
 using System.Collections.Generic;
 using UnityEngine;
+using Riptide;
 
 public class Player : MonoBehaviour
 {
@@ -31,43 +31,27 @@ public class Player : MonoBehaviour
         Player player = Instantiate(GameLogic.Singleton.PlayerPrefab, new Vector3(0f, 1f, 0f), Quaternion.identity).GetComponent<Player>();
         player.name = $"Player {id} Guest";
         player.Id = id;
+        player.Email = "";
+        player.Uid = "";
         list.Add(id, player);
+        player.SendSpawned(id);
     }
 
 
-    //User google sign in baðlandýðý bilgisi gelince server tarafýnda daha önceden oluþan guest object update ediliyor.
-    //ve client'a kendi player objectini oluþtursun diye SendSpawn mesajýný yolluyor.
-    public static void Spawn(ushort id, string _email, string _uid)
+  /*
+   * Google sign in basariliyla gerceklesirse user kaydi db'ye kaydediliyor.
+   */
+    public static void DBUserRecord(ushort id, string _email)
     {
         foreach (Player player in list.Values)
         {
             if (player.Id == id)
             {
-                player.name = $"Player {id} ({(string.IsNullOrEmpty(_email) ? "Guest" : _email)})";
-                player.Id = id;
-                player.Email = _email;
-                player.Uid = _uid;
-                
-                //user = new User(id, _email);
-                //user = DBManager.checkUser(user);
-
-                player.SendSpawned(id);
+                user = new User(id, _email);
+                user = DBManager.checkUser(user);
             }
         }
     }
-    private static void ConnectToServerCheck(ushort id, bool _state)
-    {
-        if (_state)
-        {
-            Spawn(id);
-        }
-        else
-        {
-            Debug.Log("Guest Player " + id + "' in Server'a baglanma girisimi basarisiz oldu.");
-
-        }
-    }
-
 
 
 
@@ -75,6 +59,9 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Email is: " + _email);
         list.GetValueOrDefault(id).Email = _email;
+        list.GetValueOrDefault(id).name = _email;
+        user = new User(id, _email);
+        user = DBManager.checkUser(user);
     }
 
     public static void ShowGoogleUidLog(ushort id, string _uid)
@@ -101,6 +88,7 @@ public class Player : MonoBehaviour
          Clienta iletecek. Clientta bu objeleri Player sınıfının ilgili instancelarına atayacak.
         
          */
+        // ***** ROOM NAME DBYE BURADA EKLENMELI         *****
          room = new Room();
          room.name = roomName;
          list[id].roomName = roomName;
@@ -115,25 +103,15 @@ public class Player : MonoBehaviour
 
        // Bu metot şimdilik sadece oda çizim sahnesinde oda çizildikten duvarların konumlarının serverda ekrana basma işini yapıyor.
 
-       // string wall = message.GetString();
-       // string furniture = message.GetString();
-       // string ceiling = message.GetString();
-       // string floor = message.GetString();
-       // room.wall = wall;
-       // room.furniture = furniture;
-       // room.ceiling = ceiling;
-       // room.floor = floor;
-       // DBManager.insertRoom(room, user);
-
+       string wall = message.GetString();
+       string products = message.GetString();
+       room.wall = wall;
+       room.ceiling = "";
+       room.floor = "";
+        room.furniture = products;
+        DBManager.insertRoom(room, user);
+       Debug.Log("Kullanıcının odası basariyla db ye yuklendi");
         
-        int size = message.GetInt();
-
-        for (int i = 0; i < size; i++)
-        {
-            Debug.Log(message.GetVector3().ToString());
-            Debug.Log(message.GetQuaternion().ToString());
-            Debug.Log(message.GetVector3().ToString());
-        }
         
     }
 
@@ -144,12 +122,12 @@ public class Player : MonoBehaviour
     #region SendMessages
     private void SendSpawned()
     {
-        NetworkManager.Singleton.Server.SendToAll(AddSpawnData(Message.Create(MessageSendMode.reliable, ServerToClientId.playerSpawned)));
+        NetworkManager.Singleton.Server.SendToAll(AddSpawnData(Message.Create(MessageSendMode.Reliable, ServerToClientId.playerSpawned)));
     }
 
-    private void SendSpawned(ushort toClientId)
+    public void SendSpawned(ushort toClientId)
     {
-        NetworkManager.Singleton.Server.Send(AddSpawnData(Message.Create(MessageSendMode.reliable, ServerToClientId.playerSpawned)), toClientId);
+        NetworkManager.Singleton.Server.Send(AddSpawnData(Message.Create(MessageSendMode.Reliable, ServerToClientId.playerSpawned)), toClientId);
     }
 
     private static void  SendRoomNames(ushort toClientId)
@@ -158,7 +136,7 @@ public class Player : MonoBehaviour
     }
     private static void SendRoomTemplate(ushort toClientId)
     {
-        NetworkManager.Singleton.Server.Send(AddRoomTemplateData(Message.Create(MessageSendMode.reliable, ServerToClientId.playerSpawned)), toClientId);
+        NetworkManager.Singleton.Server.Send(AddRoomTemplateData(Message.Create(MessageSendMode.Reliable, ServerToClientId.playerSpawned)), toClientId);
     }
 
 
@@ -203,22 +181,24 @@ public class Player : MonoBehaviour
 
 
     #region Messages
-    [MessageHandler((ushort)ClientToServerId.connect)]
-    private static void Connect(ushort fromClientId, Message message)
+    [MessageHandler((ushort)ClientToServerId.connected)]
+    private static void Connected(ushort fromClientId, Message message)
     {
-        ConnectToServerCheck(fromClientId, message.GetBool());
+        Debug.Log("ACK message is: "+message.GetBool());
     }
+
     [MessageHandler((ushort)ClientToServerId.googleEmail)]
     private static void GoogleEmail(ushort fromClientId, Message message)
     {
-        ShowEmailLog(fromClientId, message.GetString());
+        string email = message.GetString();
+        ShowEmailLog(fromClientId, email);
+        DBUserRecord(fromClientId, email);
     }
     
     [MessageHandler((ushort)ClientToServerId.googleUID)]
     private static void GoogleUID(ushort fromClientId, Message message)
     {
         ShowGoogleUidLog(fromClientId, message.GetString());
-        Spawn(fromClientId, list.GetValueOrDefault(fromClientId).Email, list.GetValueOrDefault(fromClientId).Uid);
         SendRoomNames(fromClientId); // Google Sign in olunca db de kayıtlı room isimleri de gonderilir.
     }
 

@@ -1,4 +1,4 @@
-using RiptideNetworking;
+using Riptide;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -30,23 +30,10 @@ public class RoomUIManager : MonoBehaviour {
     }
 
     // Sends the walls, windows and doors to the VR scene, which comes after the Room Drawing Scene
-    // Also sends the wall info to the server to be saved for later
-    // TODO: Send the floor and ceiling to the server
-    public void SendRoomTemplate(List<GameObject> walls, GameObject ceiling, GameObject floor) {
-        Message message = Message.Create(MessageSendMode.reliable, ClientToServerId.roomTemplate);
-        message.AddInt(walls.Count);
-
+    public void SendRoomTemplate(List<GameObject> walls, GameObject ceiling, GameObject floor) 
+    {
         Player playerCopy = Player.list[NetworkManager.Singleton.Client.Id];
         playerCopy.Walls = walls;
-
-        foreach (GameObject wall in playerCopy.Walls)
-        {
-            message.AddVector3(wall.transform.position);
-            message.AddQuaternion(wall.transform.rotation);
-            message.AddVector3(wall.transform.localScale);
-        }
-
-        NetworkManager.Singleton.Client.Send(message);
         Player.MovePlayerToDestinationScene(NetworkManager.Singleton.Client.Id, "VReal");        
     }
 

@@ -1,5 +1,8 @@
-using RiptideNetworking;
-using RiptideNetworking.Utils;
+using Riptide.Utils;
+using Riptide;
+#if !UNITY_EDITOR
+using System;
+#endif
 using UnityEngine;
 
 public enum ServerToClientId : ushort
@@ -11,7 +14,7 @@ public enum ServerToClientId : ushort
 
 public enum ClientToServerId : ushort
 {
-    connect = 1,
+    connected=1,
     googleEmail,
     googleUID,
     roomName,
@@ -49,27 +52,47 @@ public class NetworkManager : MonoBehaviour
 
     private void Start()
     {
-        Application.targetFrameRate = 60;
+        Application.runInBackground = true;
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 30;
 
+#if UNITY_EDITOR
         RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError, false);
-
+#else
+            Console.Title = "Server";
+            Console.Clear();
+            Application.SetStackTraceLogType(UnityEngine.LogType.Log, StackTraceLogType.None);
+            RiptideLogger.Initialize(Debug.Log, true);
+#endif
+        Message.MaxPayloadSize = 64000;
         Server = new Server();
-        Server.Start(port, maxClientCount);
+        Server.ClientConnected += NewPlayerConnected;
         Server.ClientDisconnected += PlayerLeft;
+
+        Server.Start(port, maxClientCount);
     }
 
     private void FixedUpdate()
     {
-        Server.Tick();
+        Server.Update();
     }
 
     private void OnApplicationQuit()
     {
         Server.Stop();
+
+        Server.ClientConnected -= NewPlayerConnected;
+        Server.ClientDisconnected -= PlayerLeft;
     }
 
-    private void PlayerLeft(object sender, ClientDisconnectedEventArgs e)
+    private void NewPlayerConnected(object sender, ServerConnectedEventArgs e)
     {
-        Destroy(Player.list[e.Id].gameObject);
+         Player.Spawn(e.Client.Id);
+         e.Client.CanTimeout = false;
+    }
+
+    private void PlayerLeft(object sender, ServerDisconnectedEventArgs e)
+    {
+        Destroy(Player.list[e.Client.Id].gameObject);
     }
 }

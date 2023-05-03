@@ -1,4 +1,4 @@
-using RiptideNetworking;
+using Riptide;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,8 +9,8 @@ public class Player : MonoBehaviour
     public static Dictionary<ushort, Player> list = new Dictionary<ushort, Player>();
 
     public ushort Id { get; private set; }
-    public string Email { get; private set; }
-    public string Uid { get; private set; }
+    public string Email { get;  set; }
+    public string Uid { get;  set; }
     public string RoomName { get; set; }
     public List<GameObject> Walls { get; set; }
     public GameObject Floor { get; set; }  
@@ -57,7 +57,14 @@ public class Player : MonoBehaviour
     }
 
 
-
+    #region SendMessages
+    public static void SendConnectedACK()
+    {
+        Message message = Message.Create(MessageSendMode.Reliable, ClientToServerId.connected);
+        message.AddBool(true);
+        NetworkManager.Singleton.Client.Send(message);
+    }
+    #endregion
 
 
     #region Messages
