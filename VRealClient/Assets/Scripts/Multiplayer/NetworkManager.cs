@@ -1,5 +1,5 @@
-using RiptideNetworking;
-using RiptideNetworking.Utils;
+using Riptide;
+using Riptide.Utils;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,7 +12,7 @@ public enum ServerToClientId : ushort
 
 public enum ClientToServerId : ushort
 {
-    connect = 1,
+    connected=1,
     googleEmail,
     googleUID,
     roomName,
@@ -52,6 +52,7 @@ public class NetworkManager : MonoBehaviour
     {
         RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError, false);
 
+        Message.MaxPayloadSize = 64000;
         Client = new Client();
         Client.Connected += DidConnect;
         Client.ConnectionFailed += FailedToConnect;
@@ -61,29 +62,36 @@ public class NetworkManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Client.Tick();
+        Client.Update();
+        
     }
 
     private void OnApplicationQuit()
     {
         Client.Disconnect();
+
+        Client.Connected -= DidConnect;
+        Client.ConnectionFailed -= FailedToConnect;
+        Client.ClientDisconnected -= PlayerLeft;
+        Client.Disconnected -= DidDisconnect;
     }
 
     public void Connect()
     {
         Client.Connect($"{ip}:{port}");
+        Client.Connection.CanTimeout = false;
     }
 
     private void DidConnect(object sender, EventArgs e)
     {
+        Player.SendConnectedACK();
         UIManager.Singleton.warning.SetActive(false);
-        UIManager.Singleton.SendConnect();
         UIManager.Singleton.connectToServer.SetActive(false);
         UIManager.Singleton.googleSignIN.SetActive(true);
         Debug.Log(sender.ToString() + "is connected to server but it must sign in via Google");
     }
 
-    private void FailedToConnect(object sender, EventArgs e)
+    private void FailedToConnect(object sender, ConnectionFailedEventArgs e)
     {
         Debug.LogWarning(sender.ToString() + "Failed to connect server.");
         UIManager.Singleton.connectToServer.SetActive(true);
@@ -96,7 +104,7 @@ public class NetworkManager : MonoBehaviour
         Destroy(Player.list[e.Id].gameObject);
     }
 
-    private void DidDisconnect(object sender, EventArgs e)
+    private void DidDisconnect(object sender, DisconnectedEventArgs e)
     {
         Debug.LogWarning(sender.ToString() + "Server connection down.");
         UIManager.Singleton.settings.SetActive(false);

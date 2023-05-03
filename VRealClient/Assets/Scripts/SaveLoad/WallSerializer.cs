@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
-using RiptideNetworking;
+using Riptide;
 using System.Text;
 
 public class WallSerializer : MonoBehaviour {
@@ -102,6 +102,12 @@ public class WallSerializer : MonoBehaviour {
         
         wall = getString("walls.bin");
         products = getString("furnitures.bin");
+
+        
+        Message message = Message.Create(MessageSendMode.Reliable, ClientToServerId.roomTemplate);
+        message.AddString(wall);
+        message.AddString(products);
+        NetworkManager.Singleton.Client.Send(message);
     }
 
     public void createLoadFile(string w, string f){

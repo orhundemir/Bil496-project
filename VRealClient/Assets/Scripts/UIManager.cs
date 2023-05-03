@@ -1,4 +1,4 @@
-using RiptideNetworking;
+using Riptide;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -53,36 +53,37 @@ public class UIManager : MonoBehaviour
 
     public void SendConnect()
     {
-        Message message = Message.Create(MessageSendMode.reliable, ClientToServerId.connect);
-        message.AddBool(true);
-        NetworkManager.Singleton.Client.Send(message);
+        ConnectToServer();
     }
 
     public void SendRoomName()
     {
         
-            Message message = Message.Create(MessageSendMode.reliable, ClientToServerId.roomName);
+            Message message = Message.Create(MessageSendMode.Reliable, ClientToServerId.roomName);
             message.AddString(input.text);
             NetworkManager.Singleton.Client.Send(message);
     }
 
     public void SendPrevRoomName(string item)
     {
-        Message message = Message.Create(MessageSendMode.reliable, ClientToServerId.prevRoomName);
+        //Message message = Message.Create(MessageSendMode.Reliable, ClientToServerId.prevRoomName);
         //message.AddString(input.text);
         //NetworkManager.Singleton.Client.Send(message);
     }
 
     public void SendGoogleEmail(string _email)
     {
-        Message message = Message.Create(MessageSendMode.reliable, ClientToServerId.googleEmail);
+        Player.list[NetworkManager.Singleton.Client.Id].Email = _email;
+        Player.list[NetworkManager.Singleton.Client.Id].name = _email;
+        Message message = Message.Create(MessageSendMode.Reliable, ClientToServerId.googleEmail);
         message.AddString(_email);
         NetworkManager.Singleton.Client.Send(message);
     }
 
     public void SendGoogleUID(string _uid)
     {
-        Message message = Message.Create(MessageSendMode.reliable, ClientToServerId.googleUID);
+        Player.list[NetworkManager.Singleton.Client.Id].Uid = _uid;
+        Message message = Message.Create(MessageSendMode.Reliable, ClientToServerId.googleUID);
         message.AddString(_uid);
         NetworkManager.Singleton.Client.Send(message);
     }
@@ -150,7 +151,6 @@ public class UIManager : MonoBehaviour
         {
             SendGoogleEmail(FirebaseAuthHandler.email);
             SendGoogleUID(FirebaseAuthHandler.userId);
-            //Debug.Log(FirebaseAuthHandler.email);
             googleSignIN.SetActive(false);
             welcome.SetActive(true);
             settings.SetActive(true);
