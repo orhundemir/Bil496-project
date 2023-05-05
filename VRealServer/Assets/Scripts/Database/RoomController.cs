@@ -11,6 +11,14 @@ public class RoomController{
         conn.Close();
         return id;
     }
+    public void updateRoom(NpgsqlConnection conn, Room room){//Updating existing room
+        conn.Open();
+        NpgsqlCommand command = conn.CreateCommand();
+        command.CommandText = query;
+        string query ="UPDATE ROOMS SET furniture = \'"+room.furniture+"\'";
+        conn.Close();
+    }
+
     public Room selectRoom(NpgsqlConnection conn, int id){//Returning room with given id usefull for getting room from relational tables
         conn.Open();
         Room room = new Room();
