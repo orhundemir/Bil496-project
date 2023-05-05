@@ -6,6 +6,7 @@ using System.Collections;
 using SlimUI.ModernMenu;
 using System.Threading.Tasks;
 using TMPro;
+using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour
 {
@@ -58,17 +59,17 @@ public class UIManager : MonoBehaviour
 
     public void SendRoomName()
     {
-        
-            Message message = Message.Create(MessageSendMode.Reliable, ClientToServerId.roomName);
-            message.AddString(input.text);
-            NetworkManager.Singleton.Client.Send(message);
+        Message message = Message.Create(MessageSendMode.Reliable, ClientToServerId.roomName);
+        message.AddString(input.text);
+        Player.list[NetworkManager.Singleton.Client.Id].RoomName = input.text;
+        NetworkManager.Singleton.Client.Send(message);
     }
 
     public void SendPrevRoomName(string item)
     {
-        //Message message = Message.Create(MessageSendMode.Reliable, ClientToServerId.prevRoomName);
-        //message.AddString(input.text);
-        //NetworkManager.Singleton.Client.Send(message);
+        Message message = Message.Create(MessageSendMode.Reliable, ClientToServerId.prevRoomName);
+        message.AddString(item);
+        NetworkManager.Singleton.Client.Send(message);
     }
 
     public void SendGoogleEmail(string _email)
@@ -90,17 +91,15 @@ public class UIManager : MonoBehaviour
 
     public void ClickedLoadPrevRoom()
     {
-        Debug.Log("room");
-        //SendPrevRoomName(loadDesign.itemText.text);
+        Debug.Log(loadDesign.captionText.text);
+        Player.list[NetworkManager.Singleton.Client.Id].RoomName = loadDesign.captionText.text;
+        SendPrevRoomName(loadDesign.captionText.text);
     }
     public void LoadRoomClicked()
     {
+        List<string> RoomsNames = Player.list[NetworkManager.Singleton.Client.Id].RoomsNames;
         loadDesign.gameObject.SetActive(true);
-        Player.roomsArr.Add("a");
-        Player.roomsArr.Add("b");
-        Player.roomsArr.Add("c");
-        Player.roomsArr.Add("d");
-        loadDesign.AddOptions(Player.roomsArr);
+        loadDesign.AddOptions(RoomsNames);
     }
 
     public void NewDesignClicked()
