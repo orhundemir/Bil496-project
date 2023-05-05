@@ -51,81 +51,60 @@ public class WallSerializer : MonoBehaviour {
             wallList.Add(wall);
         }
 
-        //Create binary formatter and a file stream object to write to a file in binary format
-        BinaryFormatter formatter = new BinaryFormatter();
-        FileStream stream = new FileStream("walls.bin", FileMode.Create);
-
-        //to use when we load the scene back, write needed data
+        
+        StringBuilder stringBuilder = new StringBuilder(); 
         foreach (Wall wall in wallList)
         {
-            formatter.Serialize(stream, wall.type);
-
-            formatter.Serialize(stream, wall.position.x);
-            formatter.Serialize(stream, wall.position.y);
-            formatter.Serialize(stream, wall.position.z);
-
-            formatter.Serialize(stream, wall.rotation.x);
-            formatter.Serialize(stream, wall.rotation.y);
-            formatter.Serialize(stream, wall.rotation.z);
-
-            formatter.Serialize(stream, wall.scale.x);
-            formatter.Serialize(stream, wall.scale.y);
-            formatter.Serialize(stream, wall.scale.z);
-
-            formatter.Serialize(stream, wall.material);
+            stringBuilder.Append(wall.type + "-_-");
+            stringBuilder.Append(wall.position.x + "-_-");
+            stringBuilder.Append(wall.position.y + "-_-");
+            stringBuilder.Append(wall.position.z + "-_-");
+            stringBuilder.Append(wall.rotation.x + "-_-");
+            stringBuilder.Append(wall.rotation.y + "-_-");
+            stringBuilder.Append(wall.rotation.z + "-_-");
+            stringBuilder.Append(wall.scale.x + "-_-");
+            stringBuilder.Append(wall.scale.y + "-_-");
+            stringBuilder.Append(wall.scale.z + "-_-");
+            stringBuilder.Append(wall.material + "***");
         }
-        stream.Close();
+        
 
         GameObject furnitureParent = GameObject.Find("Furnitures");
-        BinaryFormatter formatter2 = new BinaryFormatter();
-        FileStream stream2 = new FileStream("furnitures.bin", FileMode.Create);
+        StringBuilder stringBuilder2 = new StringBuilder();
         // Save furnitures in the scene into the furnitures.bin file
         for (int i = 0; i < furnitureParent.transform.childCount; i++)
         {
             GameObject item = furnitureParent.transform.GetChild(i).gameObject;
-
-            formatter2.Serialize(stream2, item.transform.localPosition.x);
-            formatter2.Serialize(stream2, item.transform.localPosition.y);
-            formatter2.Serialize(stream2, item.transform.localPosition.z);
-
-            formatter2.Serialize(stream2, item.transform.eulerAngles.x);
-            formatter2.Serialize(stream2, item.transform.eulerAngles.y);
-            formatter2.Serialize(stream2, item.transform.eulerAngles.z);
-
-            formatter2.Serialize(stream2, item.transform.localScale.x);
-            formatter2.Serialize(stream2, item.transform.localScale.y);
-            formatter2.Serialize(stream2, item.transform.localScale.z);
-
-            formatter2.Serialize(stream2, item.name);
+            stringBuilder2.Append(item.transform.localPosition.x + "-_-");
+            stringBuilder2.Append(item.transform.localPosition.y + "-_-");
+            stringBuilder2.Append(item.transform.localPosition.z + "-_-");
+            stringBuilder2.Append(item.transform.eulerAngles.x + "-_-");
+            stringBuilder2.Append(item.transform.eulerAngles.y + "-_-");
+            stringBuilder2.Append(item.transform.eulerAngles.z + "-_-");
+            stringBuilder2.Append(item.transform.localScale.x + "-_-");
+            stringBuilder2.Append(item.transform.localScale.y + "-_-");
+            stringBuilder2.Append(item.transform.localScale.z + "-_-");
+            stringBuilder2.Append(item.name + "***");
         }
-        stream2.Close();
-        
-        wall = getString("walls.bin");
-        products = getString("furnitures.bin");
 
-        
+
+        wall = stringBuilder.ToString();
+        products = stringBuilder2.ToString();
         Message message = Message.Create(MessageSendMode.Reliable, ClientToServerId.roomTemplate);
         message.AddString(wall);
         message.AddString(products);
         NetworkManager.Singleton.Client.Send(message);
     }
 
-    public void createLoadFile(string w, string f){
-        byte[] textDataw = Encoding.UTF8.GetBytes(w);
-        byte[] textDataf = Encoding.UTF8.GetBytes(f);
-        FileStream stream = new FileStream("walls.bin", FileMode.Create);
-        FileStream stream2 = new FileStream("furnitures.bin", FileMode.Create);
-
-        stream.Write(textDataw, 0, textDataw.Length);
-        stream2.Write(textDataf, 0, textDataf.Length);
-        
-        stream.Close();
-        stream2.Close();
-        Load();
-    }
+    
 
     private void Load()
     {
+        //TO DO:
+        // wallar *** gore ayrilmasi gerekiyor. arr= string.split(***) -> [x,y,z...name] [x2,y2,z2 .... name2] ......
+        // split edilen array -_- gore split edilecek [x],[y],[z]...[name] -> bu bilgilerle game object oluþturulacak.
+        // olusturulan game obje walls veya product listesine eklenecek.
+        //Player.list[NetworkManager.Singleton.Client.Id].Walls.Add();
         if (File.Exists("walls.bin"))
         {
             BinaryFormatter formatter = new BinaryFormatter();
@@ -221,6 +200,7 @@ public class WallSerializer : MonoBehaviour {
             while ((bytesRead = fileStream.Read(buffer, 0, buffer.Length)) > 0)
             {
                 stringBuilder.Append(Encoding.UTF8.GetString(buffer, 0, bytesRead));
+                Debug.Log(stringBuilder.ToString());
             }
             string ret = stringBuilder.ToString();
             return ret;

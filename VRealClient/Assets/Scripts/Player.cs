@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public string Uid { get;  set; }
     public string RoomName { get; set; }
     public List<GameObject> Walls { get; set; }
+    public List<GameObject> Products { get; set; }
     public GameObject Floor { get; set; }  
     public GameObject Ceiling { get; set; }
     public Vector3 RoomCenter { get; set; }
@@ -51,6 +52,12 @@ public class Player : MonoBehaviour
 
     public static void AssingRoomObjectsToPlayer(Message message)
     {
+        //EFE
+        string w = message.GetString();
+        string p = message.GetString();
+
+
+
         // Bu mesajda oda objeleri bulunmakta bu oda objelerini serverdan dbden aldý.
         //Clientda bu oda objesini create edebilmesi için bu mesajda bulunan oda objeleri 
         // playerýn ilgili game objelerine veya game object arraylerine atanmalýdýr.

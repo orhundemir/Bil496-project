@@ -73,22 +73,9 @@ public class Player : MonoBehaviour
     public static void RoomNameForNew(ushort id, string roomName)
     {
         /*
-         Client yeni oluşturduğu room nameyi kendi player instancı olan room nameyi kaydetti. Ve bu room nameyi Servera gönderdi.
-         Burası serverın bu paketi aldığı ilk metot olarak düşünülebilir.
-
-         Burada roomname unique ise database e kaydedilecek unique değilse 
-         sonuna bir id no gibi bir şey eklenip kaydedebilir.
-         Bu metot sadece yukarda anlatılanları yapacak.
-
-         
-         Başka bir metotda
-         Client bu ilk olusturdugu odayı kaydettiğinde ve başka bir zamanda bu odayı düzenlemek istediğinde
-         Client bu odanın ismini tekrar gonderecek(Load) ve server bu odanın ismiyle 
-         odanın duvarlarını,zeminini, tavanını ve mobilya objelerini (roomTemplate)
-         Clienta iletecek. Clientta bu objeleri Player sınıfının ilgili instancelarına atayacak.
-        
+         METIN
          */
-        // ***** ROOM NAME DBYE BURADA EKLENMELI         *****
+         // ***** ROOM NAME DBYE BURADA EKLENMELI         *****
          room = new Room();
          room.name = roomName;
          list[id].roomName = roomName;

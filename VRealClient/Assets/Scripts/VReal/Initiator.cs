@@ -36,6 +36,8 @@ public class Initiator : MonoBehaviour
         GameObject floor = Instantiate(player.Floor);
         floor.transform.parent = wallsParent.transform;
 
+        //TODO : LOAD ÝÇÝN MODELLER INSTANSIATE
+
         Vector3 lightPos = player.Ceiling.transform.position;
         lightPos.y = 2.5f;
         Instantiate(RoomLight, lightPos, Quaternion.identity);
