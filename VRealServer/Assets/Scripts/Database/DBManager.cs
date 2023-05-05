@@ -82,10 +82,11 @@ public class DBManager : MonoBehaviour
         for(int i = 0; i<usersRooms.Count; i++){
             if(string.Compare(room.name, usersRooms[i].name) == 0){
                 count++;
-                room.name = name+count;
+                rc.updateRoom(conn, room);
             }
         }
-        rc.insertRoom(conn, room);
+        if(count == 1)//Room has unique name under user
+            rc.insertRoom(conn, room);
         int room_id = rc.getLastRoomId(conn);
 
         RoomUser ru = new RoomUser(1, user.id, room_id);
