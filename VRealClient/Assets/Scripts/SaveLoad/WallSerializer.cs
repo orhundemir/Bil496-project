@@ -38,15 +38,15 @@ public class WallSerializer : MonoBehaviour {
             wall.scale = obj.transform.localScale;
 
             if (obj.CompareTag("Ceiling") || obj.CompareTag("Floor"))
-            {
-                wall.type = 1;
                 wall.material = obj.transform.GetComponent<Renderer>().material.name;
-            }
             else
-            {
-                wall.type = 0;
                 wall.material = obj.transform.GetChild(0).GetComponent<Renderer>().material.name;
-            }
+
+            if (obj.CompareTag("Wall")) wall.type = 0;
+            else if (obj.CompareTag("Window")) wall.type = 1;
+            else if (obj.CompareTag("Door")) wall.type = 2;
+            else if (obj.CompareTag("Ceiling")) wall.type = 3;
+            else if (obj.CompareTag("Floor")) wall.type = 4;
 
             wallList.Add(wall);
         }
@@ -90,6 +90,7 @@ public class WallSerializer : MonoBehaviour {
 
         wall = stringBuilder.ToString();
         products = stringBuilder2.ToString();
+        Debug.Log(wall + "\n\n\n" + products);
         Message message = Message.Create(MessageSendMode.Reliable, ClientToServerId.roomTemplate);
         message.AddString(wall);
         message.AddString(products);

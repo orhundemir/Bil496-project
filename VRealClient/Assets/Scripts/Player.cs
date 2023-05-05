@@ -1,3 +1,4 @@
+using HTC.UnityPlugin.Vive;
 using Riptide;
 using System.Collections;
 using System.Collections.Generic;
@@ -50,17 +51,82 @@ public class Player : MonoBehaviour
     }
 
 
-    public static void AssingRoomObjectsToPlayer(Message message)
+    public static void AssingRoomObjectsToPlayer(Message message, List<GameObject> Walls, List<GameObject> Products, GameObject Floor, GameObject Ceiling, Vector3 RoomCenter)
     {
-        //EFE
-        string w = message.GetString();
-        string p = message.GetString();
+        // string wallString = message.GetString();
+        // string productString = message.GetString();
+        string wallString = "0-_-1,547622-_-1,124998-_-2,189365-_-0-_-111,1896-_-0-_-0,6600001-_-2,25-_-1,5-_-Door Material 1 (Instance)***0-_--1,377494-_-1,499998-_-3,323329-_-0-_-111,1896-_-0-_-0,6600001-_-1,8-_-1,8-_-WindowMaterial (Instance)***0-_--12,132-_-1,499998-_-7,492476-_-0-_-111,1896-_-0-_-0,6000001-_-3-_-16,85881-_-Opaque Wall (Instance)***1-_--4,272511-_-3,15-_-4,445627-_-0-_-0-_-0-_-15,71897-_-0,3-_-6,093699-_-Ceiling Material (Instance)***1-_--4,272511-_--0,15-_-4,445627-_-0-_-0-_-0-_-15,71897-_-0,3-_-6,093699-_-Drawing Area (Instance) (Instance)***";
+        string productString = "-4,114692-_--0,08685063-_-5,339195-_--3,235102E-05-_-10,49509-_--0,0009581303-_-0,002-_-0,002-_-0,002-_-alex-drawer-unit-black-brown-60473548(Clone)***-4,542412-_--0,09788189-_-4,457348-_-291,4928-_-311,3912-_-96,55825-_-0,02-_-0,02-_-0,02-_-alex-drawer-unit-on-casters-white-80485423(Clone)***-4,557808-_--0,09804774-_-4,446943-_-336,5148-_-0,07229744-_-14,11501-_-0,02-_-0,02-_-0,02-_-hemnes-3-drawer-chest-white-stain-70360414(Clone)***";
 
+        string[] walls = wallString.Split("***");
+        string[] products = productString.Split("***");
 
+        foreach (string wall in walls)
+        {
+            string[] wallData = wall.Split("-_-");
 
-        // Bu mesajda oda objeleri bulunmakta bu oda objelerini serverdan dbden aldý.
-        //Clientda bu oda objesini create edebilmesi için bu mesajda bulunan oda objeleri 
-        // playerýn ilgili game objelerine veya game object arraylerine atanmalýdýr.
+            // Parse the received data
+            int type = int.Parse(wallData[0]);
+            Vector3 position = new Vector3(float.Parse(wallData[1]), float.Parse(wallData[2]), float.Parse(wallData[3]));
+            Vector3 rotation = new Vector3(float.Parse(wallData[4]), float.Parse(wallData[5]), float.Parse(wallData[6]));
+            Vector3 scale = new Vector3(float.Parse(wallData[7]), float.Parse(wallData[8]), float.Parse(wallData[9]));
+            Material material = Resources.Load<Material>("Materials/RoomDrawer/" + wallData[10].Replace("(Instance)", "").Trim());
+
+            // Create the cube object that contains all the necessary components
+            GameObject cubeObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            MeshRenderer meshRenderer = cubeObject.GetComponent<MeshRenderer>();
+            meshRenderer.material = material;
+            cubeObject.AddComponent<BoxCollider>();
+            Rigidbody rigidBody = cubeObject.AddComponent<Rigidbody>();
+            rigidBody.constraints = RigidbodyConstraints.FreezeAll;
+
+            // Assign the object's tag
+            if (type == 0)
+            {
+                cubeObject.tag = "Wall";
+                cubeObject.transform.position = new Vector3(0f, 0f, 0.5f);
+            }
+            else if (type == 1) cubeObject.tag = "Window";
+            else if (type == 2) cubeObject.tag = "Door";
+            else if (type == 3) cubeObject.tag = "Ceiling";
+            else if (type == 4) cubeObject.tag = "Floor";
+
+            // Create the wall/window/door objects
+            if (type == 0 || type == 1 || type == 2)
+            {
+                // Create the parent object with the parsed data
+                GameObject parentObject = new GameObject();
+                parentObject.transform.position = position;
+                parentObject.transform.eulerAngles = rotation;
+                parentObject.transform.localScale = scale;
+                parentObject.tag = cubeObject.tag;
+                cubeObject.transform.parent = parentObject.transform;
+
+                // Add the object to the current Player's Walls list
+                Walls.Add(parentObject);
+            }
+            // Create the ceiling/floor objects
+            else if (type == 3 || type == 4)
+            {
+                cubeObject.transform.position = position;
+                cubeObject.transform.eulerAngles = rotation;
+                cubeObject.transform.localScale = scale;
+
+                // Assign the object to the current Player's corresponding field
+                if (type == 3)
+                {
+                    Ceiling = cubeObject;
+                    RoomCenter = Ceiling.transform.position;
+                }
+                else if (type == 4)
+                {
+                    cubeObject.AddComponent<Teleportable>();
+                    Floor = cubeObject;
+                }
+            }
+        }
+        
+        MovePlayerToDestinationScene(list[NetworkManager.Singleton.Client.Id].Id, "VReal");
     }
 
 
