@@ -114,20 +114,18 @@ public class Player : MonoBehaviour
         return message;
     }
 
+
     private static Message AddRoomNamesData(Message message)
     {
-        //TODO METIN:
-        //Kullanıcının odalari dbden çekilip string arrayinde gönderilmesi gerekmektedir.
-        // Ilk olarak kullanıcının oda syıları gonderilmelidir.
-        // kullaniciya ait verilere şöyle erişiyoruz. player.Email, player.Id vs gibi.
 
-        message.AddInt(4);
-        for(int i =0;i<4;i++)
+        List<Room> list =DBManager.myRooms(user);
+        int count = list.Count;
+        message.AddInt(count);
+        for(int i =0;i<count;i++)
         {
-            string roomName = "a"+i;
+            string roomName = list[i].name;
             message.AddString(roomName);
         }
-        
 
 
         return message;
@@ -172,11 +170,11 @@ public class Player : MonoBehaviour
         ShowGoogleUidLog(fromClientId, message.GetString());
         SendRoomNames(fromClientId); // Google Sign in olunca db de kayıtlı room isimleri de gonderilir.
     }
-
     [MessageHandler((ushort)ClientToServerId.roomName)]
     private static void RoomName(ushort fromClientId, Message message)
     {
         string roomName = message.GetString();
+        list[fromClientId].roomName = roomName;
         Debug.Log("Client şu odayı yeni oluşturdu: " + roomName);
         SaveRoomNameForNewToDB(fromClientId, roomName);
     }
@@ -185,6 +183,7 @@ public class Player : MonoBehaviour
     private static void PrevRoomName(ushort fromClientId, Message message)
     {
         string roomName = message.GetString();
+        list[fromClientId].roomName = roomName;
         Debug.Log("Client şu odayı yuklemek istedi" + roomName );
         SendRoomTemplate(fromClientId,roomName);
     }
