@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -2670899107813141025}
   m_Layer: 0
   m_Name: VROrigin
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

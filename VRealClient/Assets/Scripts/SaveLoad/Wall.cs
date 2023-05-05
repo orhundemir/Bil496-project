@@ -18,6 +18,7 @@ public class Wall {
     public Vector3 rotation;
     public Vector3 scale;
     public string material;
+    public Color color;
     
     public override string ToString() {
         return "Position: " + position + " Rotation: " + rotation + " Scale " + scale + " Material " + material;

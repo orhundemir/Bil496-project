@@ -40,7 +40,10 @@ public class WallSerializer : MonoBehaviour {
             if (obj.CompareTag("Ceiling") || obj.CompareTag("Floor"))
                 wall.material = obj.transform.GetComponent<Renderer>().material.name;
             else
+            {
                 wall.material = obj.transform.GetChild(0).GetComponent<Renderer>().material.name;
+                wall.color = obj.transform.GetChild(0).GetComponent<Renderer>().material.color;
+            }
 
             if (obj.CompareTag("Wall")) wall.type = 0;
             else if (obj.CompareTag("Window")) wall.type = 1;
@@ -65,10 +68,13 @@ public class WallSerializer : MonoBehaviour {
             stringBuilder.Append(wall.scale.x + "-_-");
             stringBuilder.Append(wall.scale.y + "-_-");
             stringBuilder.Append(wall.scale.z + "-_-");
-            stringBuilder.Append(wall.material + "***");
+            stringBuilder.Append(wall.material + "-_-");
+            stringBuilder.Append(wall.color.r + "-_-");
+            stringBuilder.Append(wall.color.g + "-_-");
+            stringBuilder.Append(wall.color.b + "***");
         }
-        
 
+        Debug.Log(stringBuilder.ToString());
         GameObject furnitureParent = GameObject.Find("Furnitures");
         StringBuilder stringBuilder2 = new StringBuilder();
         // Save furnitures in the scene into the furnitures.bin file
