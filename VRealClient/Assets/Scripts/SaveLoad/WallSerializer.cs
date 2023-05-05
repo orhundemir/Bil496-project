@@ -54,7 +54,6 @@ public class WallSerializer : MonoBehaviour {
             wallList.Add(wall);
         }
 
-        
         StringBuilder stringBuilder = new StringBuilder(); 
         foreach (Wall wall in wallList)
         {
@@ -74,10 +73,8 @@ public class WallSerializer : MonoBehaviour {
             stringBuilder.Append(wall.color.b + "***");
         }
 
-        Debug.Log(stringBuilder.ToString());
         GameObject furnitureParent = GameObject.Find("Furnitures");
         StringBuilder stringBuilder2 = new StringBuilder();
-        // Save furnitures in the scene into the furnitures.bin file
         for (int i = 0; i < furnitureParent.transform.childCount; i++)
         {
             GameObject item = furnitureParent.transform.GetChild(i).gameObject;
@@ -93,7 +90,6 @@ public class WallSerializer : MonoBehaviour {
             stringBuilder2.Append(item.name + "***");
         }
 
-
         wall = stringBuilder.ToString();
         products = stringBuilder2.ToString();
         Debug.Log(wall + "\n\n\n" + products);
@@ -102,8 +98,6 @@ public class WallSerializer : MonoBehaviour {
         message.AddString(products);
         NetworkManager.Singleton.Client.Send(message);
     }
-
-    
 
     private void Load()
     {

@@ -54,10 +54,11 @@ public class Player : MonoBehaviour
     public static void AssingRoomObjectsToPlayer(Message message)
     {
         ushort id = NetworkManager.Singleton.Client.Id;
-        // string wallString = message.GetString();
-        // string productString = message.GetString();
-        string wallString = "2-_-1,811825-_-1,124998-_-7,744446-_-5,830823E-06-_-89,44193-_-2,035555E-13-_-0,66-_-2,25-_-1,5-_-Door Material 1 (Instance)-_-0-_-0-_-0***2-_--3,661079-_-1,124998-_-7,69114-_-5,830823E-06-_-89,44193-_-2,035555E-13-_-0,66-_-2,25-_-1,5-_-Door Material 1 (Instance)-_-0-_-0-_-0***0-_--13,64228-_-1,499998-_-7,593919-_-5,830823E-06-_-89,44193-_-2,035555E-13-_-0,6-_-3-_-18,7423-_-Wall1 (Instance)-_-1-_-1-_-1***0-_-5,099125-_-1,499996-_-7,776466-_--1,32857E-05-_-177,0318-_-2,544444E-14-_-0,6-_-3-_-16,45123-_-Wall1 (Instance)-_-1-_-1-_-1***1-_--6,042444-_-1,5-_--8,384466-_-0-_-271,2812-_-0-_-0,66-_-1,8-_-1,8-_-WindowMaterial (Instance)-_-1-_-1-_-1***0-_-5,951007-_-1,5-_--8,652689-_-0-_-271,2812-_-0-_-0,6-_-3-_-19,05042-_-Opaque Wall (Instance)-_-1-_-0-_-0***1-_--11,70067-_-1,5-_--3,798823-_-1,586197E-05-_-17,47479-_-0-_-0,66-_-1,8-_-1,8-_-WindowMaterial (Instance)-_-1-_-1-_-1***0-_--13,09465-_-1,5-_--8,226751-_-1,586197E-05-_-17,47479-_-0-_-0,6-_-3-_-6,889626-_-Opaque Wall (Instance)-_-0,2509804-_-0,2627451-_-0,3058823***0-_--11,02579-_-1,499998-_--1,655087-_-0-_-262,875-_-0-_-0,6-_-3-_-7,849252-_-Opaque Wall (Instance)-_-0,4754791-_-0,8467359-_-0***0-_--18,81443-_-1,499998-_--2,628666-_-0-_-358,4089-_-0-_-0,6000001-_-3-_-4,3828-_-Opaque Wall (Instance)-_-0,2509804-_-0,2627451-_-0,3058823***0-_--18,93613-_-1,499998-_-1,752443-_-0-_-86,05482-_-0-_-0,6-_-3-_-7,075221-_-Opaque Wall (Instance)-_-0,4754791-_-0,8467359-_-0***0-_--11,87767-_-1,499998-_-2,239231-_-0-_-341,7606-_-0-_-0,6-_-3-_-5,637956-_-Opaque Wall (Instance)-_-0,2509804-_-0,2627451-_-0,3058823***3-_--6,49256-_-3,15-_--0,4381115-_-0-_-0-_-0-_-24,88713-_-0,3-_-16,42916-_-Ceiling Material (Instance)-_-0-_-0-_-0***4-_--6,49256-_--0,15-_--0,4381115-_-0-_-0-_-0-_-24,88713-_-0,3-_-16,42916-_-Floor2 (Instance) (Instance)-_-0-_-0-_-0***";
-        string productString = "-4,114692-_--0,08685063-_-5,339195-_--3,235102E-05-_-10,49509-_--0,0009581303-_-0,002-_-0,002-_-0,002-_-alex-drawer-unit-black-brown-60473548(Clone)***-4,542412-_--0,09788189-_-4,457348-_-291,4928-_-311,3912-_-96,55825-_-0,02-_-0,02-_-0,02-_-alex-drawer-unit-on-casters-white-80485423(Clone)***-4,557808-_--0,09804774-_-4,446943-_-336,5148-_-0,07229744-_-14,11501-_-0,02-_-0,02-_-0,02-_-hemnes-3-drawer-chest-white-stain-70360414(Clone)***";
+        string wallString = message.GetString();
+        string productString = message.GetString();
+
+        //string wallString = "2-_-1,658282-_-1,124998-_-5,365653-_-0-_-86,9529-_-0-_-0,66-_-2,25-_-1,5-_-Door Material 1 (Instance) (Instance)-_-0-_-0-_-0***0-_--10,16685-_-1,499998-_-4,736178-_-0-_-86,9529-_-0-_-0,6000001-_-3-_-14,99254-_-Opaque Wall (Instance) (Instance)-_-0,09012479-_-0,9555748-_-0***1-_-4,804496-_-1,499998-_-1,662215-_-0-_-180-_-0-_-0,66-_-1,8-_-1,8-_-WindowMaterial (Instance) (Instance)-_-1-_-1-_-1***1-_-4,804495-_-1,499998-_--1,127123-_-0-_-180-_-0-_-0,66-_-1,8-_-1,8-_-WindowMaterial (Instance) (Instance)-_-1-_-1-_-1***1-_-4,804495-_-1,499998-_-0,3529339-_-0-_-180-_-0-_-0,66-_-1,8-_-1,8-_-WindowMaterial (Instance) (Instance)-_-1-_-1-_-1***0-_-4,804498-_-1,499998-_-5,533133-_-0-_-180-_-0-_-0,6-_-3-_-10,01885-_-Opaque Wall (Instance) (Instance)-_-0,09012479-_-0,9555748-_-0***2-_--4,34191-_-1,124998-_--6,233692-_-0-_-259,1806-_-0-_-0,66-_-2,25-_-1,5-_-Door Material 1 (Instance) (Instance)-_-0-_-0-_-0***2-_-3,138361-_-1,124998-_--4,804129-_-0-_-259,1806-_-0-_-0,66-_-2,25-_-1,5-_-Door Material 1 (Instance) (Instance)-_-0-_-0-_-0***0-_-4,804493-_-1,499998-_--4,485713-_-0-_-259,1806-_-0-_-0,6-_-3-_-13,03999-_-Wall3 (Instance) (Instance)-_-1-_-1-_-1***1-_--11,64969-_-1,499998-_--4,670465-_-0-_-301,8275-_-0-_-0,66-_-1,8-_-1,8-_-WindowMaterial (Instance) (Instance)-_-1-_-1-_-1***0-_--8,003695-_-1,499998-_--6,933499-_-0-_-301,8275-_-0-_-0,6-_-3-_-11,65787-_-Opaque Wall (Instance) (Instance)-_-0,2509804-_-0,2627451-_-0,3058823***0-_--17,90869-_-1,499998-_--0,7855716-_-0-_-90,49392-_-0-_-0,6000001-_-3-_-6,603579-_-Planks5c (Instance) (Instance)-_-1-_-1-_-1***1-_--10,75636-_-1,499998-_-1,847581-_-0-_-11,5346-_-0-_-0,6600001-_-1,8-_-1,8-_-WindowMaterial (Instance) (Instance)-_-1-_-1-_-1***0-_--11,30536-_-1,499998-_--0,8424969-_-0-_-11,5346-_-0-_-0,6000001-_-3-_-5,693664-_-Wall3 (Instance) (Instance)-_-1-_-1-_-1***3-_--6,552095-_-3,15-_--0,7001834-_-0-_-0-_-0-_-22,71318-_-0,3-_-12,46663-_-Ceiling Material (Instance) (Instance)-_-0-_-0-_-0***4-_--6,552095-_--0,15-_--0,7001834-_-0-_-0-_-0-_-22,71318-_-0,3-_-12,46663-_-Planks5a (Instance) (Instance)-_-0-_-0-_-0***";
+        //string productString = "-7,890553-_--0,08684979-_--3,152982-_-2,229584E-06-_-328,3836-_--1,742997E-06-_-0,002-_-0,002-_-0,002-_-alex-drawer-unit-black-brown-60473548(Clone)***-2,536808-_--0,08585257-_--2,996163-_-88,47069-_-310,5151-_-42,97285-_-0,002-_-0,002-_-0,002-_-karmsund-table-mirror-black-60507261(Clone)***-9,108209-_-0,3885658-_-1,884027-_--3,415095E-06-_-283,4099-_-90-_-0,002-_-0,002-_-0,002-_-ingolf-chair-white-70103250(Clone)***";
 
         string[] walls = wallString.Split("***");
         string[] products = productString.Split("***");
@@ -136,6 +137,28 @@ public class Player : MonoBehaviour
                     list[id].Floor = cubeObject;
                 }
             }
+        }
+
+        foreach (string product in products)
+        {
+            string[] productData = product.Split("-_-");
+            if (productData[0].Equals(""))
+                continue;
+
+            Vector3 position = new Vector3(float.Parse(productData[0]), float.Parse(productData[1]), float.Parse(productData[2]));
+            Vector3 rotation = new Vector3(float.Parse(productData[3]), float.Parse(productData[4]), float.Parse(productData[5]));
+            Vector3 scale = new Vector3(float.Parse(productData[6]), float.Parse(productData[7]), float.Parse(productData[8]));
+            string name = productData[9].Replace("(Clone)", "").Trim();
+            Debug.Log(position + " " + rotation + " " + scale + " " + name);
+            string prefabPath = "Assets/Prefabs/VReal/Furnitures/" + name + ".prefab";
+            GameObject productObject = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+
+            productObject.transform.position = position;
+            productObject.transform.eulerAngles = rotation;
+            productObject.transform.localScale = scale;
+            productObject.name = name;
+
+            list[id].Products.Add(productObject);
         }
 
         list[id].gameObject.SetActive(true);
