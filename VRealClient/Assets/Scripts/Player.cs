@@ -16,9 +16,10 @@ public class Player : MonoBehaviour
     public List<GameObject> Products { get; set; }
     public GameObject Floor { get; set; }  
     public GameObject Ceiling { get; set; }
+    public List<string> RoomsNames { get; set; }
     public Vector3 RoomCenter { get; set; }
 
-    public static List<string> roomsArr = new List<string>();
+    
 
 
 
@@ -45,6 +46,7 @@ public class Player : MonoBehaviour
         player.name = _email;
         player.Email = _email;
         player.Uid = _uid;
+        player.RoomsNames = new List<string>();
         list[id] = player;
         player.gameObject.SetActive(false);
     }
@@ -85,15 +87,11 @@ public class Player : MonoBehaviour
     [MessageHandler((ushort)ServerToClientId.roomNames)]
     private static void RoomNames(Message message)
     {
-
-        // Oda isimleri ana menüde listelenecek
-        
-        roomsArr.Add("a");
-        roomsArr.Add("a");
-        roomsArr.Add("a");
-        roomsArr.Add("a");
-
-        
+        int count = message.GetInt();
+        for(int i=0;i<count;i++)
+        {
+            list[NetworkManager.Singleton.Client.Id].RoomsNames.Add(message.GetString());
+        }
         Debug.Log("Server oda isimlerini gönderdi.");   
     }
 

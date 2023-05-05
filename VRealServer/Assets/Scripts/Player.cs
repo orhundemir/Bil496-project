@@ -38,23 +38,9 @@ public class Player : MonoBehaviour
     }
 
 
-  /*
-   * Google sign in basariliyla gerceklesirse user kaydi db'ye kaydediliyor.
-   */
-    public static void DBUserRecord(ushort id, string _email)
-    {
-        foreach (Player player in list.Values)
-        {
-            if (player.Id == id)
-            {
-                user = new User(id, _email);
-                user = DBManager.checkUser(user);
-            }
-        }
-    }
-
-
-
+    /*
+        * Google sign in basariliyla gerceklesirse user kaydi burada db'ye kaydediliyor.
+    */
     public static void ShowEmailLog(ushort id, string _email)
     {
         Debug.Log("Email is: " + _email);
@@ -70,36 +56,27 @@ public class Player : MonoBehaviour
         list.GetValueOrDefault(id).Uid = _uid;
     }
 
-    public static void RoomNameForNew(ushort id, string roomName)
+    public static void SaveRoomNameForNewToDB(ushort id, string roomName)
     {
-        /*
-         METIN
-         */
-         // ***** ROOM NAME DBYE BURADA EKLENMELI         *****
-         room = new Room();
-         room.name = roomName;
-         list[id].roomName = roomName;
-         Debug.Log("Room opened name: "+roomName);
+        // TODO METIN:
+        // KULLANICI YENI ODA OLUSTURDUGUNDA (KULLANICI, ODA) TABLOSUNA ID ve ODA ISMI INSERT EDILMELIDIR.
+        // ***** ROOM NAME DBYE BU METOTDA EKLENMELI  *****
+        room = new Room();
+        room.name = roomName;
+        list[id].roomName = roomName;
+        Debug.Log("Room opened name: "+roomName);
     }
     
     public static void SaveRoomTemplateToDB(ushort id, Message message)
     {
-        
-       // Vreal sahnesinde oda kaydetme geliştirmesi bittikten sonra client odayı kaydedince odanın objelerinin servera iletdigi ilk yer burası.
-        //Bu metotda gelen oda template okunup json,binary vs. formatına çevrildikten sonra db'ye kaydedilmelidir.
-
-       // Bu metot şimdilik sadece oda çizim sahnesinde oda çizildikten duvarların konumlarının serverda ekrana basma işini yapıyor.
-
        string wall = message.GetString();
        string products = message.GetString();
        room.wall = wall;
        room.ceiling = "";
        room.floor = "";
-        room.furniture = products;
-        DBManager.insertRoom(room, user);
+       room.furniture = products;
+       DBManager.insertRoom(room, user);
        Debug.Log("Kullanıcının odası basariyla db ye yuklendi");
-        
-        
     }
 
 
@@ -119,11 +96,11 @@ public class Player : MonoBehaviour
 
     private static void  SendRoomNames(ushort toClientId)
     {
-        //NetworkManager.Singleton.Server.Send(AddRoomNamesData(Message.Create(MessageSendMode.reliable, ServerToClientId.playerSpawned)), toClientId);
+        NetworkManager.Singleton.Server.Send(AddRoomNamesData(Message.Create(MessageSendMode.Reliable, ServerToClientId.roomNames)), toClientId);
     }
-    private static void SendRoomTemplate(ushort toClientId)
+    private static void SendRoomTemplate(ushort toClientId,string roomName)
     {
-        NetworkManager.Singleton.Server.Send(AddRoomTemplateData(Message.Create(MessageSendMode.Reliable, ServerToClientId.playerSpawned)), toClientId);
+        NetworkManager.Singleton.Server.Send(AddRoomTemplateData(Message.Create(MessageSendMode.Reliable, ServerToClientId.roomTemplate),roomName), toClientId);
     }
 
 
@@ -139,26 +116,34 @@ public class Player : MonoBehaviour
 
     private static Message AddRoomNamesData(Message message)
     {
-        /*
-         Client daha önce oluşturduğu odaları görüntülemek istediğine dair mesajı servera gönderdi. 
-         Bu görüntülemek istediği odaların isimleri dbden çekilip bu metodun message parametresine eklenmelidir.
-         Bu oda isimleri  SendRoomNames metoduyla ile clienta iletilecektir.
+        //TODO METIN:
+        //Kullanıcının odalari dbden çekilip string arrayinde gönderilmesi gerekmektedir.
+        // Ilk olarak kullanıcının oda syıları gonderilmelidir.
+        // kullaniciya ait verilere şöyle erişiyoruz. player.Email, player.Id vs gibi.
 
-         */
+        message.AddInt(4);
+        for(int i =0;i<4;i++)
+        {
+            string roomName = "a"+i;
+            message.AddString(roomName);
+        }
+        
+
+
         return message;
     }
 
-    private static Message AddRoomTemplateData(Message message)
+    private static Message AddRoomTemplateData(Message message,string roomName)
     {
-        /*
-         Client daha önce oluşturduğu odayı yuklemek istediğine dair mesajı servera gönderdi. (Bu mesaj google sign in yapıldıktan sonra gonderiliyor.)
-         Bu tekrar yuklemek istediği odanın objeleri dbden çekilip bu metodun message parametresine eklenmelidir.
-         
-         Bu oda objeleri  SendRoomTemplate metoduyla ile clienta iletilecektir.
+        //TODO METIN:
+        // DB DEN KULLANICININ SEÇTIGI ODA SEÇİLECEK (kullanicinin sectigi oda roomName'dir)
+        // SONRA BU ODAYA DAIR WALL VE PRODUCKTS STRINGLERI ASAGIDAKI SEKILDE ASSIGN EDILMELI
 
-         Onemli: Eger mesaja eklenen türler farklı ise mesaja ilk olarak kaç tane obje gonderileceğinin
-         bilgisi verilmelidir. Ornek message.AddInt(10)
-         */
+        string wall = "wall stringi dbden cekilecek";
+        string product = "product stringi dbden cekilecek";
+        message.AddString(wall);
+        message.AddString(product);
+
         return message;
     }
 
@@ -179,7 +164,6 @@ public class Player : MonoBehaviour
     {
         string email = message.GetString();
         ShowEmailLog(fromClientId, email);
-        DBUserRecord(fromClientId, email);
     }
     
     [MessageHandler((ushort)ClientToServerId.googleUID)]
@@ -194,14 +178,15 @@ public class Player : MonoBehaviour
     {
         string roomName = message.GetString();
         Debug.Log("Client şu odayı yeni oluşturdu: " + roomName);
-        RoomNameForNew(fromClientId, roomName);
+        SaveRoomNameForNewToDB(fromClientId, roomName);
     }
 
     [MessageHandler((ushort)ClientToServerId.prevRoomName)]
     private static void PrevRoomName(ushort fromClientId, Message message)
     {
-        Debug.Log("Client şu odayı yuklemek istedi" + message.GetString());
-        SendRoomTemplate(fromClientId);
+        string roomName = message.GetString();
+        Debug.Log("Client şu odayı yuklemek istedi" + roomName );
+        SendRoomTemplate(fromClientId,roomName);
     }
 
     [MessageHandler((ushort)ClientToServerId.roomTemplate)]
