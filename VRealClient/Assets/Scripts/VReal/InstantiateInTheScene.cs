@@ -13,6 +13,7 @@ public class InstantiateInTheScene : MonoBehaviour
     public void Start()
     {
         root = GameObject.Find("Furnitures");
+        // roomCenter = Player.list[NetworkManager.Singleton.Client.Id].RoomCenter;
         roomCenter = GameObject.Find("Initiator").GetComponent<Initiator>().GetRoomCenter();
     }
 

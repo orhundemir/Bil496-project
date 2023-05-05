@@ -38,20 +38,22 @@ public class WallSerializer : MonoBehaviour {
             wall.scale = obj.transform.localScale;
 
             if (obj.CompareTag("Ceiling") || obj.CompareTag("Floor"))
-            {
-                wall.type = 1;
                 wall.material = obj.transform.GetComponent<Renderer>().material.name;
-            }
             else
             {
-                wall.type = 0;
                 wall.material = obj.transform.GetChild(0).GetComponent<Renderer>().material.name;
+                wall.color = obj.transform.GetChild(0).GetComponent<Renderer>().material.color;
             }
+
+            if (obj.CompareTag("Wall")) wall.type = 0;
+            else if (obj.CompareTag("Window")) wall.type = 1;
+            else if (obj.CompareTag("Door")) wall.type = 2;
+            else if (obj.CompareTag("Ceiling")) wall.type = 3;
+            else if (obj.CompareTag("Floor")) wall.type = 4;
 
             wallList.Add(wall);
         }
 
-        
         StringBuilder stringBuilder = new StringBuilder(); 
         foreach (Wall wall in wallList)
         {
@@ -65,13 +67,14 @@ public class WallSerializer : MonoBehaviour {
             stringBuilder.Append(wall.scale.x + "-_-");
             stringBuilder.Append(wall.scale.y + "-_-");
             stringBuilder.Append(wall.scale.z + "-_-");
-            stringBuilder.Append(wall.material + "***");
+            stringBuilder.Append(wall.material + "-_-");
+            stringBuilder.Append(wall.color.r + "-_-");
+            stringBuilder.Append(wall.color.g + "-_-");
+            stringBuilder.Append(wall.color.b + "***");
         }
-        
 
         GameObject furnitureParent = GameObject.Find("Furnitures");
         StringBuilder stringBuilder2 = new StringBuilder();
-        // Save furnitures in the scene into the furnitures.bin file
         for (int i = 0; i < furnitureParent.transform.childCount; i++)
         {
             GameObject item = furnitureParent.transform.GetChild(i).gameObject;
@@ -87,16 +90,14 @@ public class WallSerializer : MonoBehaviour {
             stringBuilder2.Append(item.name + "***");
         }
 
-
         wall = stringBuilder.ToString();
         products = stringBuilder2.ToString();
+
         Message message = Message.Create(MessageSendMode.Reliable, ClientToServerId.roomTemplate);
         message.AddString(wall);
         message.AddString(products);
         NetworkManager.Singleton.Client.Send(message);
     }
-
-    
 
     private void Load()
     {

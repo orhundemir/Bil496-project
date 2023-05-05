@@ -23,20 +23,25 @@ public class Initiator : MonoBehaviour
 
         //VR icin player olusturuluyor.
         Player temp = Player.list[NetworkManager.Singleton.Client.Id];
-        player = Instantiate(GameLogic.Singleton.VROrigin, temp.transform.position, temp.transform.rotation).GetComponent<Player>();
+        player = Instantiate(GameLogic.Singleton.VROrigin, temp.transform.position - new Vector3(0, 1.2f, 0), temp.transform.rotation).GetComponent<Player>();
         temp.CopyPlayer(player);
+
         //duvar,zemin,tavan ve isiklandirma objeleri olusturuluyor.
         GameObject wallsParent = new GameObject("Walls");
         foreach (GameObject go in player.Walls)
         {
-            player.SpawnWalls(go, wallsParent.transform);
+            player.SpawnGameObjects(go, wallsParent.transform);
         }
         GameObject ceiling = Instantiate(player.Ceiling);
         ceiling.transform.parent = wallsParent.transform;
         GameObject floor = Instantiate(player.Floor);
         floor.transform.parent = wallsParent.transform;
 
-        //TODO : LOAD ÝÇÝN MODELLER INSTANSIATE
+        GameObject furnituresParent = GameObject.Find("Furnitures");
+        foreach (GameObject go in player.Products)
+        {
+            player.SpawnGameObjects(go, furnituresParent.transform);
+        }
 
         Vector3 lightPos = player.Ceiling.transform.position;
         lightPos.y = 2.5f;
