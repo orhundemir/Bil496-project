@@ -92,7 +92,7 @@ public class WallSerializer : MonoBehaviour {
 
         wall = stringBuilder.ToString();
         products = stringBuilder2.ToString();
-        Debug.Log(wall + "\n\n\n" + products);
+
         Message message = Message.Create(MessageSendMode.Reliable, ClientToServerId.roomTemplate);
         message.AddString(wall);
         message.AddString(products);
