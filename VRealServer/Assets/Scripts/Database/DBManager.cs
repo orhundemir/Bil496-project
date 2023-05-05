@@ -91,9 +91,17 @@ public class DBManager : MonoBehaviour
         RoomUser ru = new RoomUser(1, user.id, room_id);
         ruc.insertRoomUser(conn, ru);
     }
-    public static Room loadRoom(int id){//ID and name will be correct in the list when myRooms called
+    public static Room loadRoom(User user, string roomName){//Returns given users room with given room name
         RoomController rc = new RoomController();
-        Room ret = rc.selectRoom(conn, id);
+        RoomUserController ruc = new RoomUserController();
+        List<Room> usersRooms = myRooms(user);
+
+        for(int i = 0; i<usersRooms.Count; i++){
+            if(string.Compare(room.name, usersRooms[i].name) == 0){
+                Room ret = rc.selectRoom(conn, id);
+            }
+        }
+
         return ret;
     }
 
