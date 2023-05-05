@@ -51,8 +51,9 @@ public class Player : MonoBehaviour
     }
 
 
-    public static void AssingRoomObjectsToPlayer(Message message, List<GameObject> Walls, List<GameObject> Products, GameObject Floor, GameObject Ceiling, Vector3 RoomCenter)
+    public static void AssingRoomObjectsToPlayer(Message message)
     {
+        ushort id = NetworkManager.Singleton.Client.Id;
         // string wallString = message.GetString();
         // string productString = message.GetString();
         string wallString = "0-_-1,547622-_-1,124998-_-2,189365-_-0-_-111,1896-_-0-_-0,6600001-_-2,25-_-1,5-_-Door Material 1 (Instance)***0-_--1,377494-_-1,499998-_-3,323329-_-0-_-111,1896-_-0-_-0,6600001-_-1,8-_-1,8-_-WindowMaterial (Instance)***0-_--12,132-_-1,499998-_-7,492476-_-0-_-111,1896-_-0-_-0,6000001-_-3-_-16,85881-_-Opaque Wall (Instance)***1-_--4,272511-_-3,15-_-4,445627-_-0-_-0-_-0-_-15,71897-_-0,3-_-6,093699-_-Ceiling Material (Instance)***1-_--4,272511-_--0,15-_-4,445627-_-0-_-0-_-0-_-15,71897-_-0,3-_-6,093699-_-Drawing Area (Instance) (Instance)***";
@@ -103,7 +104,7 @@ public class Player : MonoBehaviour
                 cubeObject.transform.parent = parentObject.transform;
 
                 // Add the object to the current Player's Walls list
-                Walls.Add(parentObject);
+                list[id].Walls.Add(parentObject);
             }
             // Create the ceiling/floor objects
             else if (type == 3 || type == 4)
@@ -115,18 +116,18 @@ public class Player : MonoBehaviour
                 // Assign the object to the current Player's corresponding field
                 if (type == 3)
                 {
-                    Ceiling = cubeObject;
-                    RoomCenter = Ceiling.transform.position;
+                    list[id].Ceiling = cubeObject;
+                    list[id].RoomCenter = cubeObject.transform.position;
                 }
                 else if (type == 4)
                 {
                     cubeObject.AddComponent<Teleportable>();
-                    Floor = cubeObject;
+                    list[id].Floor = cubeObject;
                 }
             }
         }
         
-        MovePlayerToDestinationScene(list[NetworkManager.Singleton.Client.Id].Id, "VReal");
+        // MovePlayerToDestinationScene(list[NetworkManager.Singleton.Client.Id].Id, "VReal");
     }
 
 
