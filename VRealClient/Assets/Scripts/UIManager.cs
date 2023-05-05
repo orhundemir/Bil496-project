@@ -61,13 +61,14 @@ public class UIManager : MonoBehaviour
     {
         Message message = Message.Create(MessageSendMode.Reliable, ClientToServerId.roomName);
         message.AddString(input.text);
+        Player.list[NetworkManager.Singleton.Client.Id].RoomName = input.text;
         NetworkManager.Singleton.Client.Send(message);
     }
 
     public void SendPrevRoomName(string item)
     {
         Message message = Message.Create(MessageSendMode.Reliable, ClientToServerId.prevRoomName);
-        message.AddString(loadDesign.itemText.text);
+        message.AddString(item);
         NetworkManager.Singleton.Client.Send(message);
     }
 
@@ -91,6 +92,7 @@ public class UIManager : MonoBehaviour
     public void ClickedLoadPrevRoom()
     {
         Debug.Log(loadDesign.captionText.text);
+        Player.list[NetworkManager.Singleton.Client.Id].RoomName = loadDesign.captionText.text;
         SendPrevRoomName(loadDesign.captionText.text);
     }
     public void LoadRoomClicked()
