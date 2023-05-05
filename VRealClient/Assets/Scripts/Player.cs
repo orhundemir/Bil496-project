@@ -149,7 +149,7 @@ public class Player : MonoBehaviour
             Vector3 rotation = new Vector3(float.Parse(productData[3]), float.Parse(productData[4]), float.Parse(productData[5]));
             Vector3 scale = new Vector3(float.Parse(productData[6]), float.Parse(productData[7]), float.Parse(productData[8]));
             string name = productData[9].Replace("(Clone)", "").Trim();
-            Debug.Log(position + " " + rotation + " " + scale + " " + name);
+
             string prefabPath = "Assets/Prefabs/VReal/Furnitures/" + name + ".prefab";
             GameObject productObject = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
 
