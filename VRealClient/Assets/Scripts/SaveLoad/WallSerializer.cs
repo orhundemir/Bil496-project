@@ -5,6 +5,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 using Riptide;
 using System.Text;
+using System;
 
 public class WallSerializer : MonoBehaviour {
 
@@ -42,7 +43,13 @@ public class WallSerializer : MonoBehaviour {
             else
             {
                 wall.material = obj.transform.GetChild(0).GetComponent<Renderer>().material.name;
-                wall.color = obj.transform.GetChild(0).GetComponent<Renderer>().material.color;
+                try
+                {
+                    wall.color = obj.transform.GetChild(0).GetComponent<Renderer>().material.color;
+                } catch (Exception e)
+                {
+                    wall.color = new Color(1, 1, 1);
+                }
             }
 
             if (obj.CompareTag("Wall")) wall.type = 0;
