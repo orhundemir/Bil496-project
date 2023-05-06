@@ -85,10 +85,11 @@ public class DBManager : MonoBehaviour
                 rc.updateRoom(conn, room);
             }
         }
-        rc.insertRoom(conn, room);
+
         if(count == 1){//Room has unique name under user
             rc.insertRoom(conn, room);
-            RoomUser ru = new RoomUser(1, user.id, room.id);
+            int id = rc.getLastRoomId(conn);
+            RoomUser ru = new RoomUser(1, user.id, id);
             ruc.insertRoomUser(conn, ru);
         }
     }
