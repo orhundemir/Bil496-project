@@ -43,13 +43,10 @@ public class WallSerializer : MonoBehaviour {
             else
             {
                 wall.material = obj.transform.GetChild(0).GetComponent<Renderer>().material.name;
-                try
-                {
-                    wall.color = obj.transform.GetChild(0).GetComponent<Renderer>().material.color;
-                } catch (Exception e)
-                {
+                if (obj.CompareTag("Door"))
                     wall.color = new Color(1, 1, 1);
-                }
+                else
+                    wall.color = obj.transform.GetChild(0).GetComponent<Renderer>().material.color;
             }
 
             if (obj.CompareTag("Wall")) wall.type = 0;
