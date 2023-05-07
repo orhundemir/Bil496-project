@@ -58,9 +58,6 @@ public class Player : MonoBehaviour
 
     public static void SaveRoomNameForNewToDB(ushort id, string roomName)
     {
-        // TODO METIN:
-        // KULLANICI YENI ODA OLUSTURDUGUNDA (KULLANICI, ODA) TABLOSUNA ID ve ODA ISMI INSERT EDILMELIDIR.
-        // ***** ROOM NAME DBYE BU METOTDA EKLENMELI  *****
         room = new Room();
         room.name = roomName;
         list[id].roomName = roomName;
@@ -133,12 +130,9 @@ public class Player : MonoBehaviour
 
     private static Message AddRoomTemplateData(Message message,string roomName)
     {
-        //TODO METIN:
-        // DB DEN KULLANICININ SEÇTIGI ODA SEÇİLECEK (kullanicinin sectigi oda roomName'dir)
-        // SONRA BU ODAYA DAIR WALL VE PRODUCKTS STRINGLERI ASAGIDAKI SEKILDE ASSIGN EDILMELI
-
-        string wall = "wall stringi dbden cekilecek";
-        string product = "product stringi dbden cekilecek";
+        Room room = DBManager.loadRoom(user, roomName);
+        string wall = room.name;
+        string product = room.furniture;
         message.AddString(wall);
         message.AddString(product);
 
