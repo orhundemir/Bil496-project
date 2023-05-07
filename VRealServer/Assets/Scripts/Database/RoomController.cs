@@ -16,6 +16,7 @@ public class RoomController{
         NpgsqlCommand command = conn.CreateCommand();
         string query ="UPDATE ROOMS SET furniture = \'"+room.furniture+"\' WHERE id = "+room.id;
         command.CommandText = query;
+        command.ExecuteNonQuery();
         conn.Close();
     }
 
