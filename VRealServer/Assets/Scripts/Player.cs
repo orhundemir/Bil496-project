@@ -131,7 +131,7 @@ public class Player : MonoBehaviour
     private static Message AddRoomTemplateData(Message message,string roomName)
     {
         room = DBManager.loadRoom(user, roomName);
-        string wall = room.name;
+        string wall = room.wall;
         string product = room.furniture;
         message.AddString(wall);
         message.AddString(product);
