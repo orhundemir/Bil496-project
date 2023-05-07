@@ -30,9 +30,8 @@ public class IkeaCartManager : MonoBehaviour
             @"\Assets\Scripts\IKEA API\IkeaCartManager.py" +
             "\" " + $"{string.Join(" ", productCodes)}";
 
-        // Redirect the outputs and errors from Python to Unity
+        // Redirect the outputs from Python to Unity
         process.StartInfo.RedirectStandardOutput = true;
-        process.StartInfo.RedirectStandardError = true;
         process.StartInfo.UseShellExecute = false;
         process.StartInfo.CreateNoWindow = true;
 
@@ -40,11 +39,7 @@ public class IkeaCartManager : MonoBehaviour
         process.Start();
         process.WaitForExit();
 
-        string error = process.StandardError.ReadToEnd();
-        if (error != null && error != "")
-            UnityEngine.Debug.LogError(error);
-        else
-            UnityEngine.Debug.Log("Cart access was successful");
+        UnityEngine.Debug.Log("Cart access was successful");
     }
 
     private List<string> RetrieveProductCodes()
@@ -63,8 +58,8 @@ public class IkeaCartManager : MonoBehaviour
 
     private string ExtractProductCode(string productName)
     {
+        productName.Replace("(Clone)", "").Trim();
         string code = productName.Substring(productName.LastIndexOf("-") + 1);
-
         int startIndex = GetFirstDigitIndex(code);
         if (startIndex != -1)
             code = code.Substring(startIndex);
