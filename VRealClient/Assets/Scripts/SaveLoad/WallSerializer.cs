@@ -62,19 +62,19 @@ public class WallSerializer : MonoBehaviour {
         foreach (Wall wall in wallList)
         {
             stringBuilder.Append(wall.type + "-_-");
-            stringBuilder.Append(wall.position.x + "-_-");
-            stringBuilder.Append(wall.position.y + "-_-");
-            stringBuilder.Append(wall.position.z + "-_-");
-            stringBuilder.Append(wall.rotation.x + "-_-");
-            stringBuilder.Append(wall.rotation.y + "-_-");
-            stringBuilder.Append(wall.rotation.z + "-_-");
-            stringBuilder.Append(wall.scale.x + "-_-");
-            stringBuilder.Append(wall.scale.y + "-_-");
-            stringBuilder.Append(wall.scale.z + "-_-");
+            stringBuilder.Append(wall.position.x.ToString("0.#####") + "-_-");
+            stringBuilder.Append(wall.position.y.ToString("0.#####") + "-_-");
+            stringBuilder.Append(wall.position.z.ToString("0.#####") + "-_-");
+            stringBuilder.Append(wall.rotation.x.ToString("0.#####") + "-_-");
+            stringBuilder.Append(wall.rotation.y.ToString("0.#####") + "-_-");
+            stringBuilder.Append(wall.rotation.z.ToString("0.#####") + "-_-");
+            stringBuilder.Append(wall.scale.x.ToString("0.#####") + "-_-");
+            stringBuilder.Append(wall.scale.y.ToString("0.#####") + "-_-");
+            stringBuilder.Append(wall.scale.z.ToString("0.#####") + "-_-");
             stringBuilder.Append(wall.material + "-_-");
-            stringBuilder.Append(wall.color.r + "-_-");
-            stringBuilder.Append(wall.color.g + "-_-");
-            stringBuilder.Append(wall.color.b + "***");
+            stringBuilder.Append(wall.color.r.ToString("0.#####") + "-_-");
+            stringBuilder.Append(wall.color.g.ToString("0.#####") + "-_-");
+            stringBuilder.Append(wall.color.b.ToString("0.#####") + "***");
         }
 
         GameObject furnitureParent = GameObject.Find("Furnitures");
@@ -82,15 +82,15 @@ public class WallSerializer : MonoBehaviour {
         for (int i = 0; i < furnitureParent.transform.childCount; i++)
         {
             GameObject item = furnitureParent.transform.GetChild(i).gameObject;
-            stringBuilder2.Append(item.transform.localPosition.x + "-_-");
-            stringBuilder2.Append(item.transform.localPosition.y + "-_-");
-            stringBuilder2.Append(item.transform.localPosition.z + "-_-");
-            stringBuilder2.Append(item.transform.eulerAngles.x + "-_-");
-            stringBuilder2.Append(item.transform.eulerAngles.y + "-_-");
-            stringBuilder2.Append(item.transform.eulerAngles.z + "-_-");
-            stringBuilder2.Append(item.transform.localScale.x + "-_-");
-            stringBuilder2.Append(item.transform.localScale.y + "-_-");
-            stringBuilder2.Append(item.transform.localScale.z + "-_-");
+            stringBuilder2.Append(item.transform.localPosition.x.ToString("0.#####") + "-_-");
+            stringBuilder2.Append(item.transform.localPosition.y.ToString("0.#####") + "-_-");
+            stringBuilder2.Append(item.transform.localPosition.z.ToString("0.#####") + "-_-");
+            stringBuilder2.Append(item.transform.eulerAngles.x.ToString("0.#####") + "-_-");
+            stringBuilder2.Append(item.transform.eulerAngles.y.ToString("0.#####") + "-_-");
+            stringBuilder2.Append(item.transform.eulerAngles.z.ToString("0.#####") + "-_-");
+            stringBuilder2.Append(item.transform.localScale.x.ToString("0.#####") + "-_-");
+            stringBuilder2.Append(item.transform.localScale.y.ToString("0.#####") + "-_-");
+            stringBuilder2.Append(item.transform.localScale.z.ToString("0.#####") + "-_-");
             stringBuilder2.Append(item.name + "***");
         }
 
@@ -137,17 +137,6 @@ public class WallSerializer : MonoBehaviour {
                 wall.rotation = new Vector3(rotationX, rotationY, rotationZ);
                 wall.scale = new Vector3(scaleX, scaleY, scaleZ);
                 wall.material = materialName;
-
-                /* TODO
-                 * VReal sahnesine zemin ve tavan haricindeki objeler parent-child olarak ikili olarak gonderiliyor
-                 * O objeler load edilirken ayni hiyerarsi olusturulmali
-                 * Asil 3 boyutlu sekli child'lar iceriyor
-                 * Duvarlar icin child'larin z pozisyonu 0.5f, kalan butun objelerin childlarinin tum transformlari default
-                 * 
-                 * Tavan ve zemin icin child-parent iliskisine gerek yok, Wall class'ina bir de type ekledim.
-                 * Type = 1 zemin ve tavan icin, Type = 0 kalan her sey icin
-                 * Sadece Type = 0 olanlar icin bu hiyerarsi olusturulmali
-                 */
 
                 wallList.Add(wall);
 
