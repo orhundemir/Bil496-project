@@ -130,7 +130,7 @@ public class Player : MonoBehaviour
 
     private static Message AddRoomTemplateData(Message message,string roomName)
     {
-        Room room = DBManager.loadRoom(user, roomName);
+        room = DBManager.loadRoom(user, roomName);
         string wall = room.name;
         string product = room.furniture;
         message.AddString(wall);
