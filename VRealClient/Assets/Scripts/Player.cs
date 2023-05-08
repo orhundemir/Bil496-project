@@ -74,8 +74,8 @@ public class Player : MonoBehaviour
             Vector3 position = new Vector3(float.Parse(wallData[1]), float.Parse(wallData[2]), float.Parse(wallData[3]));
             Vector3 rotation = new Vector3(float.Parse(wallData[4]), float.Parse(wallData[5]), float.Parse(wallData[6]));
             Vector3 scale = new Vector3(float.Parse(wallData[7]), float.Parse(wallData[8]), float.Parse(wallData[9]));
-            string path = "Assets/Materials/RoomDrawer/" + wallData[10].Replace("(Instance)", "").Trim() + ".mat";
-            Material material = AssetDatabase.LoadAssetAtPath<Material>(path);
+            string path = "RoomDrawer/" + wallData[10].Replace("(Instance)", "").Trim();
+            Material material = Resources.Load<Material>(path);
             Color color = new Color(float.Parse(wallData[11]), float.Parse(wallData[12]), float.Parse(wallData[13]));
 
             // Create the cube object that contains all the necessary components
@@ -150,8 +150,8 @@ public class Player : MonoBehaviour
             Vector3 scale = new Vector3(float.Parse(productData[6]), float.Parse(productData[7]), float.Parse(productData[8]));
             string name = productData[9].Replace("(Clone)", "").Trim();
 
-            string prefabPath = "Assets/Prefabs/VReal/Furnitures/" + name + ".prefab";
-            GameObject productObject = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+            string prefabPath = "Furnitures/" + name;
+            GameObject productObject = Resources.Load<GameObject>(prefabPath);
 
             productObject.transform.position = position;
             productObject.transform.eulerAngles = rotation;
@@ -254,11 +254,10 @@ public class Player : MonoBehaviour
     private static IEnumerator LoadYourAsyncScene(ushort id, string destinationScene)
     {
         // Set the current Scene to be able to unload it later
+        
         Scene currentScene = SceneManager.GetActiveScene();
-
         // The Application loads the Scene in the background at the same time as the current Scene.
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(destinationScene, LoadSceneMode.Additive);
-
         // Wait until the last operation fully loads to return anything
         while (!asyncLoad.isDone)
         {

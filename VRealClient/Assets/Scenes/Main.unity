@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589245, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -273,6 +273,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 353375068566706746, guid: c37dc5e157a96304a85b64a3a1b83fb7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 353452697866409506, guid: c37dc5e157a96304a85b64a3a1b83fb7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 355529388823523236, guid: c37dc5e157a96304a85b64a3a1b83fb7,
         type: 3}
       propertyPath: m_RootOrder
@@ -436,6 +446,16 @@ PrefabInstance:
     - target: {fileID: 576374346597661990, guid: c37dc5e157a96304a85b64a3a1b83fb7,
         type: 3}
       propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 576426913731860866, guid: c37dc5e157a96304a85b64a3a1b83fb7,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 576426913731860866, guid: c37dc5e157a96304a85b64a3a1b83fb7,
+        type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 576437218570171962, guid: c37dc5e157a96304a85b64a3a1b83fb7,
@@ -747,6 +767,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7550380051682474299, guid: c37dc5e157a96304a85b64a3a1b83fb7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7752536134895516822, guid: c37dc5e157a96304a85b64a3a1b83fb7,
         type: 3}

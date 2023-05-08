@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/RoomDrawing.unity
+    guid: 9c8fff59c04a6624a93336ddee56f951
+  - enabled: 1
+    path: Assets/Scenes/VReal.unity
+    guid: e80173de27b0e5c4b98fec836e143eb2
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: bfa1182bd221b4ca89619141f66f1260,
       type: 2}

@@ -13,13 +13,12 @@ public class InstantiateInTheScene : MonoBehaviour
     public void Start()
     {
         root = GameObject.Find("Furnitures");
-        // roomCenter = Player.list[NetworkManager.Singleton.Client.Id].RoomCenter;
         roomCenter = GameObject.Find("Initiator").GetComponent<Initiator>().GetRoomCenter();
     }
 
     private UnityEngine.Object LoadPrefabFromFile(string filename)
-    {   
-        var loadedObject = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/VReal/Furnitures/" + filename + ".prefab");
+    {
+        var loadedObject = Resources.Load<GameObject>("Furnitures/" + filename);
         if (loadedObject == null)
         {
             throw new FileNotFoundException("...no file found - please check the configuration");
