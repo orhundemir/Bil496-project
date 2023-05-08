@@ -26,9 +26,8 @@ public class IkeaCartManager : MonoBehaviour
         process.StartInfo.FileName = "python.exe";
 
         // Path to the Python file and IKEA product names passed as command line arguments
-        process.StartInfo.Arguments = "\"" + Directory.GetCurrentDirectory() + 
-            @"\Assets\Scripts\IKEA API\IkeaCartManager.py" +
-            "\" " + $"{string.Join(" ", productCodes)}";
+        string scriptPath = Path.Combine(Application.dataPath, "Scripts", "IKEA API", "IkeaCartManager.py");
+        process.StartInfo.Arguments = "\"" + scriptPath + "\" " + $"{string.Join(" ", productCodes)}";
 
         // Redirect the outputs from Python to Unity
         process.StartInfo.RedirectStandardOutput = true;

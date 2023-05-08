@@ -46,9 +46,8 @@ public class FetchData : ScriptableObject
         process.StartInfo.FileName = "python.exe";
 
         // Path to the Python file and IKEA product names passed as command line arguments
-        process.StartInfo.Arguments = "\"" + Directory.GetCurrentDirectory() + 
-            @"\Assets\Scripts\IKEA API\IkeaProductScraper.py" +
-            "\" " + ($"{string.Join(" ", requestedProducts)}").Trim();
+        string scriptPath = Path.Combine(Application.dataPath, "Scripts", "IKEA API", "IkeaProductScraper.py");
+        process.StartInfo.Arguments = "\"" + scriptPath + "\" " + ($"{string.Join(" ", requestedProducts)}").Trim();
 
         // Redirect the outputs and errors from Python to Unity
         process.StartInfo.RedirectStandardOutput = true;
