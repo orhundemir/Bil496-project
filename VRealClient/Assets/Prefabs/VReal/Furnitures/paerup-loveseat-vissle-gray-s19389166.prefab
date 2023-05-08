@@ -427,6 +427,7 @@ GameObject:
   - component: {fileID: 6761482409003254825}
   - component: {fileID: 6998122127496008681}
   - component: {fileID: -1481628230817005309}
+  - component: {fileID: 5249466340458179113}
   m_Layer: 0
   m_Name: paerup-loveseat-vissle-gray-s19389166
   m_TagString: Untagged
@@ -522,6 +523,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07bda1fbfafd3a49980c0bfbab2514a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &5249466340458179113
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5695218246064050660}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 152.4405, y: 79.35562, z: 93.44432}
+  m_Center: {x: 0.15090704, y: -0.8420944, z: 22.958338}
 --- !u!1 &5990013441084441234
 GameObject:
   m_ObjectHideFlags: 0

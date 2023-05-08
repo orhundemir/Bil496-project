@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5697574596063101706}
   - component: {fileID: 1993087705907820471}
   - component: {fileID: 8086433046520391240}
-  - component: {fileID: -1161851012937442928}
+  - component: {fileID: 4478083854728922846}
   m_Layer: 0
   m_Name: hemnes-bed-frame-black-brown-loenset-s99019576
   m_TagString: Untagged
@@ -110,17 +110,17 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5076096019412957853}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.46174863, z: 0, w: 0.8870109}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.002, y: 0.002, z: 0.002}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.0015, y: 0.0015, z: 0.0015}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 159338058149839807}
   - {fileID: 3251330492172800420}
   - {fileID: 3304029316197502973}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 55, z: 0}
 --- !u!114 &5697574596063101706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07bda1fbfafd3a49980c0bfbab2514a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &-1161851012937442928
+--- !u!65 &4478083854728922846
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,8 +221,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 861.9876, y: 713.22577, z: 942.9691}
+  m_Center: {x: -165.38182, y: 373.57947, z: 433.95682}
 --- !u!1 &6553614300774592020
 GameObject:
   m_ObjectHideFlags: 0
