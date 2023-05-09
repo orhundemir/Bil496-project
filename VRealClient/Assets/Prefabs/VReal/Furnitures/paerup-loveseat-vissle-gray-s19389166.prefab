@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8578991229988381114, guid: daae3b62cad1d7e4993e340a15e43453, type: 3}
+  - {fileID: 2100000, guid: e8ef804316347be4fad0eaabba122805, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -144,7 +144,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3661639628750336703, guid: daae3b62cad1d7e4993e340a15e43453, type: 3}
+  - {fileID: 2100000, guid: 69102d9ce539c134eabe8c46d85743bd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -227,7 +227,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8578991229988381114, guid: daae3b62cad1d7e4993e340a15e43453, type: 3}
+  - {fileID: 2100000, guid: e8ef804316347be4fad0eaabba122805, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -310,7 +310,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8578991229988381114, guid: daae3b62cad1d7e4993e340a15e43453, type: 3}
+  - {fileID: 2100000, guid: e8ef804316347be4fad0eaabba122805, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -393,7 +393,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8578991229988381114, guid: daae3b62cad1d7e4993e340a15e43453, type: 3}
+  - {fileID: 2100000, guid: e8ef804316347be4fad0eaabba122805, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -427,14 +427,14 @@ GameObject:
   - component: {fileID: 6761482409003254825}
   - component: {fileID: 6998122127496008681}
   - component: {fileID: -1481628230817005309}
-  - component: {fileID: -6635970391882361861}
+  - component: {fileID: 5249466340458179113}
   m_Layer: 0
   m_Name: paerup-loveseat-vissle-gray-s19389166
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4918681198505020254
 Transform:
   m_ObjectHideFlags: 0
@@ -445,7 +445,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.023983002, y: 38.602634, z: -20.100334}
   m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 683268890983974173}
   - {fileID: 5397276423145379337}
@@ -488,34 +488,10 @@ MonoBehaviour:
   m_maxStretchScale: 1
   m_afterGrabbed:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: -1481628230817005309}
-        m_TargetAssemblyTypeName: DeleteModel, Assembly-CSharp
-        m_MethodName: SetAsGrabbed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_beforeRelease:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: -1481628230817005309}
-        m_TargetAssemblyTypeName: DeleteModel, Assembly-CSharp
-        m_MethodName: SetAsNotGrabbed
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_onDrop:
     m_PersistentCalls:
       m_Calls: []
@@ -547,7 +523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07bda1fbfafd3a49980c0bfbab2514a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &-6635970391882361861
+--- !u!65 &5249466340458179113
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -558,8 +534,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 152.4405, y: 79.35562, z: 93.44432}
+  m_Center: {x: 0.15090704, y: -0.8420944, z: 22.958338}
 --- !u!1 &5990013441084441234
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,7 +659,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8578991229988381114, guid: daae3b62cad1d7e4993e340a15e43453, type: 3}
+  - {fileID: 2100000, guid: e8ef804316347be4fad0eaabba122805, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
