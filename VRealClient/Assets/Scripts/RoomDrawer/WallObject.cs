@@ -14,7 +14,7 @@ public class WallObject : MonoBehaviour
 
     public Material hingeMaterial, hingeHoverMaterial;
 
-    private float wallWidth = 0.6f, wallHeight = 0.1f, wallFinalHeight = 6f;
+    private float wallWidth = 0.6f, wallHeight = 0.1f, wallFinalHeight = 7f;
     private float hingeWidth, hingeScaleFactor = 1.3f;
 
     private void Awake()

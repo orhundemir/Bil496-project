@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 239378781582670930, guid: c04e3b4374080f9489bba95a0561fe16, type: 3}
+  - {fileID: 2100000, guid: 78043a7fbf86f9b4183cbb22847c1f27, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -144,7 +144,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -3661639628750336703, guid: c04e3b4374080f9489bba95a0561fe16, type: 3}
+  - {fileID: 2100000, guid: 69102d9ce539c134eabe8c46d85743bd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: -9158763466573430860}
   - component: {fileID: -2411229643857941894}
   - component: {fileID: -7219843448626175403}
-  - component: {fileID: 1114567301547166459}
+  - component: {fileID: 798877190270781848}
   m_Layer: 0
   m_Name: tullsta-armchair-lofallet-beige-s89272714
   m_TagString: Untagged
@@ -193,10 +193,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7561202762674777764}
-  m_LocalRotation: {x: 0, y: -0.26493493, z: 0, w: 0.9642663}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.6136303, y: 32.46529, z: -1.1335201}
-  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.0225, y: 0.0225, z: 0.0225}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5723031787166186839}
   - {fileID: 8960377675776035441}
@@ -292,7 +292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b07bda1fbfafd3a49980c0bfbab2514a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &1114567301547166459
+--- !u!65 &798877190270781848
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -303,5 +303,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 39.564003, y: 61.056347, z: 42.974636}
+  m_Center: {x: -6.385506, y: -2.1524217, z: -0.28988785}
