@@ -17,8 +17,8 @@ public class Initiator : MonoBehaviour
     {
         
         //VR gozluk kullanilacaksa asagidaki yorum satirlari acilmalidir.
-        //XRGeneralSettings.Instance.Manager.InitializeLoaderSync();
-        //XRGeneralSettings.Instance.Manager.StartSubsystems();
+        XRGeneralSettings.Instance.Manager.InitializeLoaderSync();
+        XRGeneralSettings.Instance.Manager.StartSubsystems();
         VRModule.Initialize();
 
         //VR icin player olusturuluyor.
