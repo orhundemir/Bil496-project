@@ -33,7 +33,7 @@ public class RoomUserController{
         conn.Open();
         List<RoomUser> roomUsers = new List<RoomUser>();
         NpgsqlCommand command = conn.CreateCommand();
-        string query = "SELECT * FROM ROOM_USERS WHERE scene_id = "+user.id;
+        string query = "SELECT * FROM ROOM_USERS WHERE user_id = "+user.id;
         command.CommandText = query;
         NpgsqlDataReader reader = command.ExecuteReader();
         while (reader.Read()){

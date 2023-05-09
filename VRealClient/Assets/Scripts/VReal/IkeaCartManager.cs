@@ -26,13 +26,11 @@ public class IkeaCartManager : MonoBehaviour
         process.StartInfo.FileName = "python.exe";
 
         // Path to the Python file and IKEA product names passed as command line arguments
-        process.StartInfo.Arguments = "\"" + Directory.GetCurrentDirectory() + 
-            @"\Assets\Scripts\IKEA API\IkeaCartManager.py" +
-            "\" " + $"{string.Join(" ", productCodes)}";
+        string scriptPath = Path.Combine(Application.dataPath, "Scripts", "IKEA API", "IkeaCartManager.py");
+        process.StartInfo.Arguments = "\"" + scriptPath + "\" " + $"{string.Join(" ", productCodes)}";
 
-        // Redirect the outputs and errors from Python to Unity
+        // Redirect the outputs from Python to Unity
         process.StartInfo.RedirectStandardOutput = true;
-        process.StartInfo.RedirectStandardError = true;
         process.StartInfo.UseShellExecute = false;
         process.StartInfo.CreateNoWindow = true;
 
@@ -40,11 +38,7 @@ public class IkeaCartManager : MonoBehaviour
         process.Start();
         process.WaitForExit();
 
-        string error = process.StandardError.ReadToEnd();
-        if (error != null && error != "")
-            UnityEngine.Debug.LogError(error);
-        else
-            UnityEngine.Debug.Log("Cart access was successful");
+        UnityEngine.Debug.Log("Cart access was successful");
     }
 
     private List<string> RetrieveProductCodes()
@@ -63,8 +57,8 @@ public class IkeaCartManager : MonoBehaviour
 
     private string ExtractProductCode(string productName)
     {
+        productName.Replace("(Clone)", "").Trim();
         string code = productName.Substring(productName.LastIndexOf("-") + 1);
-
         int startIndex = GetFirstDigitIndex(code);
         if (startIndex != -1)
             code = code.Substring(startIndex);

@@ -82,18 +82,28 @@ public class DBManager : MonoBehaviour
         for(int i = 0; i<usersRooms.Count; i++){
             if(string.Compare(room.name, usersRooms[i].name) == 0){
                 count++;
-                room.name = name+count;
+                rc.updateRoom(conn, room);
             }
         }
-        rc.insertRoom(conn, room);
-        int room_id = rc.getLastRoomId(conn);
 
-        RoomUser ru = new RoomUser(1, user.id, room_id);
-        ruc.insertRoomUser(conn, ru);
+        if(count == 1){//Room has unique name under user
+            rc.insertRoom(conn, room);
+            int id = rc.getLastRoomId(conn);
+            RoomUser ru = new RoomUser(1, user.id, id);
+            ruc.insertRoomUser(conn, ru);
+        }
     }
-    public static Room loadRoom(int id){//ID and name will be correct in the list when myRooms called
+    public static Room loadRoom(User user, string roomName){//Returns given users room with given room name
         RoomController rc = new RoomController();
-        Room ret = rc.selectRoom(conn, id);
+        RoomUserController ruc = new RoomUserController();
+        List<Room> usersRooms = myRooms(user);
+        Room ret = new Room();
+
+        for(int i = 0; i<usersRooms.Count; i++){
+            if(string.Compare(roomName, usersRooms[i].name) == 0){
+                ret = rc.selectRoom(conn, usersRooms[i].id);
+            }
+        }
         return ret;
     }
 
