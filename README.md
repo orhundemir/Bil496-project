@@ -1,4 +1,4 @@
-# Bil496-project
+# VReal Design Project
 
 Proje rapor linki: https://docs.google.com/document/d/1tVaMoEkN0fEwh17lFf3yPyWbZ0zqa2rq8VnpAmJahTU/edit#
 
