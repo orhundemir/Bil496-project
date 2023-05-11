@@ -1,4 +1,7 @@
 # Bil496-project
+
+Proje rapor linki: https://docs.google.com/document/d/1tVaMoEkN0fEwh17lFf3yPyWbZ0zqa2rq8VnpAmJahTU/edit#
+
 * VR headsetle çalıştırma yapılacağı zaman Initiator scriptinde yorum satırında olan satırlar açılmalıdır. Simülatör kullanılacağı zaman oldugu gibi bırakılmalıdır.
 
 
